@@ -25,8 +25,62 @@ In this webservice client blueprint we will be using the REST-client framework "
 
 Homepage: <https://github.com/OpenFeign/feign>
 
-### Error if endpoint is down
+### Installation
 
+#### pom.xml
+
+```xml
+  <dependencies>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-core</artifactId>
+      <version>9.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-gson</artifactId>
+      <version>9.5.0</version>
+    </dependency>
+  </dependencies>
+```
+
+### Basic Implementation
+
+#### Application.java
+
+```java
+package de.digitalcollections.blueprints.rest.client.frontend.impl.openfeign;
+
+import de.digitalcollections.blueprints.rest.common.model.impl.Greeting;
+import feign.Feign;
+import feign.Param;
+import feign.RequestLine;
+import feign.gson.GsonDecoder;
+
+public class Application {
+
+  interface HelloEndpoint {
+
+    @RequestLine("GET /hello?name={name}")
+    Greeting greeting(@Param("name") String name);
+  }
+
+  public static void main(String... args) {
+    HelloEndpoint endpoint = Feign.builder()
+            .decoder(new GsonDecoder())
+            .target(HelloEndpoint.class, "http://localhost:9000");
+
+    final Greeting greeting = endpoint.greeting("Sepp");
+    System.out.println(greeting.getContent());
+  }
+}
+```
+
+### Error Handling
+
+#### Error if endpoint is down
+
+```
 Exception in thread "main" feign.RetryableException: Connection refused (Connection refused) executing GET http://localhost:9000/hello?name=Sepp
 	at feign.FeignException.errorExecuting(FeignException.java:67)
 	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:104)
@@ -36,3 +90,6 @@ Exception in thread "main" feign.RetryableException: Connection refused (Connect
 	at de.digitalcollections.blueprints.rest.client.frontend.impl.openfeign.Application.main(Application.java:22)
 Caused by: java.net.ConnectException: Connection refused (Connection refused)
 	at java.net.PlainSocketImpl.socketConnect(Native Method)
+```
+
+TODO
