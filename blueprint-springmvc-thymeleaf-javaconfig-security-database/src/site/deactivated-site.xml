@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project>
+  <!-- $ mvn site - - non-recursive -->
+  <skin>
+    <groupId>org.apache.maven.skins</groupId>
+    <artifactId>maven-fluido-skin</artifactId>
+    <version>1.3.1</version>
+  </skin>
+  <!--  <skin>
+      <groupId>org.apache.maven.skins</groupId>
+      <artifactId>maven-stylus-skin</artifactId>
+      <version>1.5</version>
+    </skin>-->
+  <bannerLeft>
+    <name>WMS</name>
+    <src>images/mdzlogo.png</src>
+    <href>http://wms.digitale-sammlungen.de/</href>
+  </bannerLeft>
+  <body>
+    <menu name="Dokumentation">
+      <item name="Entwickler-Desktop">
+        <item name="Installation und Administration" href="installation-desktop.html"></item>
+      </item>
+      <item name="Produktion">
+        <item name="Installation und Administration" href="installation-server.html"></item>
+      </item>
+      <item name="Batch-Prozesse und Integration">
+        <item name="Installation und Administration" href="integration-start.html"></item>
+        <item name="Services" href="integration-services.html"></item>
+      </item>
+    </menu>
+    <menu ref="modules"/>
+    <menu ref="project"/>
+    <menu ref="reports"/>
+  </body>
+</project>

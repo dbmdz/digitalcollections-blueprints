@@ -1,0 +1,29 @@
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-backend-api/target/
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-model-api/target/
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-business-api/target/
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-model-impl/target/
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-backend-impl-jpa/target/
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-business-impl/target/
+/blueprint-springmvc-thymeleaf-javaconfig-security-database/dc-blueprints-crud-hibernate-frontend-impl-webapp/target/
