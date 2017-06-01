@@ -28,8 +28,8 @@ Response:
 
 ```json
 {
-  id: 2,
-  content: "Hello, Stranger!"
+  "id": 2,
+  "content": "Hello, Stranger!"
 }
 ```
 
@@ -39,8 +39,8 @@ Response:
 
 ```json
 {
-  id: 3,
-  content: "Hello, Sepp!"
+  "id": 3,
+  "content": "Hello, Sepp!"
 }
 ```
 
