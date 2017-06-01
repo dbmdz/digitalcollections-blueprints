@@ -1,6 +1,6 @@
 package de.digitalcollections.blueprints.rest.server.frontend.impl.controller;
 
-import de.digitalcollections.blueprints.rest.model.impl.Greeting;
+import de.digitalcollections.blueprints.rest.common.model.impl.Greeting;
 import java.util.concurrent.atomic.AtomicLong;
 import org.jsondoc.core.annotation.Api;
 import org.jsondoc.core.annotation.ApiMethod;

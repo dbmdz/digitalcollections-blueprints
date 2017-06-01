@@ -45,6 +45,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>de.digitalcollections.blueprints</groupId>
+      <artifactId>dc-blueprints-rest-webservice-common-model-impl</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.jsondoc</groupId>
       <artifactId>jsondoc-ui-webjar</artifactId>
       <version>${version.jsondoc-ui-webjar}</version>

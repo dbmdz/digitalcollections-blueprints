@@ -20,12 +20,12 @@ The id field is a unique identifier for the greeting, and content is the textual
 
 ## Model: Representation Class
 
-To model the greeting representation, create a representation class:
+To model the greeting representation, create a representation class (it is now moved to a "common"-maven-module):
 
-File "src/main/java/de/digitalcollections/template/rest/model/impl/Greeting.java":
+File "src/main/java/de/digitalcollections/blueprints/rest/common/model/impl/Greeting.java":
 
 ```java
-package de.digitalcollections.template.rest.model.impl;
+package de.digitalcollections.blueprints.rest.common.model.impl;
 
 public class Greeting {
 
@@ -51,12 +51,12 @@ public class Greeting {
 
 In Spring, REST endpoints are just Spring MVC controllers. The following Spring MVC controller handles a GET request for /hello-world and returns the Greeting resource:
 
-File "src/main/java/de/digitalcollections/template/rest/server/frontend/impl/controller/GreetingController.java":
+File "src/main/java/de/digitalcollections/blueprints/rest/server/frontend/impl/controller/GreetingController.java":
 
 ```java
-package de.digitalcollections.template.rest.server.frontend.impl.controller;
+package de.digitalcollections.blueprints.rest.server.frontend.impl.controller;
 
-import de.digitalcollections.template.rest.model.impl.Greeting;
+import de.digitalcollections.blueprints.rest.common.model.impl.Greeting;
 import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -91,7 +91,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @ComponentScan(
   basePackages = {
-    "de.digitalcollections.template.rest.server.frontend.impl.controller"
+    "de.digitalcollections.blueprints.rest.server.frontend.impl.controller"
   }
 )
 public class Application {
@@ -101,7 +101,7 @@ public class Application {
 Now the endpoint is mapped during startup of the application:
 
 ```
-[2017-05-08 13:55:21,557  INFO] .annotation.RequestMappingHandlerMapping: 543 [main    ] - Mapped "{[/hello],methods=[GET]}" onto public de.digitalcollections.template.rest.model.impl.Greeting de.digitalcollections.template.rest.server.frontend.impl.controller.GreetingController.sayHello(java.lang.String)
+[2017-05-08 13:55:21,557  INFO] .annotation.RequestMappingHandlerMapping: 543 [main    ] - Mapped "{[/hello],methods=[GET]}" onto public de.digitalcollections.template.rest.model.impl.Greeting de.digitalcollections.blueprints.rest.server.frontend.impl.controller.GreetingController.sayHello(java.lang.String)
 ```
 
 ## Request / Response

@@ -17,5 +17,6 @@
   <modules>
     <module>server-frontend-impl-springboot</module>
     <module>client-frontend-impl-openfeign</module>
+    <module>common-model-impl</module>
   </modules>
 </project>

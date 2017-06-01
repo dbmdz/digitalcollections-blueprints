@@ -8,10 +8,10 @@ In order to check if your application is functional you should write unit / inte
 As you can see for tests we’re starting the application on a random port.
 Also make sure, that a logging configuration (logback-spring.xml) exists in test sources which does not depend on a set environment variable spring.profiles.active.
 
-File "src/test/java/de/digitalcollections/template/rest/server/frontend/impl/springboot/ApplicationTests.java":
+File "src/test/java/de/digitalcollections/blueprints/rest/server/frontend/impl/springboot/ApplicationTests.java":
 
 ```java
-package de.digitalcollections.template.rest.server.frontend.impl.springboot;
+package de.digitalcollections.blueprints.rest.server.frontend.impl.springboot;
 
 import java.util.Map;
 import static org.assertj.core.api.BDDAssertions.then;

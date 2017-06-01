@@ -12,4 +12,22 @@
   <name>DigitalCollections: Blueprints 3: REST Webservice Client (Frontend IMPL OpenFeign)</name>
   <artifactId>dc-blueprints-rest-webservice-client-frontend-impl-openfeign</artifactId>
   <packaging>jar</packaging>
+  
+  <dependencies>
+    <dependency>
+      <groupId>de.digitalcollections.blueprints</groupId>
+      <artifactId>dc-blueprints-rest-webservice-common-model-impl</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-core</artifactId>
+      <version>9.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.openfeign</groupId>
+      <artifactId>feign-gson</artifactId>
+      <version>9.5.0</version>
+    </dependency>
+  </dependencies>
 </project>

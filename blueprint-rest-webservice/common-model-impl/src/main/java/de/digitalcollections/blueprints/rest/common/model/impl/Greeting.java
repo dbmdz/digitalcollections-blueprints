@@ -1,4 +1,4 @@
-package de.digitalcollections.blueprints.rest.model.impl;
+package de.digitalcollections.blueprints.rest.common.model.impl;
 
 public class Greeting {
 

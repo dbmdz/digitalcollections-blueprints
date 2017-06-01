@@ -23,3 +23,16 @@ In this webservice client blueprint we will be using the REST-client framework "
 
 ## OpenFeign
 
+Homepage: <https://github.com/OpenFeign/feign>
+
+### Error if endpoint is down
+
+Exception in thread "main" feign.RetryableException: Connection refused (Connection refused) executing GET http://localhost:9000/hello?name=Sepp
+	at feign.FeignException.errorExecuting(FeignException.java:67)
+	at feign.SynchronousMethodHandler.executeAndDecode(SynchronousMethodHandler.java:104)
+	at feign.SynchronousMethodHandler.invoke(SynchronousMethodHandler.java:76)
+	at feign.ReflectiveFeign$FeignInvocationHandler.invoke(ReflectiveFeign.java:103)
+	at de.digitalcollections.blueprints.rest.client.frontend.impl.openfeign.$Proxy3.greeting(Unknown Source)
+	at de.digitalcollections.blueprints.rest.client.frontend.impl.openfeign.Application.main(Application.java:22)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
