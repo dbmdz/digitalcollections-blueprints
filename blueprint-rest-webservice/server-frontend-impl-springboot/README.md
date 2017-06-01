@@ -51,3 +51,18 @@ Response:
 ### JSONDoc endpoint (JSONDoc UI)
 
 <http://localhost:9000/jsondoc-ui.html> with JSONDoc URL <http://localhost:9000/jsondoc>
+
+## Run as Docker Container
+
+Build a new Docker image for this service:
+  
+```bash
+mvn clean package
+docker build . -t rest-blueprint
+```
+
+Start a new container based on this image:
+
+```bash
+docker -p 9000:9000 -p 9001:9001 rest-blueprint
+```
