@@ -18,4 +18,3 @@ hs_err_pid*
 # IDE files
 *.iml
 .idea
-nb-configuration.xml
