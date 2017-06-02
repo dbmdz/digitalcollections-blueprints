@@ -2,10 +2,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
-  
+
+  <parent>
+    <groupId>de.digitalcollections.blueprints</groupId>
+    <artifactId>blueprints-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
   <name>DigitalCollections: Blueprints 1: Spring MVC + Thymeleaf + JavaConfig</name>
   <groupId>de.digitalcollections.blueprints</groupId>
-  <artifactId>dc-blueprints-springmvc-thymeleaf-javaconfig</artifactId>
+  <artifactId>springmvc-thymeleaf</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>war</packaging>
 

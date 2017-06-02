@@ -4,32 +4,23 @@
   
   <parent>
     <groupId>de.digitalcollections.blueprints</groupId>
-    <artifactId>dc-blueprints-crud-hibernate</artifactId>
+    <artifactId>crud-hibernate</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   
-  <name>DigitalCollections: Blueprints 2 (Model IMPL)</name>
+  <name>DigitalCollections: Blueprints 2 (Backend API)</name>
   <groupId>de.digitalcollections.blueprints</groupId>
-  <artifactId>dc-blueprints-crud-hibernate-model-impl</artifactId>
+  <artifactId>crud-hibernate-backend-api</artifactId>
   <packaging>jar</packaging>
   
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-site-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
     <dependency>
       <groupId>de.digitalcollections.blueprints</groupId>
-      <artifactId>dc-blueprints-crud-hibernate-model-api</artifactId>
+      <artifactId>crud-hibernate-model-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-commons</artifactId>
     </dependency>
   </dependencies>
 </project>

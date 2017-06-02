@@ -4,13 +4,13 @@
   
   <parent>
     <groupId>de.digitalcollections.blueprints</groupId>
-    <artifactId>dc-blueprints-crud-hibernate</artifactId>
+    <artifactId>crud-hibernate</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
   
   <name>DigitalCollections: Blueprints 2 (Backend IMPL Jpa)</name>
   <groupId>de.digitalcollections.blueprints</groupId>
-  <artifactId>dc-blueprints-crud-hibernate-backend-impl-jpa</artifactId>
+  <artifactId>crud-hibernate-backend-impl-jpa</artifactId>
   <packaging>jar</packaging>
   
   <build>
@@ -73,7 +73,7 @@
     </dependency>
     <dependency>
       <groupId>de.digitalcollections.blueprints</groupId>
-      <artifactId>dc-blueprints-crud-hibernate-backend-api</artifactId>
+      <artifactId>crud-hibernate-backend-api</artifactId>
     </dependency>
     <dependency>
       <groupId>javax.validation</groupId>

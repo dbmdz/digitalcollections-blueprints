@@ -4,10 +4,16 @@
   <!-- pom.xml elements: see https://maven.apache.org/pom.html -->
   
   <modelVersion>4.0.0</modelVersion>
-  
+
+  <parent>
+    <groupId>de.digitalcollections.blueprints</groupId>
+    <artifactId>blueprints-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
   <name>DigitalCollections: Blueprints 2: Spring MVC + Thymeleaf + JavaConfig + Security + JPA/Hibernate</name>
   <groupId>de.digitalcollections.blueprints</groupId>
-  <artifactId>dc-blueprints-crud-hibernate</artifactId>
+  <artifactId>crud-hibernate</artifactId>
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   
@@ -30,13 +36,13 @@
     
   <modules>
     <!-- webapp layers -->
-    <module>dc-blueprints-crud-hibernate-backend-api</module>
-    <module>dc-blueprints-crud-hibernate-backend-impl-jpa</module>
-    <module>dc-blueprints-crud-hibernate-business-api</module>
-    <module>dc-blueprints-crud-hibernate-business-impl</module>
-    <module>dc-blueprints-crud-hibernate-frontend-impl-webapp</module>
-    <module>dc-blueprints-crud-hibernate-model-api</module>
-    <module>dc-blueprints-crud-hibernate-model-impl</module>
+    <module>crud-hibernate-backend-api</module>
+    <module>crud-hibernate-backend-impl-jpa</module>
+    <module>crud-hibernate-business-api</module>
+    <module>crud-hibernate-business-impl</module>
+    <module>crud-hibernate-frontend-webapp</module>
+    <module>crud-hibernate-model-api</module>
+    <module>crud-hibernate-model-impl</module>
   </modules>
   
   <properties>
@@ -239,32 +245,32 @@
       </dependency>
       <dependency>
         <groupId>de.digitalcollections.blueprints</groupId>
-        <artifactId>dc-blueprints-crud-hibernate-backend-api</artifactId>
+        <artifactId>crud-hibernate-backend-api</artifactId>
         <version>${version.digitalcollections.crud}</version>
       </dependency>
       <dependency>
         <groupId>de.digitalcollections.blueprints</groupId>
-        <artifactId>dc-blueprints-crud-hibernate-backend-impl-jpa</artifactId>
+        <artifactId>crud-hibernate-backend-impl-jpa</artifactId>
         <version>${version.digitalcollections.crud}</version>
       </dependency>
       <dependency>
         <groupId>de.digitalcollections.blueprints</groupId>
-        <artifactId>dc-blueprints-crud-hibernate-business-api</artifactId>
+        <artifactId>crud-hibernate-business-api</artifactId>
         <version>${version.digitalcollections.crud}</version>
       </dependency>
       <dependency>
         <groupId>de.digitalcollections.blueprints</groupId>
-        <artifactId>dc-blueprints-crud-hibernate-business-impl</artifactId>
+        <artifactId>crud-hibernate-business-impl</artifactId>
         <version>${version.digitalcollections.crud}</version>
       </dependency>
       <dependency>
         <groupId>de.digitalcollections.blueprints</groupId>
-        <artifactId>dc-blueprints-crud-hibernate-model-api</artifactId>
+        <artifactId>crud-hibernate-model-api</artifactId>
         <version>${version.digitalcollections.crud}</version>
       </dependency>
       <dependency>
         <groupId>de.digitalcollections.blueprints</groupId>
-        <artifactId>dc-blueprints-crud-hibernate-model-impl</artifactId>
+        <artifactId>crud-hibernate-model-impl</artifactId>
         <version>${version.digitalcollections.crud}</version>
       </dependency>
       <dependency>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  
+
   <parent>
     <groupId>de.digitalcollections.blueprints</groupId>
-    <artifactId>dc-blueprints-parent</artifactId>
+    <artifactId>crud-hibernate</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  
-  <name>DigitalCollections: Blueprints 3: REST Webservice</name>
+
+  <name>DigitalCollections: Blueprints 2 (Model API)</name>
   <groupId>de.digitalcollections.blueprints</groupId>
-  <artifactId>dc-blueprints-rest-webservice</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
-  
-  <modules>
-    <module>server-frontend-impl-springboot</module>
-    <module>client-frontend-impl-openfeign</module>
-    <module>common-model-impl</module>
-  </modules>
+  <artifactId>crud-hibernate-model-api</artifactId>
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+    </dependency>
+  </dependencies>
 </project>
