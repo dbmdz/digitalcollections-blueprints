@@ -19,7 +19,7 @@ import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
 import org.thymeleaf.templateresolver.TemplateResolver;
 
 @Configuration
-@ComponentScan(basePackages = {"de.digitalcollections.blueprints.springmvc.frontend.webgui"})
+@ComponentScan(basePackages = {"de.digitalcollections.blueprints.springmvc.controller"})
 @EnableWebMvc
 public class SpringConfigWeb extends WebMvcConfigurerAdapter {
 
