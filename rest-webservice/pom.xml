@@ -18,5 +18,6 @@
     <module>rest-server-springboot</module>
     <module>rest-client-openfeign</module>
     <module>model</module>
+    <module>rest-integration-tests</module>
   </modules>
 </project>

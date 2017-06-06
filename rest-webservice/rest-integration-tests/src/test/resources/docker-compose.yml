@@ -1,0 +1,7 @@
+version: '2'
+services:
+  rest:
+    build: "../../../../../rest-webservice/rest-server-springboot"
+    ports:
+     - "9000"
+     - "9001"
