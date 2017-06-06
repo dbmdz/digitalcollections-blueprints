@@ -9,7 +9,6 @@ import feign.gson.GsonDecoder;
 public class Application {
 
   interface HelloEndpoint {
-
     @RequestLine("GET /hello?name={name}")
     Greeting greeting(@Param("name") String name);
   }

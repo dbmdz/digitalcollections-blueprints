@@ -1,4 +1,4 @@
-package de.digitalcollections.blueprints.springmvc.frontend.webgui;
+package de.digitalcollections.blueprints.springmvc.controller;
 
 import java.util.Date;
 import org.slf4j.Logger;
