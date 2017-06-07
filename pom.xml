@@ -14,6 +14,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
     <version.slf4j-api>1.7.22</version.slf4j-api>
+    <version.jacoco-maven-plugin>0.7.9</version.jacoco-maven-plugin>
     <version.versions-maven-plugin>2.4</version.versions-maven-plugin>
   </properties>
   
@@ -40,6 +41,42 @@
         <artifactId>versions-maven-plugin</artifactId>
         <version>${version.versions-maven-plugin}</version>
       </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${version.jacoco-maven-plugin}</version>
+        <executions>
+          <execution>
+            <id>pre-unit-test</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/Application.*</exclude>
+            <exclude>**/config/*</exclude>
+            <exclude>**/SpringConfig*</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${version.jacoco-maven-plugin}</version>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
