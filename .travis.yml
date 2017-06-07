@@ -7,3 +7,13 @@ before_script:
   - if [ ! -z "$TRAVIS_TAG" ]; then mvn versions:set -DnewVersion=$TRAVIS_TAG; fi
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+deploy:
+  provider: releases
+  api_key:
+    secure: Crc0WvoBmiEm7CUqQkK5UFdj9yzdeIy+YQuRvFKIJ5WfodekxVQvN8P2nx8PJcLtMBjfNaboz3rjUc78XwEMh760HUgfIsPZUR60nKTYc3jxia1KnYaw9JvmsuKt/BtqWZTC3VqUAkRqwSelWDBQSO4WqBIzvvoSNDkumsQsO8pe63zr+B7Fg7ni14VoSES9vxSIrsjyGKhFaE/SQiRxwYc8aAQxgOGNOtmVvBWKvtqV+86ShiBlUwdkBE0cOYeytkfiNpmJse5vMapCLoX5Pp23rhiJOsN1+3/qVUbRPSKh6rjhRUk5LCiDz2Ztwq9kP5FPtcvlZ08rSHjSVamBbf3AAtTB+7qioSXd/DhWPCzVxFFZDkBdKW8SPYxcHfAAjYz/t2dMU1CLB3JEuTup1vK+UQnAMhLJTRKIb5x24aJvgq4CHKDeRk9t8Diy1T2fT1duLzmPInFEAdHrRjnlZUhD27SCLI2ZglJpEBVDf6YaN6bV5IPntV3y5NxzAsb++1POesI6qDXvIqYDkF04V6Aey8V63yWnBj4l1PNDGpFt/Gg6w9uk+T3/eXdV+DxNtRLGPTWz/C/nOJZ15jEHgfyN0FxHnyElGVazM5yESgLqlpnz4Jjjvb3dZ4mfzOPnVnsfmA0mYF6BhjzpRgn+12jtxlTXx3DwazCaEk1w0pk=
+  file:
+  - "**/target/*.jar"
+  - "**/target/*.war"
+  skip_cleanup: true
+  on:
+    tags: true
