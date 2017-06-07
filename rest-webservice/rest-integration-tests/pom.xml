@@ -9,6 +9,7 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
+  <name>DigitalCollections: Blueprints 3: REST Webservice Integration Tests</name>
   <artifactId>rest-integration-tests</artifactId>
 
   <properties>
