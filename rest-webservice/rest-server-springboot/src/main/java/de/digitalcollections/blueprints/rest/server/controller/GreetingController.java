@@ -1,4 +1,4 @@
-package de.digitalcollections.blueprints.rest.server.frontend.impl.controller;
+package de.digitalcollections.blueprints.rest.server.controller;
 
 import de.digitalcollections.blueprints.rest.common.model.impl.Greeting;
 import java.util.concurrent.atomic.AtomicLong;

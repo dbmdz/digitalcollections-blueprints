@@ -25,7 +25,7 @@ public class SchemaGenerator {
    * Example: java SchemaGenerator de.digitalcollections.blueprints.crud.backend.impl.jpa.entity src/main/resources/sql/generated/
    *
    * @param args first argument is the package to scan for entities, second argument directory to generate the dll to
-   * @throws java.lang.Exception
+   * @throws java.lang.Exception when writing to the database fails
    */
   public static void main(String[] args) throws Exception {
     final String packageName = args[0];

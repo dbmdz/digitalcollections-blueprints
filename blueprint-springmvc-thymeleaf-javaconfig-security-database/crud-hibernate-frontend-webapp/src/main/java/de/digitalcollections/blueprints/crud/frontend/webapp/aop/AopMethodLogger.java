@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 /**
- * Aspekt: Logging method calls. Log all public service calls and all public repository calls.
+ * Aspect: Logging method calls. Log all public service calls and all public repository calls.
  */
 @Aspect
 @Component
@@ -99,9 +99,9 @@ public class AopMethodLogger {
    * Protokolliert die Laufzeit des join points. Das logging ist nur aktiv, wenn {@link #logger} mindestens
    * debug-Level hat.
    *
-   * @param call
-   * @return
-   * @throws Throwable
+   * @param call the original method call
+   * @return the result of the original method call
+   * @throws Throwable when the original method call throws any Error or Exception
    */
   @Around("methodsToBeLogged()")
   public Object logMethodDuration(ProceedingJoinPoint call) throws Throwable { // NOSONAR

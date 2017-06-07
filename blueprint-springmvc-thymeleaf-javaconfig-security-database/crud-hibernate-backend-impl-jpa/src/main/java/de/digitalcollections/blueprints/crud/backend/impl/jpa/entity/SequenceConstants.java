@@ -7,7 +7,7 @@ package de.digitalcollections.blueprints.crud.backend.impl.jpa.entity;
  *
  * Example with Strings instead constants:
  *
- * @TableGenerator(name="TABLE_GEN", table="SEQUENCE_TABLE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT",
+ * TableGenerator(name="TABLE_GEN", table="SEQUENCE_TABLE", pkColumnName="SEQ_NAME", valueColumnName="SEQ_COUNT",
  * pkColumnValue="USER_SEQ")
  */
 public class SequenceConstants {

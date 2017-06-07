@@ -20,7 +20,8 @@ public class SpringConfig implements EnvironmentAware {
   private static final Logger LOGGER = LoggerFactory.getLogger(SpringConfig.class);
 
   /**
-   * Create a resource bundle for your messages ("messages.properties").<br/>
+   * Create a resource bundle for your messages ("messages.properties").
+   *
    * This file goes in src/main/resources because you want it to appear at the root of the classpath on deployment.
    *
    * @return message source
