@@ -1,6 +1,9 @@
 language: java
 jdk:
   - oraclejdk8
-
 services:
   - docker
+before_script:
+  - if [ ! -z "$TRAVIS_TAG" ]; then mvn versions:set -DnewVersion=$TRAVIS_TAG; fi
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
