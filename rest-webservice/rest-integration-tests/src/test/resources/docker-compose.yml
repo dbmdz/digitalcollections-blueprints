@@ -1,7 +1,7 @@
 version: '2'
 services:
   rest:
-    build: "../../../../../rest-webservice/rest-server-springboot/"
+    build: "../../../../../rest-webservice/rest-server-springboot/target"
     ports:
      - "9000"
      - "9001"
