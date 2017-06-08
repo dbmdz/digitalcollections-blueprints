@@ -2,9 +2,12 @@ package de.digitalcollections.blueprints.rest.server.frontend.impl.springboot;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
+
 import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 //@Import(SpringConfigServer.class)
@@ -18,22 +21,21 @@ import org.springframework.context.annotation.ComponentScan;
  - @ComponentScan tells Spring to look for other components, configurations, and services in the current package (and subpackages), allowing it to find controllers, too.
  */
 @ComponentScan(
-        basePackages = {
-          "de.digitalcollections.blueprints.rest.server.frontend.impl.controller"
-        }
+    basePackages = {
+        "de.digitalcollections.blueprints.rest.server.controller"
+    }
 )
 public class Application {
 
-//  private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
   public static void main(String[] args) throws Exception {
+    // if (System.getProperty("spring.profiles.active") == null) {
+    //   System.setProperty("spring.profiles.active", "local");
+    // }
 
-//    if (System.getProperty("spring.profiles.active") == null) {
-//      System.setProperty("spring.profiles.active", "local");
-//    }
     SpringApplication.run(Application.class, args);
 
-//    SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(Application.class);
-//    springApplicationBuilder.web(true).run(args);
+    // SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(Application.class);
+    // springApplicationBuilder.web(true).run(args);
   }
 
 }
