@@ -1,6 +1,8 @@
 package de.digitalcollections.blueprints.crud.frontend.webapp.controller;
 
+import de.digitalcollections.blueprints.crud.business.api.service.TextContentService;
 import java.util.Date;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,8 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping(value = {"", "/"})
 public class MainController {
 
+  @Autowired
+  private TextContentService textContentService;
+
   @RequestMapping(method = RequestMethod.GET)
   public String printWelcome(Model model) {
+    model.addAttribute("textcontents", textContentService.getAll());
     model.addAttribute("time", new Date());
     return "main";
   }
