@@ -1,6 +1,7 @@
 package de.digitalcollections.blueprints.crud.frontend.webapp.config;
 
 import de.digitalcollections.blueprints.crud.business.api.service.RoleService;
+import de.digitalcollections.blueprints.crud.business.api.service.TextContentService;
 import de.digitalcollections.blueprints.crud.business.api.service.UserService;
 import de.digitalcollections.blueprints.crud.model.api.security.Role;
 import java.io.Serializable;
@@ -54,6 +55,11 @@ public class SpringConfigBusinessForTest {
 
     });
     return mock;
+  }
+
+  @Bean
+  public TextContentService textContentService() {
+    return Mockito.mock(TextContentService.class);
   }
 
   @Bean
