@@ -7,7 +7,35 @@
       <div class="jumbotron">
         <h1>Blue<strong>CRUD</strong></h1>
         <p th:text="|#{time}: ${time}|">...</p>
+        <p>
+          <a class="btn btn-default" th:href="@{/textcontent/new}" th:text="#{btn_new_post}">Neu</a>
+        </p>
+        <div th:each="content:${textcontents}">
+          <div class="panel panel-default">
+            <div class="panel-heading" role="tab">
+              <a sec:authorize="hasAuthority('ROLE_ADMIN')" class="pull-right" href="#"
+                 th:title="#{tooltip_delete_post}"
+                 data:href="@{'/textcontent/' + ${content.id} + '/delete'}"
+                 data:message="#{msg_confirmPostDeletion}"
+                 data:title="#{title_warning}"
+                 data-target="#confirmYesNoDialog"
+                 data-toggle="modal">
+                <span class="glyphicon glyphicon-remove"></span>
+              </a>
+              <h4 class="panel-title" th:text="${content.title}">
+                Titel
+              </h4>
+            </div>
+            <div class="panel-body" th:text="${content.text}">
+              Text
+            </div>
+            <div class="panel-footer" th:text="${content.date}">
+              Datum
+            </div>
+          </div>
+        </div>
       </div>
+      <div th:replace="fragments/modals-confirmation :: confirmYesNoDialog"></div>
     </section>
   </body>
 </html>
