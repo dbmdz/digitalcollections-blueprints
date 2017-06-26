@@ -7,10 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author Matthias Lindinger [Matthias.Lindinger at bsb-muenchen.de]
- */
 @Repository
 public class TextContentRepositoryImplJpa extends AbstractPagingAndSortingRepositoryImplJpa<TextContentImplJpa, Long, TextContentRepositoryJpa> implements TextContentRepository<TextContentImplJpa, Long> {
 

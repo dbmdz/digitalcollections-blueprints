@@ -11,8 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
- * @author Matthias Lindinger [Matthias.Lindinger at bsb-muenchen.de]
+ * Service for TextContent handling.
  */
 @Service
 @Transactional(readOnly = true)

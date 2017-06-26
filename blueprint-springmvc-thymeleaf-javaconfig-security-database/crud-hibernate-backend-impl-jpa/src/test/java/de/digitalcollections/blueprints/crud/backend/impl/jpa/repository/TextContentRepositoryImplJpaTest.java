@@ -15,10 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-/**
- *
- * @author Matthias Lindinger [Matthias.Lindinger at bsb-muenchen.de]
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {SpringConfigBackendForTest.class})
 @Transactional

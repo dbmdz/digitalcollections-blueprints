@@ -18,8 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- *
- * @author Matthias Lindinger [Matthias.Lindinger at bsb-muenchen.de]
+ * Controller for all "TextContent" pages.
  */
 @Controller
 @RequestMapping(value = {"/textcontent"})
