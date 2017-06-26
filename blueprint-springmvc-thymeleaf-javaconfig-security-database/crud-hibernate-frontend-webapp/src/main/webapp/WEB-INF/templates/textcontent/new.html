@@ -1,0 +1,36 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="https://github.com/thymeleaf/thymeleaf-extras-springsecurity"
+      xmlns:data="https://github.com/mxab/thymeleaf-extras-data-attribute"
+      layout:decorator="base">
+  <body>
+    <section layout:fragment="content">
+      <div class="row mainContent">
+        <form th:object="${textContent}" th:action="@{#}" method="post" role="form" class="form-horizontal">
+          <div th:replace="fragments/feedback-messages :: form"></div>
+
+          <div id="sidebar" class="col-sm-3">
+            <button class="btn btn-primary btn-block" type="submit" th:text="save">save</button>
+          </div>
+
+          <div class="col-sm-9">
+            <div class="form-group">
+              <label for="title" class="col-sm-3 control-label" th:text="#{content_title}">title</label>
+              <div class="col-sm-9" th:classappend="${#fields.hasErrors('title')}? has-error">
+                <input id="title" th:field="*{title}" type="text" class="form-control" th:placeholder="#{content_title}" autofocus="autofocus"/>
+                <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}">...</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="text" class="col-sm-3 control-label" th:text="#{content_text}">text</label>
+              <div class="col-sm-9" th:classappend="${#fields.hasErrors('text')}? has-error">
+                <textarea id="text" th:field="*{text}" type="text" class="form-control" th:placeholder="#{content_text}" autofocus="autofocus"></textarea>
+                <p th:if="${#fields.hasErrors('title')}" th:errors="*{text}">...</p>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
