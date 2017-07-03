@@ -1,13 +1,10 @@
-package de.digitalcollections.blueprints.rest.server.frontend.impl.springboot;
+package de.digitalcollections.blueprints.rest.server;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
-
 import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 //@Import(SpringConfigServer.class)
@@ -21,9 +18,9 @@ import org.springframework.context.annotation.ComponentScan;
  - @ComponentScan tells Spring to look for other components, configurations, and services in the current package (and subpackages), allowing it to find controllers, too.
  */
 @ComponentScan(
-    basePackages = {
-        "de.digitalcollections.blueprints.rest.server.controller"
-    }
+        basePackages = {
+          "de.digitalcollections.blueprints.rest.server.controller"
+        }
 )
 public class Application {
 
