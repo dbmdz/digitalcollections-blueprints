@@ -17,6 +17,8 @@ Features documentation:
 - [doc/README-08.md](doc/README-08.md): Migrating from @Controller to @RestController
 - [doc/README-09.md](doc/README-09.md): JSONDoc GUI and API documentation
 - [doc/README-10.md](doc/README-10.md): Application configuration (2): Environment specific configuration
+- [doc/README-11.md](doc/README-11.md): Integration Tests using Docker as container for REST webservice server
+- [doc/README-12.md](doc/README-12.md): Security: add authentication to service endpoints and authentication from client
 
 ## Usage
 
@@ -54,15 +56,73 @@ Response:
 
 ## Run as Docker Container
 
-Build a new Docker image for this service:
+Build a new Docker image (from the file named `Dockerfile`(convention)) for this service:
   
 ```bash
-mvn clean package
-docker build . -t rest-blueprint
+$ mvn clean package
+$ cd target
+$ docker build . -t rest-blueprint
+```
+
+Output:
+
+```bash
+Sending build context to Docker daemon   19.1MB
+Step 1/7 : FROM frolvlad/alpine-oraclejdk8:slim
+ ---> 323fb90cf52c
+Step 2/7 : EXPOSE 9000
+ ---> Using cache
+ ---> 997767c08e1f
+Step 3/7 : EXPOSE 9001
+ ---> Using cache
+ ---> 97f81f4160d8
+Step 4/7 : VOLUME /tmp
+ ---> Using cache
+ ---> 681f44ac9e48
+Step 5/7 : COPY rest-server-springboot-1.0.0-SNAPSHOT.jar app.jar
+ ---> 20e5f9a4eb6a
+Removing intermediate container 35458a3690ef
+Step 6/7 : RUN sh -c 'touch /app.jar'
+ ---> Running in 07522d722e65
+ ---> fc06f575b9c1
+Removing intermediate container 07522d722e65
+Step 7/7 : ENTRYPOINT sh -c java -Dspring-Djava.security.egd=file:/dev/./urandom -jar /app.jar --server.address=0.0.0.0
+ ---> Running in 0578a5fb1c89
+ ---> 131d48a13e49
+Removing intermediate container 0578a5fb1c89
+Successfully built 131d48a13e49
+Successfully tagged rest-blueprint:latest
+```
+
+You can list now all available images using `docker images`:
+
+```bash
+$ docker images                                                                                                                                                                                                                
+REPOSITORY                   TAG                     IMAGE ID            CREATED             SIZE
+rest-blueprint               latest                  131d48a13e49        36 seconds ago      204MB
+...
 ```
 
 Start a new container based on this image:
 
 ```bash
-docker -p 9000:9000 -p 9001:9001 rest-blueprint
+$ docker run --rm -p 9000:9000 -p 9001:9001 rest-blueprint
+...
+[2017-07-03 09:29:42,094  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 198 [main    ] - Tomcat started on port(s): 9000 (http)
+[2017-07-03 09:29:42,097  INFO] ver.frontend.impl.springboot.Application:  57 [main    ] - Started Application in 3.897 seconds (JVM running for 4.503)
 ```
+
+The option `--rm` removes the container after it has been stopped. You can ommit this.
+
+The application now serves under `http://localhost:9000/hello`.
+
+To stop the application just press `Ctrl-c` or use docker commands:
+
+```bash
+$ docker ps                                                                                                                                                                                                                                  
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                              NAMES
+5fc58c6e1508        rest-blueprint      "sh -c 'java -Dspr..."   4 minutes ago       Up 4 minutes        0.0.0.0:9000-9001->9000-9001/tcp   affectionate_johnson
+
+$ docker stop 5fc58c6e1508
+```
+
