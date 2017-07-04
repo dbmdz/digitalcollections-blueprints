@@ -73,6 +73,10 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
@@ -118,24 +122,24 @@
       </dependency>
     </dependencies>
 
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>exec-maven-plugin</artifactId>
-          <version>${version.exec-maven-plugin}</version>
-          <configuration>
-            <mainClass>de.digitalcollections.template.rest.server.frontend.impl.springboot.Application</mainClass>
-            <systemProperties>
-              <systemProperty>
-                <key>spring.profiles.active</key>
-                <value>local</value>
-              </systemProperty>
-            </systemProperties>
-          </configuration>
-        </plugin>
-      </plugins>
-    </build>-->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${version.exec-maven-plugin}</version>
+        <configuration>
+          <mainClass>de.digitalcollections.template.rest.server.frontend.impl.springboot.Application</mainClass>
+          <systemProperties>
+            <systemProperty>
+              <key>spring.profiles.active</key>
+              <value>local</value>
+            </systemProperty>
+          </systemProperties>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>-->
 
   <build>
     <resources>

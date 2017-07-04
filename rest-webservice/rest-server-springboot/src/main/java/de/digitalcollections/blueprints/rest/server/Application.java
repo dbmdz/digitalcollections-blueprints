@@ -1,13 +1,9 @@
 package de.digitalcollections.blueprints.rest.server;
 
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
 import org.jsondoc.spring.boot.starter.EnableJSONDoc;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
-//@Import(SpringConfigServer.class)
 @EnableJSONDoc
 @SpringBootApplication
 /*
@@ -15,13 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
  - @Configuration tags the class as a source of bean definitions for the application context.
  - @EnableAutoConfiguration tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings.
  - Normally you would add @EnableWebMvc for a Spring MVC app, but Spring Boot adds it automatically when it sees spring-webmvc on the classpath. This flags the application as a web application and activates key behaviors such as setting up a DispatcherServlet.
- - @ComponentScan tells Spring to look for other components, configurations, and services in the current package (and subpackages), allowing it to find controllers, too.
+ - @ComponentScan tells Spring to look for other components, configurations, and services in the current package (<b>and subpackages</b>), allowing it to find controllers, too.
  */
-@ComponentScan(
-        basePackages = {
-          "de.digitalcollections.blueprints.rest.server.controller"
-        }
-)
 public class Application {
 
   public static void main(String[] args) throws Exception {
@@ -30,9 +21,5 @@ public class Application {
     // }
 
     SpringApplication.run(Application.class, args);
-
-    // SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(Application.class);
-    // springApplicationBuilder.web(true).run(args);
   }
-
 }
