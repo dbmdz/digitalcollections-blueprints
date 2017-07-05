@@ -85,7 +85,7 @@ see <http://docs.spring.io/spring-security/site/docs/4.2.3.RELEASE/reference/htm
 
 By extending `WebSecurityConfigurerAdapter` we get access to overridable methods for customizing spring security configuration.
 
-Basic security configuration file `/blueprints/rest-webservice/rest-server-springboot/src/main/java/de/digitalcollections/blueprints/rest/server/config/SpringSecurityConfig.java`:
+Basic security configuration file `src/main/java/de/digitalcollections/blueprints/rest/server/config/SpringSecurityConfig.java`:
 
 ```java
 package de.digitalcollections.blueprints.rest.server.config;
@@ -184,9 +184,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
+##### Separation of concerns: Externalize UserDetailsServiceImpl
+
 Instead of instantiate the service bean inline in the configuration class, we separate services as own concern/layer in a subpackage `service.impl` and implement the UserDetailsService-interface in an own class:
 
-File `lbueprints/rest-webservice/rest-server-springboot/src/main/java/de/digitalcollections/blueprints/rest/server/service/impl/UserDetailsServiceImpl.java`
+File `src/main/java/de/digitalcollections/blueprints/rest/server/service/impl/UserDetailsServiceImpl.java`
 
 ```java
 package de.digitalcollections.blueprints.rest.server.service.impl;
@@ -201,19 +203,102 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-  private final InMemoryUserDetailsManager instance = new InMemoryUserDetailsManager();
+  private final InMemoryUserDetailsManager repository = new InMemoryUserDetailsManager();
 
   public UserDetailsServiceImpl() {
-    instance.createUser(User.withUsername("user1").password("password1").roles("USER").build());
-    instance.createUser(User.withUsername("user2").password("password2").roles("USER").build());
+    repository.createUser(User.withUsername("user1").password("password1").roles("USER").build());
+    repository.createUser(User.withUsername("user2").password("password2").roles("USER").build());
   }
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    return instance.loadUserByUsername(username);
+    return repository.loadUserByUsername(username);
   }
 
 }
 ```
 
 This makes it even easier to replace the source ("repository" InMemoryUserDetailsManager) of user data enclosed in the service, not visible/with consequences/code changes to consumers of the service. It is also easy to see now that you just have to implement the method `loadUserByUsername` to fulfill a Spring Security UserDetailsService.
+
+Note: Again we use the automatic component scanning of Spring Boot that automatically scans for components in the package and subpackages of the `Application` class.
+
+##### Make username/passwords externalized/configurable
+
+see <http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html>
+
+Until now the usernames and passwords are hardcoded in `UserDetailsServiceImpl`. Now we want to make them configurable.
+We externalize credentials into a properties file, that can be passed as `Properties` instance to the constructor `InMemoryUserDetailsManager(Properties users)`.
+
+For reading the properties file (e.g. from location `file:///local/users.properties`) we use `PropertiesLoaderUtils` and `UrlResource` from Spring Framework. The path to the properties file can be configured in `application.yml`:
+
+```java
+package de.digitalcollections.blueprints.rest.server.service.impl;
+
+import java.io.IOException;
+import java.util.Properties;
+import javax.annotation.PostConstruct;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.io.UrlResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.stereotype.Service;
+
+@ConfigurationProperties
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+  private String pathToUserProperties;
+
+  private InMemoryUserDetailsManager repository;
+
+  @PostConstruct
+  public void initialize() throws IOException {
+    UrlResource resource = new UrlResource(pathToUserProperties);
+    Properties users = PropertiesLoaderUtils.loadProperties(resource);
+    repository = new InMemoryUserDetailsManager(users);
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return repository.loadUserByUsername(username);
+  }
+
+  public void setPathToUserProperties(String pathToUserProperties) {
+    this.pathToUserProperties = pathToUserProperties;
+  }
+}
+```
+
+As you can see you can read property values from `application.properties/.yml` by adding `@ConfigurationProperties` annotation and providing a setter-method for the configurable member variable `pathToUserProperties`. To make sure the value is set we use it in a `@PostConstruct` annotated `initialize()`-method. If you try to use it directly in a default constructor you will experience that it is not set, yet (will be null).
+
+File `src/main/resources/application.yml`:
+
+```yml
+...
+# user "database"
+pathToUserProperties: file:///local/users.properties
+...
+```
+
+The users.properties entries must have (at a minimum) as value (comma separated) password and authorities
+
+File `/local/users.properties`:
+
+```ini
+user1=password1,USER
+user2=password2,USER
+```
+
+And the `InMemoryUserDetailsManager` (found in `UserAttributeEditor` parsing class...) even supports more sophisticated property values per user:
+
+```ini
+user1=password1,USER
+user2=password2,USER,ADMIN
+user3=password3,USER,disabled
+```
+
+By adding `disabled` at any position after the password it is possible to deactivate an user account.
+All other values after the password are interpreted as authorities.

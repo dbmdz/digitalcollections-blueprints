@@ -19,7 +19,7 @@ Features documentation:
 - [doc/README-10.md](doc/README-10.md): Application configuration (2): Environment specific configuration
 - [doc/README-11.md](doc/README-11.md): Integration Tests using Docker as container for REST webservice server
 - [doc/README-12.md](doc/README-12.md): Security: add authentication to service endpoints and authentication from client
-- [doc/README-13.md](doc/README-13.md): Packaging and deployment
+- [doc/README-13.md](doc/README-13.md): TODO: Packaging and deployment / Add authentication to jsondoc
 
 ## Usage
 

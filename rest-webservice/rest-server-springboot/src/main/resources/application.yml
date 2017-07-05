@@ -35,6 +35,10 @@ management:
 
 server:
   port: 9000
+
+# user "database"
+pathToUserProperties: file:///local/users.properties
+
 ---
 
 spring:
