@@ -8,10 +8,21 @@ You can customize the data exposed by the info endpoint by setting info.* Spring
 
 ## application.properties
 
-```
+```ini
 info.app.encoding=@project.build.sourceEncoding@
 info.app.java.source=@java.version@
 info.app.java.target=@java.version@
+```
+
+## application.yml
+
+```yml
+info:
+  app:
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @maven.compiler.source@
+      target: @maven.compiler.target@
 ```
 
 To expand info properties **at build time** (so you have to recompile if you change application.properties) we also have to configure Maven accordingly (see http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-automatic-expansion).
@@ -79,10 +90,21 @@ To output the dedicated source and target compiler version, we add the Maven com
 
 ### application.properties
 
-```
+```ini
 info.app.encoding=@project.build.sourceEncoding@
 info.app.java.source=@maven.compiler.source@
 info.app.java.target=@maven.compiler.target@
+```
+
+### application.yml
+
+```yml
+info:
+  app:
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @maven.compiler.source@
+      target: @maven.compiler.target@
 ```
 
 ## Default project encoding
@@ -103,22 +125,35 @@ It also seems to be a good idea to output information about the application itse
 
 ### application.properties
 
-```
+```ini
 info.app.project.name=@project.name@
 info.app.project.groupId=@project.groupId@
 info.app.project.artifactId=@project.artifactId@
 info.app.project.version=@project.version@
 ```
 
+### application.yml
+
+```yml
+info:
+  app:
+    ...
+    project:
+      name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
+      version: @project.version@
+```
+
 ## Response Sample
 
-Response to http://localhost:8080/info.json:
+Response to http://localhost:9001/info.json:
 
 ```json
 {
   "_links": {
     "self": {
-      "href": "http://localhost:8080/info.json"
+      "href": "http://localhost:9001/info.json"
     }
   },
   "app": {
