@@ -7,19 +7,19 @@ See also the [Spring Boot Reference Guide](http://docs.spring.io/spring-boot/doc
 
 Features documentation:
 
-- [doc/README-01.md](doc/README-01.md): Initial Setup, Build WAR/JAR, Run webservice
-- [doc/README-02.md](doc/README-02.md): Spring Actuator: basic endpoints, HAL browser, management port
-- [doc/README-03.md](doc/README-03.md): Application information, project encoding
-- [doc/README-04.md](doc/README-04.md): Application configuration (1)
-- [doc/README-05.md](doc/README-05.md): REST-API: Model, Controller, Request/Response
-- [doc/README-06.md](doc/README-06.md): Logging (Logback)
-- [doc/README-07.md](doc/README-07.md): Unit-Testing
-- [doc/README-08.md](doc/README-08.md): Migrating from @Controller to @RestController
-- [doc/README-09.md](doc/README-09.md): JSONDoc GUI and API documentation
-- [doc/README-10.md](doc/README-10.md): Application configuration (2): Environment specific configuration
-- [doc/README-11.md](doc/README-11.md): Integration Tests using Docker as container for REST webservice server
-- [doc/README-12.md](doc/README-12.md): Security: add authentication to service endpoints and authentication from client
-- [doc/README-13.md](doc/README-13.md): TODO: Packaging and deployment / Add authentication to jsondoc
+- [doc/README-01-Initial_setup_packaging_running.md](doc/README-01-Initial_setup_packaging_running.md): Initial Setup, Build WAR/JAR, Run webservice
+- [doc/README-02-Spring_Actuator.md](doc/README-02-Spring_Actuator.md): Spring Actuator: basic endpoints, HAL browser, management port
+- [doc/README-03-Application_information.md](doc/README-03-Application_information.md): Application information, project encoding
+- [doc/README-04-Application_configuration.md](doc/README-04-Application_configuration.md): Application configuration (1)
+- [doc/README-05-REST_endpoint.md](doc/README-05-REST_endpoint.md): REST-API endpoint: Model, Controller, Request/Response
+- [doc/README-06-Logging.md](doc/README-06-Logging.md): Logging (Logback)
+- [doc/README-07-Unit_testing.md](doc/README-07-Unit_testing.md): Unit-Testing
+- [doc/README-08-Migrating_to_RestController.md](doc/README-08-Migrating_to_RestController.md): Migrating from @Controller to @RestController
+- [doc/README-09-JSONDoc.md](doc/README-09-JSONDoc.md): JSONDoc GUI and API documentation
+- [doc/README-10-Env_specific_configuration.md](doc/README-10-Env_specific_configuration.md): Application configuration (2): Environment specific configuration
+- [doc/README-11-Integration_tests_with_Docker.md](doc/README-11-Integration_tests_with_Docker.md): Integration Tests using Docker as container for REST webservice server
+- [doc/README-12-Securing_endpoints.md](doc/README-12-Securing_endpoints.md): Security: add HTTP-Basic authentication to service endpoints
+- [doc/README-13-JSONDoc_for_secure_endpoints.md](doc/README-13-JSONDoc_for_secure_endpoints.md): TODO: Add authentication input fields to jsondoc ui
 
 ## Usage
 
