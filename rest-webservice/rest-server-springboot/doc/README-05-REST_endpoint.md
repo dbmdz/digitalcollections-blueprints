@@ -51,7 +51,7 @@ public class Greeting {
 
 In Spring, REST endpoints are just Spring MVC controllers. The following Spring MVC controller handles a GET request for /hello-world and returns the Greeting resource:
 
-File "src/main/java/de/digitalcollections/blueprints/rest/server/frontend/impl/controller/GreetingController.java":
+File "src/main/java/de/digitalcollections/blueprints/rest/server/controller/GreetingController.java":
 
 ```java
 package de.digitalcollections.blueprints.rest.server.frontend.impl.controller;
@@ -82,26 +82,12 @@ The key difference between a human-facing controller and a REST endpoint control
 
 The @ResponseBody annotation tells Spring MVC not to render a model into a view, but rather to write the returned object into the response body. It does this by using one of Spring’s message converters. Because Jackson 2 is in the classpath (see 'mvn dependency:tree'), this means that MappingJackson2HttpMessageConverter will handle the conversion of Greeting to JSON if the request’s Accept header specifies that JSON should be returned.
 
-As the convenience annotation @SpringBootApplication only adds a @ComponentScan other components, configurations, and services in the current package (and subpackages) of the Application class, the controller is not recognized, yet (it is in a sibling directory). So we add a dedicated @ComponentScan to the configuration:
-
-```java
-...
-import org.springframework.context.annotation.ComponentScan;
-
-@SpringBootApplication
-@ComponentScan(
-  basePackages = {
-    "de.digitalcollections.blueprints.rest.server.frontend.impl.controller"
-  }
-)
-public class Application {
-...
-```
+Note: As the convenience annotation @SpringBootApplication adds a @ComponentScan for other components, configurations, and services in the current package (and subpackages) of the Application class, the controller is automatically recognized.
 
 Now the endpoint is mapped during startup of the application:
 
 ```
-[2017-05-08 13:55:21,557  INFO] .annotation.RequestMappingHandlerMapping: 543 [main    ] - Mapped "{[/hello],methods=[GET]}" onto public de.digitalcollections.template.rest.model.impl.Greeting de.digitalcollections.blueprints.rest.server.frontend.impl.controller.GreetingController.sayHello(java.lang.String)
+[2017-05-08 13:55:21,557  INFO] .annotation.RequestMappingHandlerMapping: 543 [main    ] - Mapped "{[/hello],methods=[GET]}" onto public de.digitalcollections.template.rest.model.impl.Greeting de.digitalcollections.blueprints.rest.server.controller.GreetingController.sayHello(java.lang.String)
 ```
 
 ## Request / Response
