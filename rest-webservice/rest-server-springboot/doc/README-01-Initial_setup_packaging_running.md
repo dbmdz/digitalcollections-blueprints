@@ -18,7 +18,7 @@ src/main/java/de/digitalcollections/template/rest/server/Application.java
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.4.RELEASE</version>
     </parent>
 
     <name>DigitalCollections: Blueprints 3: REST Webservice Server (Frontend IMPL Spring Boot)</name>
@@ -34,16 +34,16 @@ src/main/java/de/digitalcollections/template/rest/server/Application.java
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 
@@ -52,6 +52,14 @@ src/main/java/de/digitalcollections/template/rest/server/Application.java
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+<version>1.5.4.RELEASE</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
             </plugin>
         </plugins>
     </build>
@@ -90,7 +98,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.4.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -118,7 +126,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>1.5.3.RELEASE</version>
+        <version>1.5.4.RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -149,11 +157,38 @@ $ ls target/*.jar
 target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
 ```
 
+In case you want to overlay/use the resulting Spring Boot JAR as dependency in another project, you have to add the classifier `exec` to the plugin's configuration:
+
+```xml
+<plugin>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-maven-plugin</artifactId>
+  <version>1.5.4.RELEASE</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>repackage</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <classifier>exec</classifier>
+  </configuration>
+</plugin>
+```
+
+In this case two jar files are packaged:
+
+- `target/rest-server-springboot-1.0.0-SNAPSHOT.jar` that can be used as dependency (but not be executed)
+- `target/rest-server-springboot-1.0.0-SNAPSHOT-exec.jar` that can be executed with `java -jar`
+
+see <http://docs.spring.io/spring-boot/docs/current/maven-plugin/examples/repackage-classifier.html>
+
 There are three starters added as dependencies (see <http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-starter>):
 
-- **spring-boot-starter-web**: Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
 - **spring-boot-starter-actuator**: Starter for using Spring Boot’s Actuator which provides production ready features to help you monitor and manage your application.
 - **spring-boot-starter-test**: Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest and Mockito.
+- **spring-boot-starter-web**: Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
 
 ## Basic Application.java
 
@@ -210,75 +245,21 @@ $ java -jar target/rest-server-springboot-1.0.0-SNAPSHOT.jar
 Logging output is displayed. The service should be up and running within a few seconds.
 
 ```
+
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v1.5.3.RELEASE)
+ :: Spring Boot ::        (v1.5.4.RELEASE)
 
-[2017-05-04 14:18:15,394  INFO] ver.frontend.impl.springboot.Application:  48 [main    ] - Starting Application on ralf-linux with PID 17101 (/home/ralf/DEV/SOURCES/template-rest-server/template-rest-server-frontend-impl-springboot/target/classes started by ralf in /home/ralf/DEV/SOURCES/template-rest-server/template-rest-server-frontend-impl-springboot)
-[2017-05-04 14:18:15,398 DEBUG] ver.frontend.impl.springboot.Application:  51 [main    ] - Running with Spring Boot v1.5.3.RELEASE, Spring v4.3.8.RELEASE
-[2017-05-04 14:18:15,399  INFO] ver.frontend.impl.springboot.Application: 641 [main    ] - The following profiles are active: local
-[2017-05-04 14:18:15,457  INFO] ationConfigEmbeddedWebApplicationContext: 582 [main    ] - Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@52aa2946: startup date [Thu May 04 14:18:15 CEST 2017]; root of context hierarchy
-[2017-05-04 14:18:15,773  INFO] ibernate.validator.internal.util.Version:  30 [background-preinit] - HV000001: Hibernate Validator 5.3.5.Final
-[2017-05-04 14:18:16,508  INFO] ed.tomcat.TomcatEmbeddedServletContainer:  89 [main    ] - Tomcat initialized with port(s): 8080 (http)
-[2017-05-04 14:18:16,520  INFO] org.apache.catalina.core.StandardService: 179 [main    ] - Starting service Tomcat
-[2017-05-04 14:18:16,521  INFO]  org.apache.catalina.core.StandardEngine: 179 [main    ] - Starting Servlet Engine: Apache Tomcat/8.5.14
-[2017-05-04 14:18:16,612  INFO] e.ContainerBase.[Tomcat].[localhost].[/]: 179 [localhost-startStop-1] - Initializing Spring embedded WebApplicationContext
-[2017-05-04 14:18:16,612  INFO] pringframework.web.context.ContextLoader: 276 [localhost-startStop-1] - Root WebApplicationContext: initialization completed in 1158 ms
-[2017-05-04 14:18:16,813  INFO] boot.web.servlet.ServletRegistrationBean: 190 [localhost-startStop-1] - Mapping servlet: 'dispatcherServlet' to [/]
-[2017-05-04 14:18:16,818  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'metricsFilter' to: [/*]
-[2017-05-04 14:18:16,819  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'characterEncodingFilter' to: [/*]
-[2017-05-04 14:18:16,819  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
-[2017-05-04 14:18:16,819  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'httpPutFormContentFilter' to: [/*]
-[2017-05-04 14:18:16,820  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'requestContextFilter' to: [/*]
-[2017-05-04 14:18:16,821  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'webRequestLoggingFilter' to: [/*]
-[2017-05-04 14:18:16,821  INFO] .boot.web.servlet.FilterRegistrationBean: 258 [localhost-startStop-1] - Mapping filter: 'applicationContextIdFilter' to: [/*]
-[2017-05-04 14:18:17,157  INFO] .annotation.RequestMappingHandlerAdapter: 534 [main    ] - Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@52aa2946: startup date [Thu May 04 14:18:15 CEST 2017]; root of context hierarchy
-[2017-05-04 14:18:17,224  INFO] .annotation.RequestMappingHandlerMapping: 543 [main    ] - Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
-[2017-05-04 14:18:17,225  INFO] .annotation.RequestMappingHandlerMapping: 543 [main    ] - Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
-[2017-05-04 14:18:17,245  INFO] .servlet.handler.SimpleUrlHandlerMapping: 362 [main    ] - Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
-[2017-05-04 14:18:17,245  INFO] .servlet.handler.SimpleUrlHandlerMapping: 362 [main    ] - Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
-[2017-05-04 14:18:17,273  INFO] .servlet.handler.SimpleUrlHandlerMapping: 362 [main    ] - Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
-[2017-05-04 14:18:17,468  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/metrics/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.MetricsMvcEndpoint.value(java.lang.String)
-[2017-05-04 14:18:17,469  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/metrics || /metrics.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,469  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/configprops || /configprops.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,470  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/dump || /dump.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,472  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/loggers/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.get(java.lang.String)
-[2017-05-04 14:18:17,472  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/loggers/{name:.*}],methods=[POST],consumes=[application/vnd.spring-boot.actuator.v1+json || application/json],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.LoggersMvcEndpoint.set(java.lang.String,java.util.Map<java.lang.String, java.lang.String>)
-[2017-05-04 14:18:17,472  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/loggers || /loggers.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,473  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/heapdump || /heapdump.json],methods=[GET],produces=[application/octet-stream]}" onto public void org.springframework.boot.actuate.endpoint.mvc.HeapdumpMvcEndpoint.invoke(boolean,javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse) throws java.io.IOException,javax.servlet.ServletException
-[2017-05-04 14:18:17,474  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/health || /health.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.HealthMvcEndpoint.invoke(javax.servlet.http.HttpServletRequest,java.security.Principal)
-[2017-05-04 14:18:17,476  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/mappings || /mappings.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,477  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/env/{name:.*}],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EnvironmentMvcEndpoint.value(java.lang.String)
-[2017-05-04 14:18:17,477  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/env || /env.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,477  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/trace || /trace.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,478  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/info || /info.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,479  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/beans || /beans.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,479  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/auditevents || /auditevents.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public org.springframework.http.ResponseEntity<?> org.springframework.boot.actuate.endpoint.mvc.AuditEventsMvcEndpoint.findByPrincipalAndAfterAndType(java.lang.String,java.util.Date,java.lang.String)
-[2017-05-04 14:18:17,480  INFO] uate.endpoint.mvc.EndpointHandlerMapping: 543 [main    ] - Mapped "{[/autoconfig || /autoconfig.json],methods=[GET],produces=[application/vnd.spring-boot.actuator.v1+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.mvc.EndpointMvcAdapter.invoke()
-[2017-05-04 14:18:17,555  INFO] xport.annotation.AnnotationMBeanExporter: 431 [main    ] - Registering beans for JMX exposure on startup
-[2017-05-04 14:18:17,558  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 431 [main    ] - Registering beans for JMX exposure on startup
-[2017-05-04 14:18:17,562  INFO] ontext.support.DefaultLifecycleProcessor: 343 [main    ] - Starting beans in phase 0
-[2017-05-04 14:18:17,564  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'auditEventsEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=auditEventsEndpoint]
-[2017-05-04 14:18:17,576  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'requestMappingEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=requestMappingEndpoint]
-[2017-05-04 14:18:17,583  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'environmentEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=environmentEndpoint]
-[2017-05-04 14:18:17,587  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'healthEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=healthEndpoint]
-[2017-05-04 14:18:17,589  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'beansEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=beansEndpoint]
-[2017-05-04 14:18:17,592  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'infoEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=infoEndpoint]
-[2017-05-04 14:18:17,594  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'loggersEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=loggersEndpoint]
-[2017-05-04 14:18:17,599  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'metricsEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=metricsEndpoint]
-[2017-05-04 14:18:17,601  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'traceEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=traceEndpoint]
-[2017-05-04 14:18:17,603  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'dumpEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=dumpEndpoint]
-[2017-05-04 14:18:17,605  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'autoConfigurationReportEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=autoConfigurationReportEndpoint]
-[2017-05-04 14:18:17,608  INFO] tuate.endpoint.jmx.EndpointMBeanExporter: 678 [main    ] - Located managed bean 'configurationPropertiesReportEndpoint': registering with JMX server as MBean [org.springframework.boot:type=Endpoint,name=configurationPropertiesReportEndpoint]
-[2017-05-04 14:18:17,626  INFO] g.apache.coyote.http11.Http11NioProtocol: 179 [main    ] - Initializing ProtocolHandler ["http-nio-8080"]
-[2017-05-04 14:18:17,634  INFO] g.apache.coyote.http11.Http11NioProtocol: 179 [main    ] - Starting ProtocolHandler ["http-nio-8080"]
-[2017-05-04 14:18:17,647  INFO] g.apache.tomcat.util.net.NioSelectorPool: 179 [main    ] - Using a shared selector for servlet write/read
-[2017-05-04 14:18:17,660  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 198 [main    ] - Tomcat started on port(s): 8080 (http)
-[2017-05-04 14:18:17,668  INFO] ver.frontend.impl.springboot.Application:  57 [main    ] - Started Application in 2.648 seconds (JVM running for 2.979)
+[2017-07-05 13:27:25,652  INFO] tions.blueprints.rest.server.Application:  48 [main    ] - Starting Application on ralf-linux with PID 8702 (/home/ralf/DEV/SOURCES/blueprints/rest-webservice/rest-server-springboot/target/classes started by ralf in /home/ralf/DEV/SOURCES/blueprints/rest-webservice/rest-server-springboot)
+[2017-07-05 13:27:25,655 DEBUG] tions.blueprints.rest.server.Application:  51 [main    ] - Running with Spring Boot v1.5.4.RELEASE, Spring v4.3.9.RELEASE
+[2017-07-05 13:27:25,655  INFO] tions.blueprints.rest.server.Application: 597 [main    ] - The following profiles are active: local
+...
+[2017-07-05 13:27:29,145  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 201 [main    ] - Tomcat started on port(s): 8080 (http)
+[2017-07-05 13:27:29,149  INFO] tions.blueprints.rest.server.Application:  57 [main    ] - Started Application in 3.928 seconds (JVM running for 4.229)
 ```
 
-So the server is running, but you haven’t defined any business endpoints yet.
+So the server is running on port 8080, but you haven’t defined any business endpoints yet.

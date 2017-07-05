@@ -51,6 +51,8 @@ If you are using Spring MVC, the following additional endpoints can also be used
 
 By default all sensitive HTTP endpoints are secured such that only users that have an ACTUATOR role may access them. Security is enforced using the standard HttpServletRequest.isUserInRole method.
 
+### Unsecure actuator endpoints
+
 If you are deploying applications behind a firewall, you may prefer that all your actuator endpoints can be accessed without requiring authentication. You can do this by changing the management.security.enabled property:
 
 src/main/resources/application.properties:
@@ -59,33 +61,80 @@ src/main/resources/application.properties:
 management.security.enabled=false
 ```
 
-If you’re deploying applications publicly, you may want to add ‘Spring Security’ to handle user authentication. When ‘Spring Security’ is added, by default ‘basic’ authentication will be used with the username user and a generated password (which is printed on the console when the application starts).
+### Secure actuator endpoints
 
-You can use Spring properties to change the username and password and to change the security role(s) required to access the endpoints. For example, you might set the following in your application.properties:
+If you’re deploying applications publicly, you may want to add ‘Spring Security’ to handle user authentication. When ‘Spring Security’ is added, by default ‘basic’ authentication will be used with the username `user` and a generated password (which is printed on the console when the application starts).
 
+Adding Spring Security to dependencies:
+
+File `pom.xml`:
+
+```xml
+<dependencies>
+  ...
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+  </dependency>
 ```
+
+You can use Spring properties to change the username and password and to change the security role(s) required to access the endpoints (default role for accessing is "ACTUATOR"). For example, you might set the following in your application.properties:
+
+```ini
 security.user.name=admin
 security.user.password=secret
-# default: management.security.enabled=true
-management.security.roles=SUPERUSER
+# default:
+management.security.enabled=true
+#management.security.roles=SUPERUSER
 ```
 
-Sample "/health"  request and response:
+or in `application.yml`:
+
+```yml
+management:
+  security:
+    enabled: true
+#    roles: SUPERUSER
+
+security:
+  user:
+    name: admin
+    password: secret
+```
+
+Some endpoints deliver different response content depending on with or withoput authentication (e.g. "/health").
+
+### Testing actuator endpoints
+
+Testing of endpoints can be done with the command line tool `curl` or directly in browser.
+
+- Sample "/health" (no authentication) request and response:
 
 ```sh
 $ curl -i localhost:8080/health
-HTTP/1.1 200 
-X-Application-Context: application:local
-Content-Type: application/vnd.spring-boot.actuator.v1+json;charset=UTF-8
-Transfer-Encoding: chunked
-Date: Thu, 04 May 2017 12:58:16 GMT
+{
+  "status" : "UP"
+}
+```
 
-{"status":"UP","diskSpace":{"status":"UP","total":120906379264,"free":14731542528,"threshold":10485760}}
+- Sample "/health" (with authentication) request and response:
+
+```sh
+$ curl-u admin:secret http://localhost:8080/health
+{
+  "status" : "UP",
+  "diskSpace" : {
+    "status" : "UP",
+    "total" : 120906379264,
+    "free" : 13729030144,
+    "threshold" : 10485760
+  }
+}
 ```
 
 ## Endpoint "/actuator"
 
-If endpoints.hypermedia.enabled is set to true and Spring HATEOAS is on the classpath (e.g. through the spring-boot-starter-hateoas or if you are using Spring Data REST) then the HTTP endpoints from the Actuator are enhanced with hypermedia links, and a “discovery page” is added with links to all the endpoints. The “discovery page” is available on /actuator by default. It is implemented as an endpoint, allowing properties to be used to configure its path (endpoints.actuator.path) and whether or not it is enabled (endpoints.actuator.enabled).
+If `endpoints.hypermedia.enabled=true` is added to`application.properties` and Spring HATEOAS is on the classpath (e.g. through the spring-boot-starter-hateoas or if you are using Spring Data REST) then the HTTP endpoints from the Actuator are enhanced with hypermedia links, and a “discovery page” is added with links to all the endpoints. The “discovery page” is available on `/actuator` by default. It is implemented as an endpoint, allowing properties to be used to configure its path (endpoints.actuator.path) and whether or not it is enabled (endpoints.actuator.enabled).
 
 ### pom.xml
 
@@ -100,57 +149,67 @@ If endpoints.hypermedia.enabled is set to true and Spring HATEOAS is on the clas
 
 ### src/main/resources/application.properties
 
-```
+```ini
 # Activate /actuator
 endpoints.hypermedia.enabled=true
 ```
 
+or in `application.yml`:
+
+```yml
+endpoints:
+  hypermedia:
+    enabled: true
+```
+
 ### Default response
+
+When requesting http://localhost:8080/actuator:
 
 ```json
 {
-  _links: {
-    self: {
-      href: "http://localhost:8080/actuator"
+  "_links": {
+    "self": {
+      "href": "http://localhost:8080/actuator"
     },
-    heapdump: {
-      href: "http://localhost:8080/heapdump"
+    "mappings": {
+      "href": "http://localhost:8080/mappings"
     },
-    beans: {
-      href: "http://localhost:8080/beans"
+    "heapdump": {
+      "href": "http://localhost:8080/heapdump"
     },
-    configprops: {
-      href: "http://localhost:8080/configprops"
+    "trace": {
+      "href": "http://localhost:8080/trace"
     },
-    env: {
-      href: "http://localhost:8080/env"
+    "dump": {
+      "href": "http://localhost:8080/dump"
     },
-    health: {
-      href: "http://localhost:8080/health"
+    "metrics": {
+      "href": "http://localhost:8080/metrics"
     },
-    auditevents: {
-      href: "http://localhost:8080/auditevents"
+    "loggers": {
+      "href": "http://localhost:8080/loggers"
     },
-    dump: {
-      href: "http://localhost:8080/dump"
+    "beans": {
+      "href": "http://localhost:8080/beans"
     },
-    info: {
-      href: "http://localhost:8080/info"
+    "health": {
+      "href": "http://localhost:8080/health"
     },
-    trace: {
-      href: "http://localhost:8080/trace"
+    "info": {
+      "href": "http://localhost:8080/info"
     },
-    metrics: {
-      href: "http://localhost:8080/metrics"
+    "configprops": {
+      "href": "http://localhost:8080/configprops"
     },
-    loggers: {
-      href: "http://localhost:8080/loggers"
+    "env": {
+      "href": "http://localhost:8080/env"
     },
-    mappings: {
-      href: "http://localhost:8080/mappings"
+    "auditevents": {
+      "href": "http://localhost:8080/auditevents"
     },
-    autoconfig: {
-      href: "http://localhost:8080/autoconfig"
+    "autoconfig": {
+      "href": "http://localhost:8080/autoconfig"
     }
   }
 }
@@ -182,10 +241,17 @@ Spring Boot Actuator defaults to run on port 8080 (see <https://docs.spring.io/s
 management.port=9001
 ```
 
+or in `application.yml`:
+
+```yml
+management:
+  port: 9001
+```
+
 Sample:
 
 ```sh
-$ curl http://localhost:9001/health
+$ curl -u admin:secret http://localhost:9001/health
 {"status":"UP","diskSpace":{"status":"UP","total":120906379264,"free":18595954688,"threshold":10485760},"_links":{"self":{"href":"http://localhost:9001/health"}
 ```
 
