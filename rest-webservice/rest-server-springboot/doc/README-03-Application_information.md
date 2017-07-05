@@ -123,10 +123,10 @@ Response to http://localhost:8080/info.json:
   },
   "app": {
     "project": {
-      "name": "Template Project: REST-Server (Frontend IMPL Spring Boot)",
-      "groupId": "de.digitalcollections.template",
+      "name": "DigitalCollections: Blueprints 3: REST Webservice Server (Frontend IMPL Spring Boot)",
+      "groupId": "de.digitalcollections.blueprints",
       "version": "1.0.0-SNAPSHOT",
-      "artifactId": "template-rest-server-frontend-impl-springboot"
+      "artifactId": "rest-server-springboot"
     },
     "java": {
       "source": "1.8",

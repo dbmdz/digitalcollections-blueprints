@@ -2,7 +2,7 @@
 
 In this chapter we secure a REST-API-Url with basic authentication using Spring Security. For demonstration purpose we add another Controller to the webservice application. The AdminController returns the server time when requested from Url `http://localhost:9000/admin/serverTime`:
 
-File `blueprints/rest-webservice/rest-server-springboot/src/main/java/de/digitalcollections/blueprints/rest/server/controller/AdminController.java`:
+File `src/main/java/de/digitalcollections/blueprints/rest/server/controller/AdminController.java`:
 
 ```java
 package de.digitalcollections.blueprints.rest.server.controller;
@@ -41,7 +41,7 @@ see <https://docs.spring.io/spring-boot/docs/current/reference/html/boot-feature
 
 Add Spring Security dependency:
 
-File `blueprints/rest-webservice/rest-server-springboot/pom.xml`:
+File `pom.xml`:
 
 ```xml
 <dependencies>

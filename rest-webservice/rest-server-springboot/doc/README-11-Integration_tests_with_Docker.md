@@ -239,7 +239,8 @@ public class HelloClientTest {
   @ClassRule
   public static final DockerComposeContainer ENVIRONMENT = new DockerComposeContainer(new File(DOCKER_COMPOSE_FILE))
           .withLocalCompose(true)
-          .withExposedService(REST_SERVICE_NAME, REST_SERVICE_PORT);
+          .withExposedService(REST_SERVICE_NAME, REST_SERVICE_PORT)
+          .withTailChildContainers(true); // append all outputs of applications in the container to the main log
 
   @Test
   public void greetingShouldReturnGreetingForTheExpectedName() {
@@ -261,6 +262,7 @@ public class HelloClientTest {
 - Point the DockerComposeContainer to the location of the docker-compose.yml file.
 - Specify ".withLocalCompose(true)" to use local installed docker-compose to make it possible for docker-compose to access files outside container.
 - Specify ".withExposedService(serviceName, servicePort)" to get access to the "rest"-service. Name is "rest_1", because we want access to the first (and only) instance of the service. As port specifiy the inner port, the random chosen external port will be automatically mapped.
+- Specify ".withTailChildContainers(true)" to append all application outputs from inside the container to the main log (e.g. for debugging).
 
 Accessing the service from inside the test method is done by constructing the HTTP-Url based on this environment:
 

@@ -49,7 +49,7 @@ info:
 # mandatory configuration
 jsondoc:
   version: 1.0
-  packages[0]: de.digitalcollections.template.rest.server.frontend.impl.controller
+  packages[0]: de.digitalcollections.template.rest.server.controller
   #packages[1]: com.example.model
   # optional configuration
   playgroundEnabled: true

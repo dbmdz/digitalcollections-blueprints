@@ -4,7 +4,7 @@ The skeleton starts with an initial minimal setup of two files (see <https://git
 
 ```
 pom.xml
-src/main/java/de/digitalcollections/template/rest/server/frontend/impl/springboot/Application.java
+src/main/java/de/digitalcollections/template/rest/server/Application.java
 ```
 
 ## Basic pom.xml
@@ -21,10 +21,10 @@ src/main/java/de/digitalcollections/template/rest/server/frontend/impl/springboo
         <version>1.5.3.RELEASE</version>
     </parent>
 
-    <groupId>de.digitalcollections.template</groupId>
-    <artifactId>template-rest-server-frontend-impl-springboot</artifactId>
+    <name>DigitalCollections: Blueprints 3: REST Webservice Server (Frontend IMPL Spring Boot)</name>
+    <groupId>de.digitalcollections.blueprints</groupId>
+    <artifactId>rest-server-springboot</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>Template Project: REST-Server (Frontend IMPL Spring Boot)</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -68,15 +68,15 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>de.digitalcollections.template</groupId>
-    <artifactId>template-rest-server</artifactId>
+    <groupId>de.digitalcollections.blueprints</groupId>
+    <artifactId>rest-webservice</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <groupId>de.digitalcollections.template</groupId>
-  <artifactId>template-rest-server-frontend-impl-springboot</artifactId>
+  <name>DigitalCollections: Blueprints 3: REST Webservice Server (Frontend IMPL Spring Boot)</name>
+  <groupId>de.digitalcollections.blueprints</groupId>
+  <artifactId>rest-server-springboot</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Template Project: REST-Server (Frontend IMPL Spring Boot)</name>
   <packaging>jar</packaging>
 
   <properties>
@@ -119,6 +119,13 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <version>1.5.3.RELEASE</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
@@ -132,6 +139,16 @@ The Spring Boot Maven plugin provides many convenient features:
 - It searches for the public static void main() method to flag as a runnable class.
 - It provides a built-in dependency resolver that sets the version number to match Spring Boot dependencies. You can override any version you wish, but it will default to Boot’s chosen set of versions.
 
+see <https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html>
+
+"If you don’t include the `<execution/>` configuration as above, you can run the plugin on its own (but only if the package goal is used as well). For example:
+
+```sh
+$ mvn package spring-boot:repackage
+$ ls target/*.jar
+target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
+```
+
 There are three starters added as dependencies (see <http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-starter>):
 
 - **spring-boot-starter-web**: Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
@@ -141,7 +158,7 @@ There are three starters added as dependencies (see <http://docs.spring.io/sprin
 ## Basic Application.java
 
 ```java
-package de.digitalcollections.template.rest.server.frontend.impl.springboot;
+package de.digitalcollections.template.rest.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -155,12 +172,12 @@ public class Application {
 }
 ```
 
-The @SpringBootApplication annotation provides a load of defaults (like the embedded servlet container) depending on the contents of your classpath, and other things. It also turns on Spring MVC’s @EnableWebMvc annotation that activates web endpoints. @SpringBootApplication is a convenience annotation that adds all of the following:
+The `@SpringBootApplication` annotation provides a load of defaults (like the embedded servlet container) depending on the contents of your classpath, and other things. It also turns on Spring MVC’s `@EnableWebMvc` annotation that activates web endpoints. `@SpringBootApplication` is a convenience annotation that adds all of the following:
 
- - @Configuration tags the class as a source of bean definitions for the application context.
- - @EnableAutoConfiguration tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings.
- - Normally you would add @EnableWebMvc for a Spring MVC app, but Spring Boot adds it automatically when it sees spring-webmvc on the classpath. This flags the application as a web application and activates key behaviors such as setting up a DispatcherServlet.
- - @ComponentScan tells Spring to look for other components, configurations, and services in the current package (and subpackages), allowing it to find controllers, too.
+ - `@Configuration` tags the class as a source of bean definitions for the application context.
+ - `@EnableAutoConfiguration` tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings.
+ - Normally you would add `@EnableWebMvc` for a Spring MVC app, but Spring Boot adds it automatically when it sees spring-webmvc on the classpath. This flags the application as a web application and activates key behaviors such as setting up a DispatcherServlet.
+ - `@ComponentScan` tells Spring to look for other components, configurations, and services in the current package (and subpackages), allowing it to find controllers, too.
 
 ## Build a classic WAR file
 
@@ -187,7 +204,7 @@ $ mvn spring-boot:run
 - Run executable jar (see above):
 
 ```sh
-$ java -jar target/template-rest-server-frontend-impl-springboot-1.0.0-SNAPSHOT.jar
+$ java -jar target/rest-server-springboot-1.0.0-SNAPSHOT.jar
 ```
 
 Logging output is displayed. The service should be up and running within a few seconds.
@@ -263,5 +280,5 @@ Logging output is displayed. The service should be up and running within a few s
 [2017-05-04 14:18:17,660  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 198 [main    ] - Tomcat started on port(s): 8080 (http)
 [2017-05-04 14:18:17,668  INFO] ver.frontend.impl.springboot.Application:  57 [main    ] - Started Application in 2.648 seconds (JVM running for 2.979)
 ```
-So the server is running, but you haven’t defined any business endpoints yet.
 
+So the server is running, but you haven’t defined any business endpoints yet.
