@@ -184,3 +184,36 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
+Instead of instantiate the service bean inline in the configuration class, we separate services as own concern/layer in a subpackage `service.impl` and implement the UserDetailsService-interface in an own class:
+
+File `lbueprints/rest-webservice/rest-server-springboot/src/main/java/de/digitalcollections/blueprints/rest/server/service/impl/UserDetailsServiceImpl.java`
+
+```java
+package de.digitalcollections.blueprints.rest.server.service.impl;
+
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+  private final InMemoryUserDetailsManager instance = new InMemoryUserDetailsManager();
+
+  public UserDetailsServiceImpl() {
+    instance.createUser(User.withUsername("user1").password("password1").roles("USER").build());
+    instance.createUser(User.withUsername("user2").password("password2").roles("USER").build());
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    return instance.loadUserByUsername(username);
+  }
+
+}
+```
+
+This makes it even easier to replace the source ("repository" InMemoryUserDetailsManager) of user data enclosed in the service, not visible/with consequences/code changes to consumers of the service. It is also easy to see now that you just have to implement the method `loadUserByUsername` to fulfill a Spring Security UserDetailsService.

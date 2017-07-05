@@ -1,12 +1,8 @@
 package de.digitalcollections.blueprints.rest.server.config;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -31,12 +27,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //            .withUser("user1").password("password1").roles("USER").and()
 //            .withUser("user2").password("password2").roles("USER");
 //  }
-  @Bean
-  @Override
-  public UserDetailsService userDetailsService() {
-    InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-    manager.createUser(User.withUsername("user1").password("password1").roles("USER").build());
-    manager.createUser(User.withUsername("user2").password("password2").roles("USER").build());
-    return manager;
-  }
 }
