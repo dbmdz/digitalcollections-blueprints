@@ -23,7 +23,8 @@ public class HelloClientTest {
   @ClassRule
   public static final DockerComposeContainer ENVIRONMENT = new DockerComposeContainer(new File(DOCKER_COMPOSE_FILE))
           .withLocalCompose(true)
-          .withExposedService(REST_SERVICE_NAME, REST_SERVICE_PORT);
+          .withExposedService(REST_SERVICE_NAME, REST_SERVICE_PORT)
+          .withTailChildContainers(true); // append all outputs of applications in the container to the main log
 
   @Test
   public void greetingShouldReturnGreetingForTheExpectedName() {
