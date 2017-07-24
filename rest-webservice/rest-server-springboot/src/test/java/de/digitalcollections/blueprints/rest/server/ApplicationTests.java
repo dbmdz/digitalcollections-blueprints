@@ -21,7 +21,10 @@ import static org.assertj.core.api.BDDAssertions.then;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.port=0"})
+@TestPropertySource(properties = {
+  "management.port=0",
+  "pathToUserProperties=classpath:///users.properties"
+})
 public class ApplicationTests {
 
   @LocalServerPort
