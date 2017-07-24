@@ -33,7 +33,13 @@ jsondoc:
 management:
   port: 9001
 
+security:
+  headers:
+    cache: false
+    # disables pragma no-cache header
+
 server:
+  server-header: "DigitalCollections Blueprint REST Server v@project.version@"
   port: 9000
 
 # user "database"
