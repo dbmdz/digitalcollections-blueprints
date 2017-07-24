@@ -39,7 +39,6 @@ security:
     # disables pragma no-cache header
 
 server:
-  server-header: "DigitalCollections Blueprint REST Server v@project.version@"
   port: 9000
   server-header: "DigitalCollections Blueprint REST Server v@project.version@"
 
