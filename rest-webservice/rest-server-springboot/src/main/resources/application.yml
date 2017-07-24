@@ -41,6 +41,7 @@ security:
 server:
   server-header: "DigitalCollections Blueprint REST Server v@project.version@"
   port: 9000
+  server-header: "DigitalCollections Blueprint REST Server v@project.version@"
 
 # user "database"
 pathToUserProperties: file:///local/users.properties
