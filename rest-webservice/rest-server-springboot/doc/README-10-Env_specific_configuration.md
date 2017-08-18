@@ -81,7 +81,7 @@ management:
     enabled: true
 ```
 
-Additionally we set as default environment "local" in the first lines. This can be overriden by passing e.g. "-Dspring.profiles.active=PROD" at start time.
+Additionally we set as default environment "local" in the first lines. This can be overriden by passing e.g. "--spring.profiles.active=PROD" at start time.
 
 A list of common application properties can be found here: <https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html>.
 
