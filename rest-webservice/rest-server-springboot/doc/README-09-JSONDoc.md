@@ -7,7 +7,7 @@ expose it with a clear user interface, test API methods with the provided playgr
 
 ## Installation
 
-Out REST-template is a Spring Boot application. Installing JSONDoc is therefore as follows (see <http://jsondoc.org/how-to-spring-boot.html>):
+Our REST-template is a Spring Boot application. Installing JSONDoc is therefore as follows (see <http://jsondoc.org/how-to-spring-boot.html>):
 
 File 'pom.xml':
 
