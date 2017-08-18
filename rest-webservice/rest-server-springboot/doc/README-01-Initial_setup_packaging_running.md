@@ -239,7 +239,7 @@ $ mvn spring-boot:run
 - Run executable jar (see above):
 
 ```sh
-$ java -jar target/rest-server-springboot-1.0.0-SNAPSHOT.jar
+$ java -jar target/rest-server-springboot-1.0.0-SNAPSHOT-exec.jar
 ```
 
 Logging output is displayed. The service should be up and running within a few seconds.
