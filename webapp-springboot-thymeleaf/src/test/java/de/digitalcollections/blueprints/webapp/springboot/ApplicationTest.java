@@ -1,4 +1,4 @@
-package de.digitalcollections.blueprints.rest.server;
+package de.digitalcollections.blueprints.webapp.springboot;
 
 import java.util.Map;
 import org.junit.Test;
@@ -22,10 +22,9 @@ import static org.assertj.core.api.BDDAssertions.then;
 @SpringBootTest(classes = Application.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
-  "management.port=0",
-  "pathToUserProperties=classpath:///users.properties"
+  "management.port=0"
 })
-public class ApplicationTests {
+public class ApplicationTest {
 
   @LocalServerPort
   private int port;
@@ -37,10 +36,10 @@ public class ApplicationTests {
   private TestRestTemplate testRestTemplate;
 
   @Test
-  public void shouldReturn200WhenSendingRequestToController() throws Exception {
+  public void shouldReturn200WhenSendingRequestToRoot() throws Exception {
     @SuppressWarnings("rawtypes")
-    ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-            "http://localhost:" + this.port + "/hello", Map.class);
+    ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
+            "http://localhost:" + this.port + "/", String.class);
 
     then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
