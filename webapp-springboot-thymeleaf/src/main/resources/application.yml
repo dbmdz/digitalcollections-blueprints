@@ -15,12 +15,15 @@ info:
       version: @project.version@
 
 management:
+  context-path: /actuator
   port: 9001
   security:
     enabled: true
 #    roles: SUPERUSER
 
 security:
+  headers:
+    cache: false
   user:
     name: admin
     password: secret

@@ -51,6 +51,10 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
@@ -82,7 +86,14 @@
     <resources>
       <resource>
         <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
         <filtering>true</filtering>
+        <includes>
+          <include>application.yml</include>
+        </includes>
       </resource>
     </resources>
     <plugins>
@@ -104,14 +115,6 @@
             <delimiter>@</delimiter>
           </delimiters>
           <useDefaultDelimiters>false</useDefaultDelimiters>
-          <nonFilteredFileExtensions>
-            <nonFilteredFileExtension>css</nonFilteredFileExtension>
-            <nonFilteredFileExtension>gif</nonFilteredFileExtension>
-            <nonFilteredFileExtension>html</nonFilteredFileExtension>
-            <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-            <nonFilteredFileExtension>js</nonFilteredFileExtension>
-            <nonFilteredFileExtension>png</nonFilteredFileExtension>
-          </nonFilteredFileExtensions>
         </configuration>
       </plugin>
       <plugin>
