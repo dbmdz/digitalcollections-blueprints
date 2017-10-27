@@ -42,7 +42,7 @@
   </springProfile>
   -->
     
-  <logger name="de.digitalcollections.template" level="debug" />
+  <logger name="de.digitalcollections.blueprints" level="debug" />
 
   <root level="info">
     <appender-ref ref="default" />

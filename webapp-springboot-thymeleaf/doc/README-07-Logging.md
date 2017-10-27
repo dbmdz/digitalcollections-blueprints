@@ -16,19 +16,22 @@ src/main/resources/logback-spring.xml:
   <springProfile name="DEV, STG, PROD">
     <appender name="default" class="ch.qos.logback.core.rolling.RollingFileAppender">
       <!-- create directory /var/log/digitalcollections with proper permissions... -->
-      <file>/var/log/digitalcollections/rest-server.log</file>
+      <file>/var/log/digitalcollections/webapp-blueprint.log</file>
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>rest-server.%d{yyyy-MM-dd}.log</fileNamePattern>
+        <fileNamePattern>/var/log/digitalcollections/webapp-blueprint.%d{yyyy-MM-dd}.log</fileNamePattern>
       </rollingPolicy>
       <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-        <fileNamePattern>rest-server.%d{yyyy-MM}.%i.log.gz</fileNamePattern>
+        <fileNamePattern>/var/log/digitalcollections/webapp-blueprint.%d{yyyy-MM}.%i.log.gz</fileNamePattern>
         <maxFileSize>100MB</maxFileSize>
         <maxHistory>90</maxHistory>
         <totalSizeCap>5GB</totalSizeCap>
       </rollingPolicy>
-      <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-        <customFields>{"service":"rest-server", "group":"rest", "instance":"${instance.name:-default}"}</customFields>
+      <encoder>
+        <pattern>[%d{ISO8601} %5p] %40.40c:%4L [%-8t] - %m%n</pattern>
       </encoder>
+      <!-- <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+        <customFields>{"service":"webapp-blueprint", "group":"webapps", "instance":"${instance.name:-default}"}</customFields>
+      </encoder> -->
     </appender>
   </springProfile>
   
@@ -53,7 +56,7 @@ src/main/resources/logback-spring.xml:
   </springProfile>
   -->
     
-  <logger name="de.digitalcollections.template" level="debug" />
+  <logger name="de.digitalcollections.blueprints" level="debug" />
 
   <root level="info">
     <appender-ref ref="default" />
@@ -61,7 +64,7 @@ src/main/resources/logback-spring.xml:
 </configuration>
 ```
 
-As you can see we added the LogstashEncoder. This causes logback to log in JSON-format. In our blueprint we do this to be able to collect dentralized logfiles in a central Kibana/Elasticsearch-Logging index:
+As you can see we added the LogstashEncoder as comment in our DEV, STG and PROD environments. Activating this (and deactivating pattern encoder) causes logback to log in JSON-format. In our blueprint we do this to be able to collect decentralized logfiles in a central Kibana/Elasticsearch-Logging index:
 
 ```
 webapp -> logback -> logstash -> filebeats (collects logging files and inserts into) -> ElasticSearch -> Kibana
