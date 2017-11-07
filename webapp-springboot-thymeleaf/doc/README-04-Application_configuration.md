@@ -21,7 +21,7 @@ File application.yml:
 
 ```ini
 server:
-  server-header: "Webapp Blueprint v@project.version@"
+  server-header: "@project.name@ v@project.version@"
 ```
 
 Example response showing server header "Webapp Blueprint v1.0.0-SNAPSHOT":
