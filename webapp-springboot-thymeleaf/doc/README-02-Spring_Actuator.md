@@ -221,7 +221,7 @@ Screenshot http://localhost:8080/actuator:
 
 ## Configure management endpoint port
 
-Spring Boot Actuator defaults to run on port 8080 (see <https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html#production-ready-customizing-management-server-port>). Changing it to e.g. 9001 in application.yml:
+Spring Boot Actuator defaults to run on port 8080 (see <https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html#production-ready-customizing-management-server-port>). If you want to be able to restrict access to endpoint by firewall settings, you need a different port than the webapp/server port. Changing it to e.g. 9001 in application.yml:
 
 ```yml
 management:
@@ -239,3 +239,27 @@ $ curl -u admin:secret http://localhost:9001/health
 
 For more configuration options see <https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html>.
 
+## Configure management context
+
+By default actuator endpoints are "/actuator", "/health" etc. To group all endpoints under an dedicated context (to be able defining security rules for it), we configure the context e.g. to '/monitoring':
+
+```yml
+management:
+  context-path: '/monitoring'
+    ...
+```
+
+## Configure management user roles
+
+By default authenticated users must have role "ACTUATOR" for successfull authorization to secured management endpoints. To use other/additional user roles (e.g. role "USER"), we configure them like this:
+
+```yml
+management:
+  ...
+  security:
+    enabled: true
+    roles: 'ACTUATOR, USER'
+    # ACTUATOR is default, but we add USER as workaround for not working application.yml name/password
+```
+
+This example is a workaround for a not yet working separation between actuator authorization and webapp authorization (sorry...).
