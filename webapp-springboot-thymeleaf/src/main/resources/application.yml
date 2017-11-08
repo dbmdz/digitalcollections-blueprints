@@ -15,11 +15,11 @@ info:
       version: @project.version@
 
 management:
-  context-path: /actuator
+  context-path: '/monitoring'
   port: 9001
   security:
-    enabled: true
-#    roles: SUPERUSER
+    enabled: false
+#    roles: 'ACTUATOR, SUPERUSER'
 
 security:
   headers:
@@ -31,19 +31,19 @@ security:
 server:
   context-path: "/"
   port: 9000
-  server-header: "Webapp Blueprint v@project.version@"
+  server-header: "@project.name@ v@project.version@"
 
 spring:
   profiles:
-    active: PROD
+    active: local
 
 ---
 
 management:
   security:
-    enabled: false
+    enabled: true
 
 spring:
-  profiles: local
+  profiles: PROD
   thymeleaf:
-    cache: false
+    cache: true

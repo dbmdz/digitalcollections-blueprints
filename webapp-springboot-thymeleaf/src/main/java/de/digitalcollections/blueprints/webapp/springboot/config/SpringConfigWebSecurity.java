@@ -12,6 +12,6 @@ public class SpringConfigWebSecurity extends WebSecurityConfigurerAdapter {
     // this config causes endpoints of webapp to be not secured through actuator security (what is wanted behaviour).
 
     // and this line is needed so that http basic authentication with configured username and password (in application.yml) is working again
-    http.authorizeRequests().antMatchers("/actuator").authenticated().and().httpBasic();
+    http.authorizeRequests().antMatchers("/monitoring").authenticated().and().httpBasic();
   }
 }

@@ -35,7 +35,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class, SpringConfigWebSecurity.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // set random webapp/server port
-@TestPropertySource(properties = {"management.port=0"}) // set random management port
+@TestPropertySource(properties = {"management.port=0", "management.security.enabled=true"}) // set random management port
 public class ApplicationTest {
 
   // "local" is not profile name, it is needed to use random port

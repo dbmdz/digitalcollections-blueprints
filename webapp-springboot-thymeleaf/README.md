@@ -14,9 +14,10 @@ Features documentation:
 - [doc/README-06-Security_configuration.md](doc/README-06-Security_configuration.md): Security configuration (unsecured webpage, secured actuator).
 - [doc/README-07-Logging.md](doc/README-07-Logging.md): Logging (Logback)
 - [doc/README-08-Unit_testing.md](doc/README-08-Unit_testing.md): Unit-Testing
+- [doc/README-09-Monitoring.md](doc/README-09-Monitoring.md): Monitoring
 
 ## Usage
 
 - Unsecured Webpage: <http://localhost:9000/>
-- Secured Actuator endpoint (HAL Browser): <http://localhost:9001/actuator>
-- (Un)Secured Actuator health-endpoint: <http://localhost:9001/actuator/health>
+- Secured Actuator endpoint (HAL Browser): <http://localhost:9001/monitoring>
+- (Un)Secured Actuator health-endpoint: <http://localhost:9001/monitoring/health>

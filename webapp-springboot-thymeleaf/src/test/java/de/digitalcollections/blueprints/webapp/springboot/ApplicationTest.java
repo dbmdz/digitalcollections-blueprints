@@ -21,7 +21,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class, SpringConfigWebSecurity.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // set random webapp/server port
-@TestPropertySource(properties = {"management.port=0"}) // set random management port
+@TestPropertySource(properties = {"management.port=0", "management.security.enabled=true"}) // set random management port
 public class ApplicationTest {
 
   // "local" is not profile name, it is needed to use random port
@@ -48,7 +48,7 @@ public class ApplicationTest {
   public void shouldReturn200WhenSendingAuthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<Map> entity = this.testRestTemplate.withBasicAuth("admin", "secret").getForEntity(
-            "http://localhost:" + this.mgt + "/actuator/env", Map.class);
+            "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
 
     then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
@@ -57,7 +57,7 @@ public class ApplicationTest {
   public void shouldReturn401WhenSendingUnauthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-            "http://localhost:" + this.mgt + "/actuator/env", Map.class);
+            "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
 
     then(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
   }
