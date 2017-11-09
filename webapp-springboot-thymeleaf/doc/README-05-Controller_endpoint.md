@@ -98,6 +98,15 @@ For Thymeleaf we add the necessary dependencies
 ```
 
 As the Spring Boot starter for Thymeleaf provided older versions, we added explicitely versions.
+(see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-use-thymeleaf-3)
+
+To avoid warnings about deprecated thymelaf template mode, we add to the application.yml configuration:
+
+```yml
+spring:
+  thymeleaf:
+    mode: HTML
+```
 
 ### pom.xml (resource filtering)
 
