@@ -18,10 +18,12 @@ management:
   context-path: '/monitoring'
   port: 9001
   security:
-    enabled: false
+    enabled: true
 #    roles: 'ACTUATOR, SUPERUSER'
 
 security:
+  basic:
+    enabled: false
   headers:
     cache: false
   user:

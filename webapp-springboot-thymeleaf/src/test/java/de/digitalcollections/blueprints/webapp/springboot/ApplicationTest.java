@@ -1,6 +1,5 @@
 package de.digitalcollections.blueprints.webapp.springboot;
 
-import de.digitalcollections.blueprints.webapp.springboot.config.SpringConfigWebSecurity;
 import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +18,7 @@ import static org.assertj.core.api.BDDAssertions.then;
  * Basic integration tests for webapp endpoints.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {Application.class, SpringConfigWebSecurity.class},
+@SpringBootTest(classes = {Application.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // set random webapp/server port
 @TestPropertySource(properties = {"management.port=0", "management.security.enabled=true"}) // set random management port
 public class ApplicationTest {
