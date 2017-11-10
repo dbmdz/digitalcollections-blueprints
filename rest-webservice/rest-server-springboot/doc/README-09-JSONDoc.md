@@ -30,17 +30,15 @@ File 'pom.xml':
 
 see <http://jsondoc.org/configuration.html>
 
-File 'src/main/resources/application.properties':
-
-```
-# mandatory configuration
-jsondoc.version=1.0
-jsondoc.basePath=http://localhost:8080
-jsondoc.packages[0]=de.digitalcollections.template.rest.server.frontend.impl.controller
-#jsondoc.packages[1]=com.example.model
-# optional configuration
-jsondoc.playgroundEnabled=true
-jsondoc.displayMethodAs=URI
+File 'src/main/resources/application.yml':
+```yml
+jsondoc:
+  version: <version of your API>
+  basePath: http://localhost:8080/jsondoc
+  packages:
+    - org.mdz.dzp.rest.search.server
+  playgroundEnabled: true
+  displayMethodAs: URI 
 ```
 
 Mandatory configuration properties

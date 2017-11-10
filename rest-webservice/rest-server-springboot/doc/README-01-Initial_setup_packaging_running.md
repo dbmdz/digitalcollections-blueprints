@@ -18,7 +18,7 @@ src/main/java/de/digitalcollections/template/rest/server/Application.java
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.4.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
     </parent>
 
     <name>DigitalCollections: Blueprints 3: REST Webservice Server (Frontend IMPL Spring Boot)</name>
@@ -52,7 +52,7 @@ src/main/java/de/digitalcollections/template/rest/server/Application.java
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-<version>1.5.4.RELEASE</version>
+<version>1.5.8.RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -98,7 +98,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.4.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -126,7 +126,8 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>1.5.4.RELEASE</version>
+        <version>1.5.8.RELEASE</version>
+        <!-- TODO oder: <version>${version.spring-boot-maven-plugin}</version> -->
         <executions>
           <execution>
             <goals>
@@ -163,7 +164,7 @@ In case you want to overlay/use the resulting Spring Boot JAR as dependency in a
 <plugin>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-maven-plugin</artifactId>
-  <version>1.5.4.RELEASE</version>
+  <version>1.5.8.RELEASE</version>
   <executions>
     <execution>
       <goals>
@@ -252,10 +253,10 @@ Logging output is displayed. The service should be up and running within a few s
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v1.5.4.RELEASE)
+ :: Spring Boot ::        (v1.5.8.RELEASE)
 
 [2017-07-05 13:27:25,652  INFO] tions.blueprints.rest.server.Application:  48 [main    ] - Starting Application on ralf-linux with PID 8702 (/home/ralf/DEV/SOURCES/blueprints/rest-webservice/rest-server-springboot/target/classes started by ralf in /home/ralf/DEV/SOURCES/blueprints/rest-webservice/rest-server-springboot)
-[2017-07-05 13:27:25,655 DEBUG] tions.blueprints.rest.server.Application:  51 [main    ] - Running with Spring Boot v1.5.4.RELEASE, Spring v4.3.9.RELEASE
+[2017-07-05 13:27:25,655 DEBUG] tions.blueprints.rest.server.Application:  51 [main    ] - Running with Spring Boot v1.5.8.RELEASE, Spring v4.3.9.RELEASE
 [2017-07-05 13:27:25,655  INFO] tions.blueprints.rest.server.Application: 597 [main    ] - The following profiles are active: local
 ...
 [2017-07-05 13:27:29,145  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 201 [main    ] - Tomcat started on port(s): 8080 (http)
