@@ -50,9 +50,11 @@ To expand info properties **at build time** (so you have to recompile if you cha
 
 The useDefaultDelimiters property is important if you are using standard Spring placeholders in your configuration (e.g. ${foo}). These may be expanded by the build if that property is not set to false.
 
-## Maven Compiler Source and Target version
+## Maven Compiler configuration
 
-To output the dedicated source and target compiler version, we add the Maven compiler plugin and the according properties (see <https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html>):
+To output the dedicated source and target compiler version, we add the Maven compiler plugin and the according properties (see <https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html>).
+
+Even if the info output already has shown "UTF-8" as project encoding, it is safer to explicitely add it to the properties with the default key "project.build.sourceEncoding":
 
 ### pom.xml
 
@@ -60,6 +62,7 @@ To output the dedicated source and target compiler version, we add the Maven com
 <properties>
   <maven.compiler.source>1.8</maven.compiler.source>
   <maven.compiler.target>1.8</maven.compiler.target>
+  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 </properties>
 ...
 <build>
@@ -70,6 +73,8 @@ To output the dedicated source and target compiler version, we add the Maven com
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.7.0</version>
         <configuration>
+          <showDeprecation>true</showDeprecation>
+          <encoding>${project.build.sourceEncoding}</encoding>
           <source>${maven.compiler.source}</source>
           <target>${maven.compiler.target}</target>
         </configuration>
@@ -89,18 +94,6 @@ info:
     java:
       source: @maven.compiler.source@
       target: @maven.compiler.target@
-```
-
-## Default project encoding
-
-Even if the info output already has shown "UTF-8" as project encoding, it is safer to explicitely add it to the properties with the default key "project.build.sourceEncoding":
-
-### pom.xml
-
-```xml
-<properties>
-  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-</properties>
 ```
 
 ## Project information
