@@ -71,6 +71,32 @@ This template is rather short as we use the Thymeleaf decorator-layout functiona
 
 For Thymeleaf we add the necessary dependencies
 
+### Replace white label error page
+
+By default we get the "Whitelabel error page" when an exception in the application occurs.
+To replace it with an error page that uses our design / base template, we just place an error.html template in "src/main/resources/templates":
+
+File `src/main/resources/templates/error.html`:
+
+```html
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+  <body>
+    <section layout:fragment="content">
+
+      <h3>Uuups!</h3>
+      
+      <h1>Error <span th:text="${ status }">404</span></h1>
+      <p th:text="${error}">...</p>
+      <p th:text="${message}">...</p>
+      <p th:text="${path}">...</p>
+    </section>
+  </body>
+</html>
+```
+
 ### pom.xml (Dependencies)
 
 ```xml
