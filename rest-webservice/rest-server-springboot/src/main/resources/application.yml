@@ -1,3 +1,9 @@
+# Custom properties section START
+custom:
+  pathToUserProperties: classpath:users.properties
+
+# Custom properties section END
+
 spring:
   profiles:
     active: local
@@ -22,6 +28,7 @@ info:
 
 # mandatory configuration
 jsondoc:
+  basePath: http://localhost:9000
   version: 1.0
   packages[0]: de.digitalcollections.blueprints.rest.server.controller
   #packages[1]: com.example.model
@@ -32,6 +39,8 @@ jsondoc:
 # Deactivate security for sensitive actuator endpoints (DO NOT USE ON A PUBLIC ACCESSIBLE SYSTEM!!!)
 management:
   port: 9001
+  security:
+    enabled: false
 
 security:
   headers:
@@ -42,24 +51,18 @@ server:
   port: 9000
   server-header: "DigitalCollections Blueprint REST Server v@project.version@"
 
-# user "database"
-pathToUserProperties: file:///local/users.properties
-
 ---
 
-spring:
-  profiles: local
-jsondoc:
-  basePath: http://localhost:9000
-management:
-  security:
-    enabled: false
----
-
-spring:
-  profiles: PROD
+# PROD
+custom:
+  pathToUserProperties: file:///local/users.properties
+  
 jsondoc:
   basePath: https://www.myrestserver.com:9000
+
 management:
   security:
     enabled: true
+
+spring:
+  profiles: PROD

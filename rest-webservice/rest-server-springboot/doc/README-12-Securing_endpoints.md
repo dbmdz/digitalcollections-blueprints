@@ -234,10 +234,9 @@ For reading the properties file (e.g. from location `file:///local/users.propert
 ```java
 package de.digitalcollections.blueprints.rest.server.service.impl;
 
-import java.io.IOException;
 import java.util.Properties;
-import javax.annotation.PostConstruct;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.UrlResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -246,16 +245,16 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.stereotype.Service;
 
-@ConfigurationProperties
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, InitializingBean {
 
+  @Value("${custom.pathToUserProperties}")
   private String pathToUserProperties;
 
   private InMemoryUserDetailsManager repository;
 
-  @PostConstruct
-  public void initialize() throws IOException {
+  @Override
+  public void afterPropertiesSet() throws Exception {
     UrlResource resource = new UrlResource(pathToUserProperties);
     Properties users = PropertiesLoaderUtils.loadProperties(resource);
     repository = new InMemoryUserDetailsManager(users);
@@ -265,27 +264,25 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return repository.loadUserByUsername(username);
   }
-
-  public void setPathToUserProperties(String pathToUserProperties) {
-    this.pathToUserProperties = pathToUserProperties;
-  }
 }
+
 ```
 
-As you can see you can read property values from `application.properties/.yml` by adding `@ConfigurationProperties` annotation and providing a setter-method for the configurable member variable `pathToUserProperties`. To make sure the value is set we use it in a `@PostConstruct` annotated `initialize()`-method. If you try to use it directly in a default constructor you will experience that it is not set, yet (will be null).
+As you can see you can read property values from `application.properties/.yml` by adding `@Value` annotation for the configurable member variable `pathToUserProperties`. To make sure the value is set we use it in an 'afterPropertiesSet'-method (introduced with InitializingBean interface). If you try to use it directly in a default constructor you will experience that it is not set, yet (will be null).
 
 File `src/main/resources/application.yml`:
 
 ```yml
 ...
-# user "database"
-pathToUserProperties: file:///local/users.properties
+# user "database" for local profile
+custom:
+  pathToUserProperties: classpath:users.properties
 ...
 ```
 
 The users.properties entries must have (at a minimum) as value (comma separated) password and authorities
 
-File `/local/users.properties`:
+File `users.properties`:
 
 ```ini
 user1=password1,USER
