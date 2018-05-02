@@ -113,17 +113,12 @@ info:
       version: @project.version@
 ```
 
-## Response Sample
+### Response Sample
 
-Response to http://localhost:9001/info.json:
+Response to http://localhost:9001/monitoring/info:
 
 ```json
 {
-  "_links": {
-    "self": {
-      "href": "http://localhost:9001/info.json"
-    }
-  },
   "app": {
     "project": {
       "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)",
@@ -139,3 +134,51 @@ Response to http://localhost:9001/info.json:
   }
 }
 ```
+
+### Add build details
+
+#### pom.xml
+
+```xml
+<plugin>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-maven-plugin</artifactId>
+  <executions>
+    <execution>
+      <goals>
+        <goal>build-info</goal>
+                ...
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+```
+
+#### Sample Response
+
+```json
+{
+  "app": {
+    "encoding": "UTF-8",
+    "java": {
+      "source": 1.8,
+      "target": 1.8
+    },
+    "project": {
+      "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)",
+      "groupId": "de.digitalcollections.blueprints",
+      "artifactId": "webapp-springboot-thymeleaf",
+      "version": "1.0.0-SNAPSHOT"
+    }
+  },
+  "build": {
+    "version": "1.0.0-SNAPSHOT",
+    "artifact": "webapp-springboot-thymeleaf",
+    "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)",
+    "group": "de.digitalcollections.blueprints",
+    "time": "2018-05-02T11:39:11.772Z"
+  }
+}
+```
+
+So the build info duplicates our project info and adds a timestamp. So we could remove duplicate project-values from application.yml...

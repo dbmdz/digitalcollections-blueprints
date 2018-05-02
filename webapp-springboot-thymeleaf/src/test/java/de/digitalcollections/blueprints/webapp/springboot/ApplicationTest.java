@@ -4,9 +4,10 @@ import java.util.Map;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
@@ -20,15 +21,13 @@ import static org.assertj.core.api.BDDAssertions.then;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {Application.class},
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // set random webapp/server port
-@TestPropertySource(properties = {"management.port=0", "management.security.enabled=true"}) // set random management port
+@TestPropertySource(properties = {"management.server.port=0"}) // set random management port
 public class ApplicationTest {
 
-  // "local" is not profile name, it is needed to use random port
-  @Value("${local.server.port}")
+  @LocalServerPort
   private int port;
 
-  // "local" is not profile name, it is needed to use random port
-  @Value("${local.management.port}")
+  @LocalManagementPort
   private int mgt;
 
   @Autowired
