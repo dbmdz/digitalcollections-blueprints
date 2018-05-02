@@ -38,6 +38,8 @@ server:
 spring:
   profiles:
     active: local
+  thymeleaf:
+    cache: false
 
 ---
 
