@@ -26,9 +26,6 @@
     <!--<version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>-->
     <version.spring-boot-dependencies>2.0.1.RELEASE</version.spring-boot-dependencies>
     <version.spring-boot-maven-plugin>2.0.1.RELEASE</version.spring-boot-maven-plugin>
-        <!--<version.thymeleaf>3.0.7.RELEASE</version.thymeleaf>-->
-    <!--<version.thymeleaf-layout-dialect>2.2.2</version.thymeleaf-layout-dialect>-->
-    <!--<version.thymeleaf-spring4>3.0.7.RELEASE</version.thymeleaf-spring4>-->
   </properties>
   
   <dependencyManagement>
@@ -53,13 +50,6 @@
     <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
-      <!--<version>${version.thymeleaf-layout-dialect}</version>-->
-    </dependency>
-    <dependency>
-      <!-- Once you’re done with the migration, please make sure to remove this module from your project’s dependencies.-->
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-properties-migrator</artifactId>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -86,16 +76,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
-    <!--    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf</artifactId>
-      <version>${version.thymeleaf}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.thymeleaf</groupId>
-      <artifactId>thymeleaf-spring4</artifactId>
-      <version>${version.thymeleaf-spring4}</version>
-    </dependency>-->
     <dependency>
       <groupId>org.webjars</groupId>
       <artifactId>hal-browser</artifactId>

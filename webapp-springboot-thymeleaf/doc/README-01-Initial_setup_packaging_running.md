@@ -39,7 +39,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>2.0.1.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -67,7 +67,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>1.5.8.RELEASE</version>
+        <version>2.0.1.RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -104,7 +104,7 @@ In case you want to overlay/use the resulting Spring Boot JAR as dependency in a
 <plugin>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-maven-plugin</artifactId>
-  <version>1.5.8.RELEASE</version>
+  <version>2.0.1.RELEASE</version>
   <executions>
     <execution>
       <goals>
@@ -193,7 +193,7 @@ Logging output is displayed. The webapp should be up and running within a few se
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v1.5.8.RELEASE)
+ :: Spring Boot ::        (v2.0.1.RELEASE)
 
 ...
 [2017-10-16 15:09:08,279  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 201 [main    ] - Tomcat started on port(s): 8080 (http)

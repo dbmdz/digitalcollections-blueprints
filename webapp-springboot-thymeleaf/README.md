@@ -24,10 +24,11 @@ Features documentation:
 
 ## Migration notes from Spring Boot 1.5.8 to Spring Boot 2.0.1
 
-see <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide>
-see <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-Security-2.0>
-see <http://www.baeldung.com/spring-boot-actuators#boot-2x-actuator>
-see <https://ultraq.github.io/thymeleaf-layout-dialect/MigrationGuide.html>
+see
+- <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide>
+- <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-Security-2.0>
+- <http://www.baeldung.com/spring-boot-actuators#boot-2x-actuator>
+- <https://ultraq.github.io/thymeleaf-layout-dialect/MigrationGuide.html>
 
 ### application.yml
 
