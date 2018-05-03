@@ -40,6 +40,10 @@ management.port -> management.server.port
 security.user.name -> spring.security.user.name
 security.user.password -> spring.security.user.password
 server.context-path -> server.servlet.context-path
+spring.http.multipart.file-size-threshold -> spring.servlet.multipart.file-size-threshold
+spring.http.multipart.location -> spring.servlet.multipart.location
+spring.http.multipart.max-file-size -> spring.servlet.multipart.max-file-size
+spring.http.multipart.max-request-size -> spring.servlet.multipart.max-request-size
 ```
 
 WARNING: Make sure to merge separate spring-sections into one! (otherwise only the last section is used)
@@ -119,6 +123,20 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   }
 
 }
+```
+
+If you have also setup security for your webapp controllers, you have to explicitely allow access to static resources:
+
+```java
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
+
+@Configuration
+public class SpringConfigSecurityWebapp extends WebSecurityConfigurerAdapter {
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
+    http.authorizeRequests().antMatchers("/api/**", "/setup/**").permitAll();
 ```
 
 ### Thymeleaf
