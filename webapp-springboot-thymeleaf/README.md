@@ -30,6 +30,33 @@ see
 - <http://www.baeldung.com/spring-boot-actuators#boot-2x-actuator>
 - <https://ultraq.github.io/thymeleaf-layout-dialect/MigrationGuide.html>
 
+### pom.xml
+
+Add temporarily Migrator-dependency:
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-properties-migrator</artifactId>
+  <scope>runtime</scope>
+</dependency>
+```
+
+Upgrade Logback-Logstash-Encoder to version 5.1:
+
+```xml
+<properties>
+  <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
+</properties>
+
+<dependency>
+  <groupId>net.logstash.logback</groupId>
+  <artifactId>logstash-logback-encoder</artifactId>
+  <version>${version.logstash-logback-encoder}</version>
+  <scope>runtime</scope>
+</dependency>
+```
+
 ### application.yml
 
 Rename properties:
@@ -39,7 +66,7 @@ management.context-path / management.server.servlet.context-path -> management.e
 management.port -> management.server.port
 security.user.name -> spring.security.user.name
 security.user.password -> spring.security.user.password
-server.context-path -> server.servlet.context-path
+server.context-path / server.contextPath -> server.servlet.context-path
 spring.http.multipart.file-size-threshold -> spring.servlet.multipart.file-size-threshold
 spring.http.multipart.location -> spring.servlet.multipart.location
 spring.http.multipart.max-file-size -> spring.servlet.multipart.max-file-size
