@@ -32,6 +32,23 @@ see
 
 ### pom.xml
 
+Upgrade Spring Boot version:
+
+```xml
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <!-- Import dependency management from Spring Boot -->
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-dependencies</artifactId>
+      <version>2.0.1.RELEASE</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
 Add temporarily Migrator-dependency:
 
 ```xml
@@ -117,6 +134,22 @@ Remove test properties:
 
 ```java
 @TestPropertySource(properties = {..., "management.security.enabled=true"})
+```
+
+### Spring MVC
+
+Remove deprecated "extends WebMvcConfigurerAdapter". Just replace with "implements WebMvcConfigurer".
+
+Remove "setIgnoreDefaultModelOnRedirect(true)" from MVC configuration. It is "true" by default now (application.yml: spring.mvc.ignore-default-model-on-redirect=true)
+
+```java
+  @Autowired
+  private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
+  }
 ```
 
 ### Spring Security
