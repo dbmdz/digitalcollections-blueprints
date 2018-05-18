@@ -115,12 +115,32 @@ Management endpoints:
 
 Unlike in previous versions, Actuator comes with most endpoints disabled. Thus, the only two available by default are /health and /info. Would we want to enable all of them, we could set management.endpoints.web.exposure.include="*". Alternatively, we could list endpoints which should be enabled.
 
-### Unit tests
+User must have role "ACTUATOR" to get authorization for actuator endpoints:
+
+```yml
+spring:
+  security:
+    user:
+      name: admin
+      password: secret
+      roles: ACTUATOR
+```
+
+### JUnit 5 tests
 
 Rename test properties:
 
 ```java
 @TestPropertySource(properties = {"management.port=0" ...}) -> @TestPropertySource(properties = {"management.server.port=0" ...})
+```
+
+Add to pom.xml
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-actuator-autoconfigure</artifactId>
+</dependency>
 ```
 
 Change:
@@ -135,6 +155,70 @@ Remove test properties:
 ```java
 @TestPropertySource(properties = {..., "management.security.enabled=true"})
 ```
+
+Add to pom.xml:
+
+```xml
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-api</artifactId>
+  <scope>test</scope>
+</dependency>
+```
+
+Exclude Junit 4 dependency:
+
+```
+<dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+ <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+```
+Replace:
+
+```
+@RunWith(SpringRunner.class) -> @ExtendWith(SpringExtension.class)
+@BeforeClass -> @BeforeAll
+@Before -> @BeforeEach
+org.junit.Test -> org.junit.jupiter.api.Test
+@Ignore -> @Disabled
+```
+
+Replace JUnit Exception tests:
+
+```java
+old:
+
+@Test(expected = CliException.class) { ... }
+
+new:
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.catchThrowable;
+
+Throwable thrown = catchThrowable(() -> {
+  new Cli(printWriter, "--rules=doesnothexist.yml");
+});
+assertThat(thrown).isInstanceOf(CliException.class);
+```
+
 
 ### Spring MVC
 
@@ -197,6 +281,25 @@ public class SpringConfigSecurityWebapp extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests().requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
     http.authorizeRequests().antMatchers("/api/**", "/setup/**").permitAll();
+```
+
+If you get weired exception like this
+
+```sh
+org.thymeleaf.exceptions.TemplateProcessingException: Error during execution of processor 'org.thymeleaf.spring5.processor.SpringActionTagProcessor'
+...
+Caused by: java.lang.IllegalStateException: Cannot create a session after the response has been committed
+```
+
+The root cause is csrf-Protection.
+see <https://docs.spring.io/spring-security/site/docs/current/reference/html/csrf.html>
+
+Disable CSRF or define a CSRF-TokenRepository:
+
+```java
+http.csrf().disable();
+
+http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 ```
 
 ### Thymeleaf
