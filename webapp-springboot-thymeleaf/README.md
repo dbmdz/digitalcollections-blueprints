@@ -210,15 +210,34 @@ old:
 
 new:
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
-Throwable thrown = catchThrowable(() -> {
+assertThatThrownBy(() -> {
   new Cli(printWriter, "--rules=doesnothexist.yml");
-});
-assertThat(thrown).isInstanceOf(CliException.class);
+}).isInstanceOf(CliException.class);
 ```
 
+Update to the latest version of `maven-surefire-plugin`:
+
+```xml
+<version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
+```
+
+Add dependency `junit-platform-surefire-provider`:
+
+```xml
+<plugin>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>${version.maven-surefire-plugin}</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-surefire-provider</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+  </dependencies>
+</plugin>
+```
 
 ### Spring MVC
 
@@ -344,3 +363,41 @@ new:
 
 - "$DECORATOR_TITLE renamed to $LAYOUT_TITLE": $DECORATOR_TITLE -> $LAYOUT_TITLE
 - "Deprecated include, introduced insert": th:include -> th:insert
+
+### Monitoring
+
+Replace
+
+```xml
+<version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>
+...
+<dependency>
+  <groupId>com.moelholm</groupId>
+  <artifactId>prometheus-spring-boot-starter</artifactId>
+  <version>${version.prometheus-spring-boot-starter}</version>
+</dependency>
+```
+
+with
+
+```xml
+<version.micrometer-registry-prometheus>1.0.1</version.micrometer-registry-prometheus>
+...
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+  <version>${version.micrometer-registry-prometheus}</version>
+</dependency>xml
+```
+
+Add to `application.yml`:
+
+```json
+management:
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include:
+          - prometheus
+```
