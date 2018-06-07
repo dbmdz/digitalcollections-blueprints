@@ -27,7 +27,7 @@ server:
 Example response showing server header "Webapp Blueprint v1.0.0-SNAPSHOT":
 
 ```sh
-$ curl -i http://localhost:9000/health
+$ curl -i http://localhost:9001/monitoring/health
 HTTP/1.1 200 
 Content-Type: application/vnd.spring-boot.actuator.v1+json;charset=UTF-8
 Transfer-Encoding: chunked
@@ -135,4 +135,4 @@ In the second section (separated by dashes) we set environment "PROD" specific c
 
 A list of common application properties can be found here: <https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html>.
 
-After starting the application you can get the list of all properties from this endpoint: <http://localhost:9001/configprops>.
+After starting the application you can get the list of all properties from this endpoint: <http://localhost:9001/monitoring/configprops>.
