@@ -114,7 +114,7 @@ $ curl -i localhost:8080/health
 - Sample "/health" (with authentication) request and response:
 
 ```sh
-$ curl-u admin:secret http://localhost:8080/health
+$ curl -u admin:secret http://localhost:8080/health
 {
   "status" : "UP",
   "diskSpace" : {
