@@ -69,16 +69,16 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
   ...
   <plugins>
     <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.7.0</version>
-        <configuration>
-          <showDeprecation>true</showDeprecation>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
-        </configuration>
-      </plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.7.0</version>
+      <configuration>
+        <showDeprecation>true</showDeprecation>
+        <encoding>${project.build.sourceEncoding}</encoding>
+        <source>${maven.compiler.source}</source>
+        <target>${maven.compiler.target}</target>
+      </configuration>
+    </plugin>
     ...
   </plugins>
   ...
