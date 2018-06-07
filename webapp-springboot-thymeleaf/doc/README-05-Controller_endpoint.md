@@ -182,6 +182,11 @@ Another (more convenient and error preventing) option is to define two sections 
   </resources>
 ```
 
+### Static files
+
+By convention static files like javascript, css and images should be placed in the "src/resources/static/{css,images,js}" subdirectories.
+
+
 ## Web Security
 
 
