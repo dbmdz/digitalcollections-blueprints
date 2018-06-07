@@ -13,4 +13,4 @@ COPY test-classes/users.properties /local/
 
 RUN sh -c 'touch /app.jar'
 
-ENTRYPOINT [ "sh", "-c", "java -Dspring-Djava.security.egd=file:/dev/./urandom -jar /app.jar --server.address=0.0.0.0" ]
+ENTRYPOINT [ "sh", "-c", "java -Djava.security.egd=file:/dev/./urandom -jar /app.jar --server.address=0.0.0.0 --custom.pathToUserProperties=file:///local/users.properties" ]
