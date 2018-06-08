@@ -120,7 +120,8 @@ File `src/main/resources/templates/error.html`:
     <artifactId>thymeleaf-spring4</artifactId>
     <version>3.0.7.RELEASE</version>
   </dependency>
-...
+  ...
+</dependencies>
 ```
 
 As the Spring Boot starter for Thymeleaf provided older versions, we added explicitely versions.
@@ -180,11 +181,12 @@ Another (more convenient and error preventing) option is to define two sections 
       </includes>
     </resource>
   </resources>
+</build>
 ```
 
 ### Static files
 
-By convention static files like javascript, css and images should be placed in the "src/resources/static/{css,images,js}" subdirectories.
+By Spring Boot convention static files like javascript, css and images are automatically detected when placed in the "src/main/resources/static/{css,images,js}" subdirectories.
 
 
 ## Web Security
