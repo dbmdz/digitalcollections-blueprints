@@ -23,6 +23,7 @@
     
     <version.maven-compiler-plugin>3.7.0</version.maven-compiler-plugin>
     <version.maven-resources-plugin>3.0.2</version.maven-resources-plugin>
+    <version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
     <!--<version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>-->
     <version.spring-boot-dependencies>2.0.1.RELEASE</version.spring-boot-dependencies>
     <version.spring-boot-maven-plugin>2.0.1.RELEASE</version.spring-boot-maven-plugin>
@@ -80,6 +81,37 @@
       <groupId>org.webjars</groupId>
       <artifactId>hal-browser</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
   
   <build>
@@ -132,6 +164,17 @@
         <configuration>
           <classifier>exec</classifier>
         </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.maven-surefire-plugin}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-surefire-provider</artifactId>
+            <version>1.2.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
