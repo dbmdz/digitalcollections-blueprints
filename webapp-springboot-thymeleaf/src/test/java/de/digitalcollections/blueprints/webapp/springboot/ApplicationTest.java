@@ -1,33 +1,44 @@
 package de.digitalcollections.blueprints.webapp.springboot;
 
+import de.digitalcollections.blueprints.webapp.springboot.config.SpringConfigWeb;
+
 import java.util.Map;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+
 
 import static org.assertj.core.api.BDDAssertions.then;
+
 
 /**
  * Basic integration tests for webapp endpoints.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {Application.class},
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // set random webapp/server port
+
+@ExtendWith(SpringExtension.class)
+@SpringBootApplication
+@SpringBootTest(classes = {Application.class, SpringConfigWeb.class},
+    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // set random webapp/server port
 @TestPropertySource(properties = {"management.server.port=0"}) // set random management port
 public class ApplicationTest {
 
-  @LocalServerPort
+  // "local" is not profile name, it is needed to use random port
+  @LocalServerPort //("${local.server.port}")
   private int port;
 
-  @LocalManagementPort
+  // "local" is not profile name, it is needed to use random port
+  @LocalManagementPort //("${local.management.port}")
   private int mgt;
 
   @Autowired
@@ -37,7 +48,7 @@ public class ApplicationTest {
   public void shouldReturn200WhenSendingRequestToRoot() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<String> entity = this.testRestTemplate.getForEntity(
-            "http://localhost:" + this.port + "/", String.class);
+        "http://localhost:" + this.port + "/", String.class);
 
     then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
@@ -46,7 +57,7 @@ public class ApplicationTest {
   public void shouldReturn200WhenSendingAuthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<Map> entity = this.testRestTemplate.withBasicAuth("admin", "secret").getForEntity(
-            "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
+        "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
 
     then(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
@@ -55,9 +66,8 @@ public class ApplicationTest {
   public void shouldReturn401WhenSendingUnauthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     @SuppressWarnings("rawtypes")
     ResponseEntity<Map> entity = this.testRestTemplate.getForEntity(
-            "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
+        "http://localhost:" + this.mgt + "/monitoring/env", Map.class);
 
     then(entity.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
   }
-
 }
