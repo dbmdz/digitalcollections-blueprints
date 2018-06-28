@@ -7,9 +7,9 @@ pom.xml
 src/main/java/de/digitalcollections/blueprints/webapp/springboot/Application.java
 ```
 
-## Basic pom.xml
+## Basic `pom.xml`
 
-As we do not want to have Spring Boot as parent (we have another one), we modify the pom.xml like described here: (see <http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-maven-without-a-parent>):
+As we do not want to have Spring Boot as parent (we have another one), we modify the `pom.xml` like described here: (see <http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-maven-without-a-parent>):
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -80,17 +80,17 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
   </build>
 </project>
 ```
-By using spring-boot-dependencies this way you can still keep the benefit of the Spring Boot dependency management, but not the plugin management. Therefore we also had to introduce the version for the spring-boot-maven-plugin.
+By using spring-boot-dependencies this way you can still keep the benefit of the Spring Boot dependency management, but not the plugin management. Therefore we also had to introduce the version for the `spring-boot-maven-plugin`.
 
 The Spring Boot Maven plugin provides many convenient features:
 
 - It collects all the jars on the classpath and builds a single, runnable "über-jar", which makes it more convenient to execute and transport your service.
-- It searches for the public static void main() method to flag as a runnable class.
+- It searches for the `public static void main()` method to flag as a runnable class.
 - It provides a built-in dependency resolver that sets the version number to match Spring Boot dependencies. You can override any version you wish, but it will default to Boot’s chosen set of versions.
 
 see <https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-plugins-maven-plugin.html>
 
-"If you don’t include the `<execution/>` configuration as above, you can run the plugin on its own (but only if the package goal is used as well). For example:
+If you don’t include the `<execution/>` configuration as above, you can run the plugin on its own (but only if the package goal is used as well). For example:
 
 ```sh
 $ mvn package spring-boot:repackage
@@ -131,7 +131,7 @@ There are three starters added as dependencies (see <http://docs.spring.io/sprin
 - **spring-boot-starter-test**: Starter for testing Spring Boot applications with libraries including JUnit, Hamcrest and Mockito.
 - **spring-boot-starter-web**: Starter for building web, including RESTful, applications using Spring MVC. Uses Tomcat as the default embedded container.
 
-## Basic Application.java
+## Basic `Application.java`
 
 ```java
 package de.digitalcollections.blueprints.webapp.springboot;
@@ -152,7 +152,7 @@ The `@SpringBootApplication` annotation provides a load of defaults (like the em
 
  - `@Configuration` tags the class as a source of bean definitions for the application context.
  - `@EnableAutoConfiguration` tells Spring Boot to start adding beans based on classpath settings, other beans, and various property settings.
- - Normally you would add `@EnableWebMvc` for a Spring MVC app, but Spring Boot adds it automatically when it sees spring-webmvc on the classpath. This flags the application as a web application and activates key behaviors such as setting up a DispatcherServlet.
+ - Normally you would add `@EnableWebMvc` for a Spring MVC app, but Spring Boot adds it automatically when it sees `spring-webmvc` on the classpath. This flags the application as a web application and activates key behaviors such as setting up a `DispatcherServlet`.
  - `@ComponentScan` tells Spring to look for other components, configurations, and services in the current package (and subpackages), allowing it to find controllers, too.
 
 ## Build a classic WAR file
