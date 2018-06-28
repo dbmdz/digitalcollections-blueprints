@@ -1,12 +1,12 @@
 # Application information
 
-see <http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-application-info>
+See <http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-application-info>
 
-Application information exposes various information collected from all InfoContributor beans defined in your ApplicationContext. Spring Boot includes a number of auto-configured InfoContributors and you can also write your own.
+Application information exposes various information collected from all InfoContributor beans defined in your `ApplicationContext`. Spring Boot includes a number of auto-configured `InfoContributors` and you can also write your own.
 
-You can customize the data exposed by the info endpoint by setting info.* Spring properties. All Environment properties under the info key will be automatically exposed. For example, you could add the following to your application.yml:
+You can customize the data exposed by the info endpoint by setting `info.*` Spring properties. All Environment properties under the `info` key will be automatically exposed. For example, you could add the following to your `application.yml`:
 
-## application.yml
+## `application.yml`
 
 ```yml
 info:
@@ -17,9 +17,9 @@ info:
       target: @maven.compiler.target@
 ```
 
-To expand info properties **at build time** (so you have to recompile if you change application.yml) we also have to configure Maven accordingly (see http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-automatic-expansion).
+To expand info properties **at build time** (so you have to recompile if you change `application.yml`) we also have to configure Maven accordingly (see <http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-automatic-expansion>).
 
-## pom.xml
+## `pom.xml`
 
 ```xml
 ...
@@ -48,15 +48,15 @@ To expand info properties **at build time** (so you have to recompile if you cha
 </build>
 ```
 
-The useDefaultDelimiters property is important if you are using standard Spring placeholders in your configuration (e.g. ${foo}). These may be expanded by the build if that property is not set to false.
+The `useDefaultDelimiters` property is important if you are using standard Spring placeholders in your configuration (e.g. `${foo}`). These may be expanded by the build if that property is not set to `false`.
 
 ## Maven Compiler configuration
 
 To output the dedicated source and target compiler version, we add the Maven compiler plugin and the according properties (see <https://maven.apache.org/plugins/maven-compiler-plugin/examples/set-compiler-source-and-target.html>).
 
-Even if the info output already has shown "UTF-8" as project encoding, it is safer to explicitely add it to the properties with the default key "project.build.sourceEncoding":
+Even if the info output already has shown "UTF-8" as project encoding, it is safer to explicitely add it to the properties with the default key `project.build.sourceEncoding`:
 
-### pom.xml
+### `pom.xml`
 
 ```xml
 <properties>
@@ -85,7 +85,7 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
 </build>
 ```
 
-### application.yml
+### `application.yml`
 
 ```yml
 info:
@@ -100,7 +100,7 @@ info:
 
 It also seems to be a good idea to output information about the application itself:
 
-### application.yml
+### `application.yml`
 
 ```yml
 info:
@@ -115,7 +115,7 @@ info:
 
 ### Response Sample
 
-Response to http://localhost:9001/monitoring/info:
+Response to <http://localhost:9001/monitoring/info>:
 
 ```json
 {
@@ -137,7 +137,7 @@ Response to http://localhost:9001/monitoring/info:
 
 ### Add build details
 
-#### pom.xml
+#### `pom.xml`
 
 ```xml
 <plugin>
@@ -181,4 +181,4 @@ Response to http://localhost:9001/monitoring/info:
 }
 ```
 
-So the build info duplicates our project info and adds a timestamp. So we could remove duplicate project-values from application.yml...
+So the build info duplicates our project info and adds a timestamp. So we could remove duplicate project-values from `application.yml`...
