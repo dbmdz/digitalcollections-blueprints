@@ -4,9 +4,9 @@ Spring Boot comes with logback by default, what we want to use because of json f
 
 ## Configuration
 
-We configure Logback using environment specific appenders. Be sure the config file is named "logback-spring.xml" to be able to use this feature:
+We configure Logback using environment specific appenders. Be sure the config file is named `logback-spring.xml` to be able to use this feature:
 
-src/main/resources/logback-spring.xml:
+In `src/main/resources/logback-spring.xml`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -64,7 +64,7 @@ src/main/resources/logback-spring.xml:
 </configuration>
 ```
 
-As you can see we added the LogstashEncoder as comment in our DEV, STG and PROD environments. Activating this (and deactivating pattern encoder) causes logback to log in JSON-format. In our blueprint we do this to be able to collect decentralized logfiles in a central Kibana/Elasticsearch-Logging index:
+As you can see we added the `LogstashEncoder` as comment in our `DEV`, `STG` and `PROD` environments. Activating this (and deactivating pattern encoder) causes logback to log in JSON-format. In our blueprint we do this to be able to collect decentralized logfiles in a central Kibana/Elasticsearch-Logging index:
 
 ```
 webapp -> logback -> logstash -> filebeats (collects logging files and inserts into) -> ElasticSearch -> Kibana
