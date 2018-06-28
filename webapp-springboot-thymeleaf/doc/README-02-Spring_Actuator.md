@@ -7,13 +7,13 @@ $ curl localhost:8080
 {"timestamp":1493900533248,"status":404,"error":"Not Found","message":"No message available","path":"/"}
 ```
 
-Instead of a default container-generated HTML error response, you see a generic JSON response from the Actuator /error endpoint. You can see in the console logs from the server startup which endpoints are provided out of the box.
+Instead of a default container-generated HTML error response, you see a generic JSON response from the Actuator `/error` endpoint. You can see in the console logs from the server startup which endpoints are provided out of the box.
 
 see <http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready>
 
 Spring Boot includes a number of additional features to help you monitor and manage your application when it’s pushed to production. You can choose to manage and monitor your application using HTTP endpoints, with JMX or even by remote shell (SSH or Telnet). Auditing, health and metrics gathering can be automatically applied to your application.
 
-The way that endpoints are exposed will depend on the type of technology that you choose. Most applications choose HTTP monitoring, where the ID of the endpoint is mapped to a URL. For example, by default, the health endpoint will be mapped to /health.
+The way that endpoints are exposed will depend on the type of technology that you choose. Most applications choose HTTP monitoring, where the ID of the endpoint is mapped to a URL. For example, by default, the health endpoint will be mapped to `/health`.
 
 ## Basic endpoints
 
@@ -49,19 +49,7 @@ If you are using Spring MVC, the following additional endpoints can also be used
 | /jolokia    | Exposes JMX beans over HTTP (when Jolokia is on the classpath). | true
 | /logfile    | Returns the contents of the logfile (if logging.file or logging.path properties have been set). Supports the use of the HTTP Range header to retrieve part of the log file’s content. | true
 
-By default all sensitive HTTP endpoints are secured such that only users that have an ACTUATOR role may access them. Security is enforced using the standard HttpServletRequest.isUserInRole method.
-
-### Unsecure actuator endpoints
-
-If you are deploying applications behind a firewall, you may prefer that all your actuator endpoints can be accessed without requiring authentication. You can do this by changing the management.security.enabled property:
-
-Create application configuration file src/main/resources/application.yml:
-
-```yml
-management:
-  security:
-    enabled: false
-```
+By default all sensitive HTTP endpoints are secured such that only users that have an `ACTUATOR` role may access them. Security is enforced using the standard `HttpServletRequest.isUserInRole` method.
 
 ### Secure actuator endpoints
 
@@ -80,29 +68,26 @@ File `pom.xml`:
   </dependency>
 ```
 
-You can use Spring application config to change the username and password and to change the security role(s) required to access the endpoints (default role for accessing is "ACTUATOR"). For example, you might set the following in your application.properties:
+You can use Spring application config to change the username and password and to change the security role(s) required to access the endpoints (default role for accessing is `ACTUATOR`). For example, you might set the following in your `application.properties`:
 
-`src/main/resources/application.yml`:
+In `src/main/resources/application.yml`:
 
 ```yml
-management:
+spring:
   security:
-    enabled: true
-#    roles: SUPERUSER
-
-security:
-  user:
-    name: admin
-    password: secret
+    user:
+      name: admin
+      password: secret
+      roles: ACTUATOR
 ```
 
-Some endpoints deliver different response content depending on with or without authentication (e.g. "/health").
+Some endpoints deliver different response content depending on with or without authentication (e.g. `/health`).
 
 ### Testing actuator endpoints
 
 Testing of endpoints can be done with the command line tool `curl` or directly in browser.
 
-- Sample "/health" (no authentication) request and response:
+- Sample `/health` (no authentication) request and response:
 
 ```sh
 $ curl -i localhost:8080/health
@@ -111,7 +96,7 @@ $ curl -i localhost:8080/health
 }
 ```
 
-- Sample "/health" (with authentication) request and response:
+- Sample `/health` (with authentication) request and response:
 
 ```sh
 $ curl -u admin:secret http://localhost:8080/health
@@ -126,11 +111,7 @@ $ curl -u admin:secret http://localhost:8080/health
 }
 ```
 
-## Endpoint "/actuator"
-
-If `endpoints:hypermedia:enabled:true` is added to`application.yml` and Spring HATEOAS is on the classpath (e.g. through the spring-boot-starter-hateoas or if you are using Spring Data REST) then the HTTP endpoints from the Actuator are enhanced with hypermedia links, and a “discovery page” is added with links to all the endpoints. The “discovery page” is available on `/actuator` by default. It is implemented as an endpoint, allowing properties to be used to configure its path (endpoints.actuator.path) and whether or not it is enabled (endpoints.actuator.enabled).
-
-### pom.xml
+### `pom.xml`
 
 ```xml
 ...
@@ -141,17 +122,9 @@ If `endpoints:hypermedia:enabled:true` is added to`application.yml` and Spring H
 ...
 ```
 
-### src/main/resources/application.yml
-
-```yml
-endpoints:
-  hypermedia:
-    enabled: true
-```
-
 ### Default response
 
-When requesting http://localhost:8080/actuator:
+When requesting <http://localhost:8080/actuator>:
 
 ```json
 {
@@ -204,9 +177,9 @@ When requesting http://localhost:8080/actuator:
 
 ## HAL Browser
 
-If the HAL Browser is on the classpath via its webjar (org.webjars:hal-browser), or via the spring-data-rest-hal-browser then an HTML “discovery page”, in the form of the HAL Browser, is also provided.
+If the HAL Browser is on the classpath via its webjar (`org.webjars:hal-browser`), or via the `spring-data-rest-hal-browser` then an HTML “discovery page”, in the form of the HAL Browser, is also provided.
 
-Add to pom.xml:
+Add to `pom.xml`:
 
 ```xml
 <dependency>
@@ -215,18 +188,18 @@ Add to pom.xml:
 </dependency>
 ```
 
-Screenshot http://localhost:8080/actuator:
+Screenshot <http://localhost:8080/actuator>:
 
 ![HAL-Browser](images/screenshot-hal-browser.png)
 
 ## Configure management endpoint port
 
-Spring Boot Actuator defaults to run on port 8080 (see <https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html#production-ready-customizing-management-server-port>). If you want to be able to restrict access to endpoint by firewall settings, you need a different port than the webapp/server port. Changing it to e.g. 9001 in application.yml:
+Spring Boot Actuator defaults to run on port 8080 (see <https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-monitoring.html#production-ready-customizing-management-server-port>). If you want to be able to restrict access to endpoint by firewall settings, you need a different port than the webapp/server port. Changing it to e.g. 9001 in `application.yml`:
 
 ```yml
 management:
-  port: 9001
-  security:
+  server:
+    port: 9001
     ...
 ```
 
@@ -241,17 +214,21 @@ For more configuration options see <https://docs.spring.io/spring-boot/docs/curr
 
 ## Configure management context
 
-By default actuator endpoints are "/actuator", "/health" etc. To group all endpoints under an dedicated context (to be able defining security rules for it), we configure the context e.g. to '/monitoring':
+By default actuator endpoints are `/actuator`, `/health` etc. To group all endpoints under an dedicated context (to be able defining security rules for it), we configure the context e.g. to `/monitoring`:
 
 ```yml
 management:
-  context-path: '/monitoring'
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include: '*'
     ...
 ```
 
 ## Configure management user roles
 
-By default authenticated users must have role "ACTUATOR" for successfull authorization to secured management endpoints. To use other/additional user roles (e.g. role "USER"), we configure them like this:
+By default authenticated users must have role `ACTUATOR` for successfull authorization to secured management endpoints. To use other/additional user roles (e.g. role `USER`), we configure them like this:
 
 ```yml
 management:
