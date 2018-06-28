@@ -8,7 +8,7 @@ Additional monitoring can be done by using e.g. [Prometheus](https://prometheus.
 
 There is already a Spring Boot package that simply can be added as Maven dependency:
 
-pom.xml:
+In `pom.xml`:
 
 ```xml
 <dependency>
@@ -18,7 +18,7 @@ pom.xml:
 </dependency>
 ```
 
-After adding this, an additional actuator-endpoint is available:
+After adding this, an additional `actuator-endpoint` is available:
 
 ```sh
 $ curl -u foobar:hamspam localhost:9001/monitoring/prometheus
