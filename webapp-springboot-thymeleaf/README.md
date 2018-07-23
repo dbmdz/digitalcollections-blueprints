@@ -387,7 +387,7 @@ with
   <groupId>io.micrometer</groupId>
   <artifactId>micrometer-registry-prometheus</artifactId>
   <version>${version.micrometer-registry-prometheus}</version>
-</dependency>xml
+</dependency>
 ```
 
 Add to `application.yml`:
