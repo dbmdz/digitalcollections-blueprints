@@ -4,9 +4,9 @@ Our simple Thymeleaf page just renders the current date, labeled language specif
 
 ## Controller
 
-The following Spring MVC controller handles a GET request for / and returns a Date-model and the name of the Thymeleaf template:
+The following Spring MVC controller handles a `GET` request for `/` and returns a Date-model and the name of the Thymeleaf template:
 
-File "src/main/java/de/digitalcollections/blueprints/webapp/springboot/controller/MainController.java":
+File `src/main/java/de/digitalcollections/blueprints/webapp/springboot/controller/MainController.java`:
 
 ```java
 package de.digitalcollections.blueprints.webapp.springboot.controller;
@@ -33,7 +33,7 @@ public class MainController {
 }
 ```
 
-Note: As the convenience annotation @SpringBootApplication adds a @ComponentScan for other components, configurations, and services in the current package (and subpackages) of the Application class, the controller is automatically recognized.
+Note: As the convenience annotation `@SpringBootApplication` adds a `@ComponentScan` for other components, configurations, and services in the current package (and subpackages) of the `Application` class, the controller is automatically recognized.
 
 Now the endpoint is mapped during startup of the application:
 
@@ -45,11 +45,11 @@ Now the endpoint is mapped during startup of the application:
 
 ### Templates
 
-As the controller returns the template name "main", we have to provide a Thymeleaf template for this.
+As the controller returns the template name `main`, we have to provide a Thymeleaf template for this.
 
 A Spring Boot webapp has no webapp-directory to put the template there.
-All resources have to be on the classpath by putting them into "src/main/resources".
-By convention the templates should be placed in the subdirectory "templates":
+All resources have to be on the classpath by putting them into `src/main/resources`.
+By convention the templates should be placed in the subdirectory `templates`:
 
 File `src/main/resources/templates/main.html`:
 
@@ -57,7 +57,7 @@ File `src/main/resources/templates/main.html`:
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="base">
+      layout:decorate="~{base}">
   <body>
     <section layout:fragment="content">
       <h1>Webapp Blueprint (Spring Boot + Thymeleaf)</h1>
@@ -67,14 +67,14 @@ File `src/main/resources/templates/main.html`:
 </html>
 ```
 
-This template is rather short as we use the Thymeleaf decorator-layout functionality to outsource the page skeleton to the base template named "base.html". Have a look at the source code itself for the content in base.html.
+This template is rather short as we use the Thymeleaf `decorator`-layout functionality to outsource the page skeleton to the base template named `base.html`. Have a look at the source code itself for the content in `base.html`.
 
-For Thymeleaf we add the necessary dependencies
+For Thymeleaf we add the necessary dependencies.
 
 ### Replace white label error page
 
 By default we get the "Whitelabel error page" when an exception in the application occurs.
-To replace it with an error page that uses our design / base template, we just place an error.html template in "src/main/resources/templates":
+To replace it with an error page that uses our design / base template, we just place an `error.html` template in `src/main/resources/templates`:
 
 File `src/main/resources/templates/error.html`:
 
@@ -97,7 +97,7 @@ File `src/main/resources/templates/error.html`:
 </html>
 ```
 
-### pom.xml (Dependencies)
+### `pom.xml` (Dependencies)
 
 ```xml
 <dependencies>
@@ -124,10 +124,10 @@ File `src/main/resources/templates/error.html`:
 </dependencies>
 ```
 
-As the Spring Boot starter for Thymeleaf provided older versions, we added explicitely versions.
-(see https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-use-thymeleaf-3)
+As the Spring Boot starter for Thymeleaf provided older versions, we added explicitly versions.
+(see <https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-use-thymeleaf-3>)
 
-To avoid warnings about deprecated thymelaf template mode, we add to the application.yml configuration:
+To avoid warnings about deprecated Thymeleaf template mode, we add to the `application.yml` configuration:
 
 ```yml
 spring:
@@ -135,9 +135,9 @@ spring:
     mode: HTML
 ```
 
-### pom.xml (resource filtering)
+### `pom.xml` (resource filtering)
 
-Unfortunately the configuration for filtering resources (to replace placeholders in application.yml) gets in conflict with Thymeleaf syntax (also using "@" as part of its syntax).
+Unfortunately the configuration for filtering resources (to replace placeholders in `application.yml`) gets in conflict with Thymeleaf syntax (also using `@` as part of its syntax).
 
 To deactivate filtering for Thymeleaf templates and other resources that should not be filtered,
 we configure excludes in the plugin (option 1):
@@ -164,7 +164,7 @@ we configure excludes in the plugin (option 1):
 </plugin>
 ```
 
-Another (more convenient and error preventing) option is to define two sections in the resources-element:
+Another (more convenient and error preventing) option is to define two sections in the `resources`-element:
 
 ```xml
 <build>
@@ -186,12 +186,7 @@ Another (more convenient and error preventing) option is to define two sections 
 
 ### Static files
 
-By Spring Boot convention static files like javascript, css and images are automatically detected when placed in the "src/main/resources/static/{css,images,js}" subdirectories.
-
-
-## Web Security
-
-
+By Spring Boot convention static files like javascript, css and images are automatically detected when placed in the `src/main/resources/static/{css,images,js}` subdirectories.
 
 ## Request / Response
 
