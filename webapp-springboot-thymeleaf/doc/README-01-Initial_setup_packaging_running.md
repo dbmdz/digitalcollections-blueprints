@@ -16,12 +16,6 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>de.digitalcollections.blueprints</groupId>
-    <artifactId>blueprints-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-  </parent>
-
   <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)</name>
   <groupId>de.digitalcollections.blueprints</groupId>
   <artifactId>webapp-springboot-thymeleaf</artifactId>
