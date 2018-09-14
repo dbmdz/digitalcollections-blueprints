@@ -1,13 +1,23 @@
 # Initial Setup
 
-The skeleton starts with an initial minimal setup of two files:
+The skeleton starts with an initial minimal setup of two files in a directory `my-webapp`:
 
 ```
-pom.xml
-src/main/java/de/digitalcollections/blueprints/webapp/springboot/Application.java
+my-webapp
+ |
+ |- pom.xml
+ |- src
+    |- main
+       |- java
+          |- de
+             |- digitalcollections
+                |- blueprints
+                   |- webapp
+                      |- springboot
+                         |- Application.java
 ```
 
-## Basic `pom.xml`
+## Basic Maven project file `pom.xml`
 
 As we do not want to have Spring Boot as parent (we have another one), we modify the `pom.xml` like described here: (see <http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-maven-without-a-parent>):
 
@@ -87,6 +97,7 @@ see <https://docs.spring.io/spring-boot/docs/current/reference/html/build-tool-p
 If you don’t include the `<execution/>` configuration as above, you can run the plugin on its own (but only if the package goal is used as well). For example:
 
 ```sh
+$ cd my-webapp
 $ mvn package spring-boot:repackage
 $ ls target/*.jar
 target/myproject-1.0.0.jar target/myproject-1.0.0.jar.original
@@ -160,6 +171,7 @@ see <https://spring.io/guides/gs/rest-service/>
 You can build a single executable JAR file that contains all the necessary dependencies, classes, and resources, and run that. This makes it easy to ship, version, and deploy the service as an application throughout the development lifecycle, across different environments, and so forth.
 
 ```sh
+$ cd my-webapp
 $ mvn clean package
 ```
 
@@ -168,12 +180,14 @@ $ mvn clean package
 - Using Maven:
 
 ```sh
+$ cd my-webapp
 $ mvn spring-boot:run
 ```
 
 - Run executable jar (see above):
 
 ```sh
+$ cd my-webapp
 $ java -jar target/rest-server-springboot-1.0.0-SNAPSHOT-exec.jar
 ```
 
