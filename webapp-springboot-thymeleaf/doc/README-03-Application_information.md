@@ -181,4 +181,48 @@ Response to <http://localhost:9001/monitoring/info>:
 }
 ```
 
-So the build info duplicates our project info and adds a timestamp. So we could remove duplicate project-values from `application.yml`...
+The build info duplicates our project info and adds a timestamp.
+So we remove duplicate project-values from `application.yml`:
+
+```yml
+info:
+  app:
+    ...
+#    project:
+#      name: '@project.name@'
+#      groupId: @project.groupId@
+#      artifactId: @project.artifactId@
+#      version: @project.version@
+```
+
+(Finally we deleted the lines...)
+
+### TODO: Add Git information
+
+The following section is not complete. Git information file git.properties is not generated...
+
+As we manage our sourcecode with Git, we can also include Git informations to the application infos.
+See
+
+* <https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-application-info-git>
+* <https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-git-info>
+
+#### `pom.xml`
+
+```xml
+<plugin>
+  <groupId>pl.project13.maven</groupId>
+  <artifactId>git-commit-id-plugin</artifactId>
+  <version>2.2.5</version>
+  <configuration>
+    <!--
+      If you'd like to tell the plugin where your .git directory is,
+      use this setting, otherwise we'll perform a search trying to
+      figure out the right directory. It's better to add it explicitly IMHO.
+    -->
+    <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
+  </configuration>
+</plugin>
+```
+
+TODO...
