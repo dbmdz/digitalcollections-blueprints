@@ -34,7 +34,7 @@ To expand info properties **at build time** (so you have to recompile if you cha
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-resources-plugin</artifactId>
-      <version>3.0.2</version>
+      <version>3.1.0</version>
       <configuration>
         <delimiters>
           <delimiter>@</delimiter>
@@ -71,7 +71,7 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.7.0</version>
+      <version>3.8.0</version>
       <configuration>
         <showDeprecation>true</showDeprecation>
         <encoding>${project.build.sourceEncoding}</encoding>
@@ -147,7 +147,7 @@ Response to <http://localhost:9001/monitoring/info>:
     <execution>
       <goals>
         <goal>build-info</goal>
-                ...
+        <goal>repackage</goal>
       </goals>
     </execution>
   </executions>

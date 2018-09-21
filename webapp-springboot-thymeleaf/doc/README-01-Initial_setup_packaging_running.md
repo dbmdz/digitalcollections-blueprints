@@ -35,6 +35,9 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
   <properties>
     <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. If you want to follow our recommendation and use a later Java version you can add a java.version property -->
     <java.version>1.8</java.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencyManagement>
@@ -43,7 +46,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.0.1.RELEASE</version>
+        <version>2.0.5.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -71,7 +74,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.0.1.RELEASE</version>
+        <version>2.0.5.RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -109,7 +112,7 @@ In case you want to overlay/use the resulting Spring Boot JAR as dependency in a
 <plugin>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-maven-plugin</artifactId>
-  <version>2.0.1.RELEASE</version>
+  <version>2.0.5.RELEASE</version>
   <executions>
     <execution>
       <goals>
@@ -191,21 +194,53 @@ $ cd my-webapp
 $ java -jar target/rest-server-springboot-1.0.0-SNAPSHOT-exec.jar
 ```
 
+- NetBeans:
+
+  * Right-click on `Application.java` (in Projects-View)
+  * Click `Run File`
+
 Logging output is displayed. The webapp should be up and running within a few seconds.
 
 ```
-
+...
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.0.1.RELEASE)
+ :: Spring Boot ::        (v2.0.5.RELEASE)
 
-...
-[2017-10-16 15:09:08,279  INFO] ed.tomcat.TomcatEmbeddedServletContainer: 201 [main    ] - Tomcat started on port(s): 8080 (http)
-[2017-10-16 15:09:08,283  INFO] blueprints.webapp.springboot.Application:  57 [main    ] - Started Application in 3.628 seconds (JVM running for 6.351)
+2018-09-21 08:11:26.640  INFO 28266 --- [           main] d.d.b.webapp.springboot.Application      : Starting Application on ralf-linux with PID 28266 (/home/ralf/development/github.com/dbmdz/blueprints/blueprint4-springboot-webapp/step01/target/classes started by ralf in /home/ralf/development/github.com/dbmdz/blueprints/blueprint4-springboot-webapp/step01)
+2018-09-21 08:11:26.642  INFO 28266 --- [           main] d.d.b.webapp.springboot.Application      : No active profile set, falling back to default profiles: default
+2018-09-21 08:11:26.674  INFO 28266 --- [           main] ConfigServletWebServerApplicationContext : Refreshing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@75c072cb: startup date [Fri Sep 21 08:11:26 CEST 2018]; root of context hierarchy
+2018-09-21 08:11:27.700  INFO 28266 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2018-09-21 08:11:27.722  INFO 28266 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2018-09-21 08:11:27.722  INFO 28266 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.34
+2018-09-21 08:11:27.730  INFO 28266 --- [ost-startStop-1] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/opt/jdk/jre/lib/amd64:/opt/jdk/jre/lib/i386::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib]
+2018-09-21 08:11:27.809  INFO 28266 --- [ost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2018-09-21 08:11:27.810  INFO 28266 --- [ost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1139 ms
+2018-09-21 08:11:28.155  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2018-09-21 08:11:28.156  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2018-09-21 08:11:28.156  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2018-09-21 08:11:28.156  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2018-09-21 08:11:28.156  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2018-09-21 08:11:28.156  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2018-09-21 08:11:28.156  INFO 28266 --- [ost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2018-09-21 08:11:28.227  INFO 28266 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-21 08:11:28.401  INFO 28266 --- [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@75c072cb: startup date [Fri Sep 21 08:11:26 CEST 2018]; root of context hierarchy
+2018-09-21 08:11:28.455  INFO 28266 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-21 08:11:28.456  INFO 28266 --- [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2018-09-21 08:11:28.474  INFO 28266 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-21 08:11:28.474  INFO 28266 --- [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2018-09-21 08:11:28.652  INFO 28266 --- [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2018-09-21 08:11:28.658  INFO 28266 --- [           main] s.b.a.e.w.s.WebMvcEndpointHandlerMapping : Mapped "{[/actuator/health],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2018-09-21 08:11:28.659  INFO 28266 --- [           main] s.b.a.e.w.s.WebMvcEndpointHandlerMapping : Mapped "{[/actuator/info],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto public java.lang.Object org.springframework.boot.actuate.endpoint.web.servlet.AbstractWebMvcEndpointHandlerMapping$OperationHandler.handle(javax.servlet.http.HttpServletRequest,java.util.Map<java.lang.String, java.lang.String>)
+2018-09-21 08:11:28.659  INFO 28266 --- [           main] s.b.a.e.w.s.WebMvcEndpointHandlerMapping : Mapped "{[/actuator],methods=[GET],produces=[application/vnd.spring-boot.actuator.v2+json || application/json]}" onto protected java.util.Map<java.lang.String, java.util.Map<java.lang.String, org.springframework.boot.actuate.endpoint.web.Link>> org.springframework.boot.actuate.endpoint.web.servlet.WebMvcEndpointHandlerMapping.links(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2018-09-21 08:11:28.691  INFO 28266 --- [           main] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2018-09-21 08:11:28.751  INFO 28266 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2018-09-21 08:11:28.755  INFO 28266 --- [           main] d.d.b.webapp.springboot.Application      : Started Application in 2.349 seconds (JVM running for 2.663)
 ```
 
 So the server is running on port 8080, but you haven’t defined any business endpoints yet.
+Therefore browsing `http://localhost:8080/` gives you a 404-error. BUt server is already running.

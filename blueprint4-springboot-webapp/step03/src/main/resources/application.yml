@@ -1,0 +1,28 @@
+info:
+  app:
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @maven.compiler.source@
+      target: @maven.compiler.target@
+    project:
+      name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
+      version: @project.version@
+management:
+  endpoint:
+    health:
+      show-details: when-authorized
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include: "*"
+  server:
+    port: 9001
+spring:
+  security:
+    user:
+      name: admin
+      password: secret
+      roles: ENDPOINT_ADMIN
