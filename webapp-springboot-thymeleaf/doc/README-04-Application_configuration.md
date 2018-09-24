@@ -136,12 +136,12 @@ spring:
   profiles: PROD
 ```
 
-Additionally we set as default environment `local` (`spring:profiles:active: local`) in the first section.
+Additionally we set as default environment `local` (`spring.profiles.active=local`) in the first section.
 This can be overriden by passing e.g. `--spring.profiles.active=PROD` at start time.
 We chose to set `local` as default to avoid accidentally accessing production environment during local development.
 
-In the second section (separated by dashes) we set environment `PROD` specific configurations overriding configurations of the first section.
-(We do not have different properties in place, yet. So properties are all inherited from default profile above).
+In the second section (separated by three dashes) we set environment `PROD` specific configurations overriding configurations of the first section.
+(We do not have different properties in place, yet. So properties are all inherited from default profile `local`).
 
 During startup the active profile name is logged:
 

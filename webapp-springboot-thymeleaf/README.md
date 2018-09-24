@@ -10,7 +10,8 @@ Features documentation:
 - [doc/README-02-Spring_Actuator.md](doc/README-02-Spring_Actuator.md): Spring Actuator: basic endpoints, HAL browser, management port
 - [doc/README-03-Application_information.md](doc/README-03-Application_information.md): Application information, project encoding
 - [doc/README-04-Application_configuration.md](doc/README-04-Application_configuration.md): Application configuration (including environment specific configuration)
-- [doc/README-05-Controller_endpoint.md](doc/README-05-Controller_endpoint.md): Controller endpoint for displaying a thymeleaf page.
+- [doc/README-05-Controller_endpoint_thymeleaf.md](doc/README-05-Controller_endpoint_thymeleaf.md): Controller endpoint for displaying a thymeleaf page.
+- [doc/README-06-Internationalisation.md](doc/README-06-Internationalisation.md): Internationalisation (i18n) ("multilanguage GUI").
 - [doc/README-06-Security_configuration.md](doc/README-06-Security_configuration.md): Security configuration (unsecured webpage, secured actuator).
 - [doc/README-07-Logging.md](doc/README-07-Logging.md): Logging (Logback)
 - [doc/README-08-Unit_testing.md](doc/README-08-Unit_testing.md): Unit-Testing
