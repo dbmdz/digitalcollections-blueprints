@@ -28,6 +28,23 @@ The following HTTP-endpoints are enabled by default:
 | /health     | Shows application health information (when the application is secure, a simple ‘status’ when accessed over an unauthenticated connection or full message details when authenticated). | false
 | /info       | Displays arbitrary application info. | false
 
+
+Each individual endpoint can be enabled or disabled. The following example enables the `shutdown` endpoint:
+
+```yml
+management.endpoint.shutdown.enabled=true
+```
+
+Since Endpoints may contain sensitive information, careful consideration should be given about when
+to expose them. To change which endpoints are exposed, use the following technology-specific
+`include` and `exclude` properties. `*` can be used to select all endpoints. For example, to expose
+everything over HTTP except the env and beans endpoints, use the following properties:
+
+```yml
+management.endpoints.web.exposure.include=*
+management.endpoints.web.exposure.exclude=env,beans
+```
+
 To enable all available endpoints (don't do this unsecured in production!), we need to configure this.
 Configuration of a Spring Boot application is done in classpath resource `application.yml`:
 
@@ -173,11 +190,36 @@ Change role of user in `application.yml`:
 
 Now all endpoints are secured and you have to login with `admin/secret`to get access to them.
 
+It might be useful to allow unsecured access to some endpoints (e.g. `info` and `health`).
+(See <https://docs.spring.io/spring-boot/docs/2.0.5.RELEASE/actuator-api//html/>)
+
+Therefore we allow unauthorized access to them like this:
+
+```java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+  http.authorizeRequests()
+          .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
+          .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
+          .and()
+          .httpBasic();
+}
+```
+
 ### Testing actuator endpoints
 
 Testing of endpoints can be done with the command line tool `curl` or directly in browser.
 
 Sample `/actuator/health` (with authentication) request and response:
+
+```sh
+$ curl http://localhost:8080/actuator/health
+{
+  "status" : "UP",
+}
+```
+
+Authentication with basic auth (username/password) is done using `-u`:
 
 ```sh
 $ curl -u admin:secret http://localhost:8080/actuator/health

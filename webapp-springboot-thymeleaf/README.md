@@ -11,11 +11,11 @@ Features documentation:
 - [doc/README-03-Application_information.md](doc/README-03-Application_information.md): Application information, project encoding
 - [doc/README-04-Application_configuration.md](doc/README-04-Application_configuration.md): Application configuration (including environment specific configuration)
 - [doc/README-05-Controller_endpoint_thymeleaf.md](doc/README-05-Controller_endpoint_thymeleaf.md): Controller endpoint for displaying a thymeleaf page.
-- [doc/README-06-Internationalisation.md](doc/README-06-Internationalisation.md): Internationalisation (i18n) ("multilanguage GUI").
-- [doc/README-06-Security_configuration.md](doc/README-06-Security_configuration.md): Security configuration (unsecured webpage, secured actuator).
-- [doc/README-07-Logging.md](doc/README-07-Logging.md): Logging (Logback)
-- [doc/README-08-Unit_testing.md](doc/README-08-Unit_testing.md): Unit-Testing
-- [doc/README-09-Monitoring.md](doc/README-09-Monitoring.md): Monitoring
+- [doc/README-06-Internationalisation.md](doc/README-06-Internationalisation.md): Internationalisation (i18n) ("multilanguage GUI")
+- [doc/README-07-Error_handling.md](doc/README-07-Error_handling.md): Error pages and error handling
+- [doc/README-08-Logging.md](doc/README-08-Logging.md): Logging (Logback)
+- [doc/README-09-Unit_testing.md](doc/README-09-Unit_testing.md): Unit-Testing
+- [doc/README-10-Monitoring.md](doc/README-10-Monitoring.md): Monitoring
 
 ## Usage
 
@@ -42,7 +42,7 @@ Upgrade Spring Boot version:
       <!-- Import dependency management from Spring Boot -->
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-dependencies</artifactId>
-      <version>2.0.1.RELEASE</version>
+      <version>2.0.5.RELEASE</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
