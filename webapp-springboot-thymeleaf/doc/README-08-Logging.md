@@ -1,10 +1,40 @@
 # Logging
 
+See <https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html>
+
 Spring Boot comes with logback by default, what we want to use because of json format for further central logging with elasticsearch and kibana.
 
 ## Configuration
 
-We configure Logback using environment specific appenders. Be sure the config file is named `logback-spring.xml` to be able to use this feature:
+### ... without own config file
+
+Spring Boot offers several configuration properties (for `application.yml`) that are sufficient for standard logging configuration.
+See <https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html>
+
+Excerpt:
+
+```ini
+debug=false # Enable debug logs.
+trace=false # Enable trace logs.
+
+# LOGGING
+logging.config= # Location of the logging configuration file. For instance, `classpath:logback.xml` for Logback.
+logging.exception-conversion-word=%wEx # Conversion word used when logging exceptions.
+logging.file= # Log file name (for instance, `myapp.log`). Names can be an exact location or relative to the current directory.
+logging.file.max-history=0 # Maximum of archive log files to keep. Only supported with the default logback setup.
+logging.file.max-size=10MB # Maximum log file size. Only supported with the default logback setup.
+logging.level.*= # Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.
+logging.path= # Location of the log file. For instance, `/var/log`.
+logging.pattern.console= # Appender pattern for output to the console. Supported only with the default Logback setup.
+logging.pattern.dateformat=yyyy-MM-dd HH:mm:ss.SSS # Appender pattern for log date format. Supported only with the default Logback setup.
+logging.pattern.file= # Appender pattern for output to a file. Supported only with the default Logback setup.
+logging.pattern.level=%5p # Appender pattern for log level. Supported only with the default Logback setup.
+logging.register-shutdown-hook=false # Register a shutdown hook for the logging system when it is initialized.
+```
+
+### ... with dedicated own config file `logback-spring.xml`
+
+As we configure Logback using environment specific appenders, we have to use the logback-specific features that are possible in `logback-spring.xml`:
 
 In `src/main/resources/logback-spring.xml`:
 
@@ -64,7 +94,8 @@ In `src/main/resources/logback-spring.xml`:
 </configuration>
 ```
 
-As you can see we added the `LogstashEncoder` as comment in our `DEV`, `STG` and `PROD` environments. Activating this (and deactivating pattern encoder) causes logback to log in JSON-format. In our blueprint we do this to be able to collect decentralized logfiles in a central Kibana/Elasticsearch-Logging index:
+As you can see we added the `LogstashEncoder` as comment in our `DEV`, `STG` and `PROD` environments. Activating this (and deactivating pattern encoder) causes logback to log in JSON-format.
+In our blueprint we do this to be able to collect decentralized logfiles in a central Kibana/Elasticsearch-Logging index:
 
 ```
 webapp -> logback -> logstash -> filebeats (collects logging files and inserts into) -> ElasticSearch -> Kibana
