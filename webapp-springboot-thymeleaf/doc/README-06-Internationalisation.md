@@ -33,7 +33,17 @@ spring.messages.fallback-to-system-locale=true # Whether to fall back to the sys
 spring.messages.use-code-as-default-message=false # Whether to use the message code as the default message instead of throwing a "NoSuchMessageException". Recommended during development only.
 ```
 
-We rely on the defaults. So no configuration in `application.yml` is needed.
+We rely on the defaults, except for `spring.messages.fallback-to-system-locale`.
+This variable needs to be changed to `false`, because a fallback to the default
+language (in our example to `messages.properties`) won't work when the system
+locale is set to German. Thus, the following property needs to be added to
+`application.yml`:
+
+```yaml
+spring:
+  messages:
+    fallback-to-system-locale: false
+```
 
 We do not provide one properties file per template but use the above mentioned global messages-properties files.
 We have to provide a default file `messages.properties` containing translations of a default language (we chose english translation...),
