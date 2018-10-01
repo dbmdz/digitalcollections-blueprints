@@ -27,6 +27,8 @@ server:
     context-path: "/"
 
 spring:
+  messages:
+    fallback-to-system-locale: false
   profiles:
     active: local
   security:
