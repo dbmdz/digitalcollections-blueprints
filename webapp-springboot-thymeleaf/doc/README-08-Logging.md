@@ -100,3 +100,14 @@ In our blueprint we do this to be able to collect decentralized logfiles in a ce
 ```
 webapp -> logback -> logstash -> filebeats (collects logging files and inserts into) -> ElasticSearch -> Kibana
 ```
+
+## Switching between spring profiles
+
+To switch between spring profiles on commandline, the `--spring.profiles.active`
+option can be used with the desired profile:
+
+```bash
+java -jar target/webapp-springboot-thymeleaf-<VERSION>-exec.jar --spring.profiles.active=DEV
+```
+
+In this case the `DEV` profile is used.
