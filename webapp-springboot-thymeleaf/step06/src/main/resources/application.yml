@@ -1,0 +1,40 @@
+info:
+  app:
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @maven.compiler.source@
+      target: @maven.compiler.target@
+
+management:
+  endpoint:
+    health:
+      show-details: when-authorized
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include: "*"
+  server:
+    port: 9001
+
+server:
+  port: 9000
+  server-header: "@project.name@ v@project.version@"
+  servlet:
+    context-path: "/"
+
+spring:
+  messages:
+    fallback-to-system-locale: false
+  profiles:
+    active: local
+  security:
+    user:
+      name: admin
+      password: secret
+      roles: ENDPOINT_ADMIN
+
+---
+
+spring:
+  profiles: PROD
