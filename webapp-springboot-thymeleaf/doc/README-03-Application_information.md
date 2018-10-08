@@ -232,7 +232,6 @@ The following options for configuring the Git plugin needs to added in `pom.xml`
   <configuration>
     <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
     <generateGitPropertiesFile>true</generateGitPropertiesFile>
-    <verbose>true</verbose>
   </configuration>
 </plugin>
 ```
