@@ -197,32 +197,111 @@ info:
 
 (Finally we deleted the lines...)
 
-### TODO: Add Git information
+### Add Git information
 
-The following section is not complete. Git information file git.properties is not generated...
-
-As we manage our sourcecode with Git, we can also include Git informations to the application infos.
-See
+As we manage our sourcecode with Git, we can also include Git informations to 
+the application infos. See
 
 * <https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready-application-info-git>
 * <https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-git-info>
+* <https://github.com/ktoso/maven-git-commit-id-plugin>
 
-#### `pom.xml`
+#### Configuration
+
+The following options for configuring the Git plugin needs to added in `pom.xml`:
 
 ```xml
 <plugin>
   <groupId>pl.project13.maven</groupId>
   <artifactId>git-commit-id-plugin</artifactId>
   <version>2.2.5</version>
+  <executions>
+    <execution>
+      <id>get-the-git-infos</id>
+      <goals>
+        <goal>revision</goal>
+      </goals>
+    </execution>
+    <execution>
+      <id>validate-the-git-infos</id>
+      <goals>
+        <goal>validateRevision</goal>
+      </goals>
+    </execution>
+  </executions>
   <configuration>
-    <!--
-      If you'd like to tell the plugin where your .git directory is,
-      use this setting, otherwise we'll perform a search trying to
-      figure out the right directory. It's better to add it explicitly IMHO.
-    -->
     <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
+    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+    <verbose>true</verbose>
   </configuration>
 </plugin>
 ```
 
-TODO...
+To get complete information from Git, the following `actuator` info
+endpoint configuration for the Git plugin is needed:
+
+```yaml
+management:
+  info:
+    git:
+      mode: full
+```
+
+#### Output
+
+Then the Git plugin shows the following information under 
+<http://localhost:9001/monitoring/info>:
+
+```json
+{
+  "git":{
+    "tags":"",
+    "build":{
+      "version":"1.0.0-SNAPSHOT",
+      "user":{
+        "email":"firstname.lastname@bsb-muenchen.de",
+        "name":"Firstname Lastname"
+      },
+      "time":"2018-10-08T11:54:12Z",
+      "host":"user-power-workstation"
+    },
+    "total":{
+      "commit":{
+        "count":"123"
+      }
+    },
+    "commit":{
+      "time":"2018-10-05T11:20:44Z",
+      "user":{
+        "name":"Firstname Lastname",
+        "email":"firstname.lastname@bsb-muenchen.de"
+      },
+      "message":{
+        "full":"step06: recover files for step06",
+        "short":"step06: recover files for step06"
+      },
+      "id":{
+        "abbrev":"19bc580",
+        "describe-short":"19bc580-dirty",
+        "full":"19bc5806800fdf8f98f20f5ca8796058089a1e13",
+        "describe":"19bc580-dirty"
+      }
+    },
+    "branch":"recover-step06",
+    "closest":{
+      "tag":{
+        "name":"",
+        "commit":{
+          "count":""
+        }
+      }
+    },
+    "remote":{
+      "origin":{
+        "url":"https://github.com/dbmdz/blueprints.git"
+      }
+    },
+    "dirty":"true"
+  }
+}
+```
