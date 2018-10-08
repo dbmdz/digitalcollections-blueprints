@@ -116,7 +116,6 @@
         <configuration>
           <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
           <generateGitPropertiesFile>true</generateGitPropertiesFile>
-          <verbose>true</verbose>
         </configuration>
       </plugin>
     </plugins>
