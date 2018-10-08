@@ -4,6 +4,7 @@ info:
     java:
       source: @maven.compiler.source@
       target: @maven.compiler.target@
+
 management:
   endpoint:
     health:
@@ -18,6 +19,7 @@ management:
       mode: full
   server:
     port: 9001
+
 spring:
   security:
     user:
