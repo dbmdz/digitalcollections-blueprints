@@ -208,7 +208,7 @@ the application infos. See
 
 #### Configuration
 
-The following options for configuring the Git plugin needs to added in `pom.xml`:
+The following options for configuring the Git plugin need to added in `pom.xml`:
 
 ```xml
 <plugin>
