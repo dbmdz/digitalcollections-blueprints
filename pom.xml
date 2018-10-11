@@ -66,6 +66,7 @@
     <module>blueprint-springmvc-thymeleaf-javaconfig-security-database</module>
     <module>rest-webservice</module>
     <module>webapp-springboot-thymeleaf</module>
+    <module>console-application-springboot</module>
   </modules>
 
   <dependencyManagement>
