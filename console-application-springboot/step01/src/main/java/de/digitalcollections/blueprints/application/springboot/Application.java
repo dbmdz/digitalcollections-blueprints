@@ -1,10 +1,7 @@
-package de.digitalcollections.blueprints.application;
+package de.digitalcollections.blueprints.application.springboot;
 
-import de.digitalcollections.blueprints.application.springboot.service.TransformationService;
-import java.io.File;
+import de.digitalcollections.blueprints.application.springboot.service.HelloMessageService;
 import java.util.List;
-import javax.xml.transform.Result;
-import javax.xml.transform.stream.StreamResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,30 +20,24 @@ public class Application implements ApplicationRunner {
   private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   @Autowired
-  private TransformationService transformationService;
+  private HelloMessageService helloService;
 
   public static void main(String[] args) {
     SpringApplication.run(Application.class, args);
+    
+//    SpringApplication app = new SpringApplication(Application.class);
+//    app.setBannerMode(Banner.Mode.OFF);
+//    app.setLogStartupInfo(false);
+//    app.run(args);
   }
 
   @Override
   public void run(ApplicationArguments args) throws Exception {
     LOGGER.info("STARTING THE APPLICATION");
     
-    if (args.getSourceArgs().length < 2) {
-      System.err.println("Need two arguments: filepath of XML and filepath of XSL.");
-      System.exit(1);
-    }
-    
-    final List<String> filepaths = args.getNonOptionArgs();
-    String filepathXml = filepaths.get(0);
-    String filepathXsl = filepaths.get(1);
-    
-    File xmlFile = new File(filepathXml);
-    File xslFile = new File(filepathXsl);
-
-    Result result = new StreamResult(System.out);
-    transformationService.transform(xmlFile, xslFile, result);
+    final List<String> names = args.getNonOptionArgs();
+    String message = helloService.getMessage(names);
+    System.out.println(message);
   }
 
 }
