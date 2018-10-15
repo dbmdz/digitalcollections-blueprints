@@ -39,11 +39,6 @@ public class Application implements ApplicationRunner {
   public void run(ApplicationArguments args) throws Exception {
     LOGGER.info("STARTING THE APPLICATION");
 
-    if (args.getSourceArgs().length < 2) {
-      System.err.println("Need two arguments: filepath of XML and filepath of XSL.");
-      System.exit(1);
-    }
-
     final List<String> filepaths = args.getNonOptionArgs();
     String filepathXml = filepaths.get(0);
     String filepathXsl = filepaths.get(1);
@@ -59,6 +54,7 @@ public class Application implements ApplicationRunner {
     Cli cli;
     try {
       cli = new Cli(new PrintWriter(System.out), args);
+
       if (cli.hasExitStatus()) {
         System.exit(cli.getExitStatus());
       }
