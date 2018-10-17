@@ -1,6 +1,6 @@
 # Spring Actuator
 
-There aren’t any endpoints defined in this application, but there’s enough to launch things and see some of Sprin Boot's default and Actuator’s features. 
+There aren’t any endpoints defined in this application, but there’s enough to launch things and see some of Spring Boot's default and Actuator’s features. 
 
 ```sh
 $ curl localhost:8080
