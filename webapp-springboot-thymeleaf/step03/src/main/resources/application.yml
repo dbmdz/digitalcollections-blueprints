@@ -4,6 +4,8 @@ info:
     java:
       source: @maven.compiler.source@
       target: @maven.compiler.target@
+    project:
+      buildDetails: '@versionName@'
 
 management:
   endpoint:

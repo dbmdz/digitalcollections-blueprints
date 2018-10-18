@@ -24,3 +24,4 @@ hs_err_pid*
 .settings
 /webapp-springboot-thymeleaf/step10/nbproject/
 /nb-configuration.xml
+/webapp-springboot-thymeleaf/step10/nb-configuration.xml
