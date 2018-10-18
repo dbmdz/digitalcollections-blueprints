@@ -5,6 +5,8 @@ info:
       source: @maven.compiler.source@
       target: @maven.compiler.target@
     project:
+      name: '@project.name@'
+      version: @project.version@
       buildDetails: '@versionName@'
 
 management:

@@ -348,7 +348,7 @@ public class SpringConfig {
 
 To include the new `version` actuator endpoint it has to be exposed through configuration in `application.yml`.
 
-```ini
+```yml
 management:
   endpoints:
     web:
@@ -359,12 +359,14 @@ management:
 
 As we already expose all (`include: "*"`) this is already done.
 
-Finally add `buildDetails` property to the `info`-section:
+Finally add `name`, `version` and `buildDetails` properties to the `info`-section:
 
-```ini
+```yml
 info:
   app:
     project:
+      name: '@project.name@'
+      version: @project.version@
       buildDetails: '@versionName@'
 ```
 
@@ -391,8 +393,22 @@ Example output from `http://localhost:9001/monitoring/info`:
       "target": 1.8
     },
     "project": {
+      "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+      "version": "1.0.0-SNAPSHOT",
       "buildDetails": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 11:29:32"
     }
   },
 ...
 ```
+
+Example output from `http://localhost:9001/monitoring/version`:
+
+```json
+{
+  "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+  "version": "1.0.0-SNAPSHOT",
+  "details": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 14:14:33"
+}
+```
+
+If your project is versioned in GitLab, more detailled informations can be added, see <https://github.com/dbmdz/digitalcollections-commons/tree/master/dc-commons-springboot#versioninfobean>
