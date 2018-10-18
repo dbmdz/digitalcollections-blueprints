@@ -315,7 +315,7 @@ When requesting <http://localhost:8080/actuator>:
 
 See <https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-endpoints.html#production-ready-health>
 
-To get more information about a running application, we can activate detailed informations with `management.endpoint.health.show-details=true`.
+To get more information about a running application, we can activate detailed informations with `management.endpoint.health.show-details=always` (possible values: "never", "when-authorized", "always"). To get detailed information only for authorized users:
 
 ```yml
 management:

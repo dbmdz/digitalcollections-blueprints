@@ -304,3 +304,111 @@ Then the Git plugin shows the following information under
   }
 }
 ```
+
+### Add detailed version information
+
+See <https://github.com/dbmdz/digitalcollections-commons/tree/master/dc-commons-springboot>
+
+The DigitalCollections Commons project provides Spring Boot specific extensions. One of them is the "VersionInfo" extension to provide build sepcific informations:
+
+  "VersionInfoBean: This bean reads the build information from the application.yml, which is set by the maven build process and also automatically collects all version information from all dependencies (jar files)."
+
+#### Add dependency into `pom.xml`
+
+```xml
+<dependency>
+  <groupId>de.digitalcollections.commons</groupId>
+  <artifactId>dc-commons-springboot</artifactId>
+  <version>2.0.0-SNAPSHOT</version>
+</dependency>
+```
+
+#### `SpringConfig.java`
+
+To automatically detect the version info Spring beans of the `dc-commons-springboot`-library, we add a new Java class `src/main/java/de/digitalcollections/blueprints/webapp/springboot/config/SpringConfig.java`:
+
+```java
+package de.digitalcollections.blueprints.webapp.springboot.config;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan(basePackages = {
+  "de.digitalcollections.commons.springboot.actuator",
+  "de.digitalcollections.commons.springboot.contributor",
+  "de.digitalcollections.commons.springboot.monitoring"
+})
+public class SpringConfig {
+
+}
+```
+
+#### `application.yml`
+
+To include the new `version` actuator endpoint it has to be exposed through configuration in `application.yml`.
+
+```yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - version
+```
+
+As we already expose all (`include: "*"`) this is already done.
+
+Finally add `name`, `version` and `buildDetails` properties to the `info`-section:
+
+```yml
+info:
+  app:
+    project:
+      name: '@project.name@'
+      version: @project.version@
+      buildDetails: '@versionName@'
+```
+
+#### `pom.xml`
+
+To fill `versionName` for the `info`-endpoint during filtering of resources (`application.yml`), we add the following properties to `pom.xml`:
+
+```xml
+<properties>
+  <timestamp>${maven.build.timestamp}</timestamp>
+  <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
+  <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
+</properties>
+```
+
+Example output from `http://localhost:9001/monitoring/info`:
+
+```json
+{
+  "app": {
+    "encoding": "UTF-8",
+    "java": {
+      "source": 1.8,
+      "target": 1.8
+    },
+    "project": {
+      "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+      "version": "1.0.0-SNAPSHOT",
+      "buildDetails": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 11:29:32"
+    }
+  },
+...
+```
+
+Example output from `http://localhost:9001/monitoring/version`:
+
+```json
+{
+  "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+  "version": "1.0.0-SNAPSHOT",
+  "details": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 14:14:33"
+}
+```
+
+If your project is versioned in GitLab, more detailled informations can be added, see <https://github.com/dbmdz/digitalcollections-commons/tree/master/dc-commons-springboot#versioninfobean>
