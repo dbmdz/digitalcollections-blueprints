@@ -58,3 +58,84 @@ process_files_max 1048576.0
 These informations can be used e.g. by Grafana to visualize system metrics (see [Grafana support for Prometheus](https://prometheus.io/docs/visualization/grafana/)).
 
 Further reading: <https://dzone.com/articles/monitoring-using-spring-boot-20-prometheus-and-gra>
+
+## Javamelody
+
+Homepage: <https://github.com/javamelody/javamelody/wiki>
+
+"The goal of JavaMelody is to monitor Java or Java EE applications in QA and production environments.
+It is not a tool to simulate requests from users, it is a tool to measure and calculate statistics
+on real operation of an application depending on the usage of the application by users."
+
+### Add to project
+
+There is a Spring Boot Starter that simply can be added as Maven dependency:
+
+In `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>net.bull.javamelody</groupId>
+  <artifactId>javamelody-spring-boot-starter</artifactId>
+  <version>1.74.0</version>
+</dependency>
+```
+
+### Configuration
+
+We want:
+
+- the Javamelody endpoint to reside under `/monitoring/javamelody`
+- access should be controlled
+  - by username `admin` and password `somepassword`.
+  - by allowed IPs
+- some URLs ("/webjars", "/jsondoc", "/monitoring") should be ignored for statistics
+- aggregation of URLs that just differs in dynamic parts (params)
+
+Javamelody provides configuration properties for this.
+
+In `src/main/resources/application.yml`:
+
+```yml
+javamelody:
+  enabled: true
+  init-parameters:
+    allowed-addr-pattern: 'localhost|127\.0\.0\.1|0:0:0:0:0:0:0:1'
+    authorized-users: 'admin:somepassword'
+    http-transform-pattern: '(\\d+|(?<=currenttitles/).*|(?<=citationtitles/).*|(?<=occurrences/).*|(?<=periodical/).*|(?<=issues/).*)'
+    # log http requests:
+    log: false
+    monitoring-path: '/monitoring/javamelody'
+    url-exclude-pattern: '^(/webjars|/jsondoc|/monitoring).*'
+```
+
+"The parameter http-transform-pattern is a regular expression to transform descriptions of http requests and to delete dynamic parts (identifiers of objects for example), in order to aggregate the statistics on these requests irrespective of dynamic parts. This parameter replaces any part of the URL that matches the regular expression with a "$". So setting http-transform-pattern to \d+ means that the URLs "/get/entity/10" and "/get/entity/20" both have their digits matched by the regular expression, and are then aggregated into the URL "/get/entity/$"."
+
+Hint: We added IPv6 IP for localhost for local tests...
+
+### Security
+
+By adding `authorized-users`configuration Basic-Auth is activated. This is handled internally by Javamelody.
+As this got in conflict with our Spring Security configuration (Spring Security tries to handle Basic-Auth-request as soon as it finds Basic-Auth-Header - even if URL is set to "permitAll"!),
+we have to change our `SpringConfigSecurity.java` code to tell Spring Security to ignore requests to `/monitoring/javamelody`completely:
+
+```java
+public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
+
+  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
+  String javamelodyMonitoringPath;
+
+  ...
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers(javamelodyMonitoringPath);
+  }
+}
+```
+
+### Usage
+
+Browse <http://localhost:9000/monitoring/javamelody>:
+
+![Javamelody Screenshot](images/screenshot-javamelody.png)
