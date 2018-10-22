@@ -170,6 +170,7 @@ As we already include all endpoints, it is exposed.
 
 We want:
 
+- no spring security authentication
 - access should be controlled
   - by allowed IPs (localhost for development and some other IPs in production)
 
@@ -197,6 +198,28 @@ In `src/main/resources/jolokia-access.xml`:
   </remote>
 </restrict>
 ```
+
+To also deactivate Spring Security basic authentication for the Jolokia endpoint
+we have to change our `SpringConfigSecurity.java` code to tell Spring Security to permit all requests to `/monitoring/jolokia`:
+
+```java
+public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
+
+  ...
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http
+            .authorizeRequests()
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+            .requestMatchers(EndpointRequest.to("jolokia")).permitAll()
+            .anyRequest().authenticated()
+            .and().httpBasic()
+            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and().csrf().disable();
+  }
+}
+```
+
 
 ### Usage
 
