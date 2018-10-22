@@ -3,12 +3,13 @@ package de.digitalcollections.blueprints.crud.business.impl.service;
 import de.digitalcollections.blueprints.crud.backend.api.repository.UserRepository;
 import de.digitalcollections.blueprints.crud.business.api.service.RoleService;
 import de.digitalcollections.blueprints.crud.business.api.service.UserService;
+import de.digitalcollections.blueprints.crud.business.impl.validators.PasswordsValidatorParams;
 import de.digitalcollections.blueprints.crud.model.api.security.Operation;
 import de.digitalcollections.blueprints.crud.model.api.security.Role;
 import de.digitalcollections.blueprints.crud.model.api.security.User;
 import java.util.ArrayList;
 import java.util.List;
-import de.digitalcollections.blueprints.crud.business.impl.validators.PasswordsValidatorParams;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
@@ -46,9 +47,11 @@ public class UserServiceImpl implements UserService<User, Long> {
   @Override
   @Transactional(readOnly = false)
   public User activate(Long id) {
-    User user = (User) userRepository.findOne(id);
-    user.setEnabled(true);
-    userRepository.save(user);
+    User user = get(id);
+    if (user != null) {
+      user.setEnabled(true);
+      userRepository.save(user);
+    }
     return user;
   }
 
@@ -80,9 +83,11 @@ public class UserServiceImpl implements UserService<User, Long> {
   @Override
   @Transactional(readOnly = false)
   public User deactivate(Long id) {
-    User user = (User) userRepository.findOne(id);
-    user.setEnabled(false);
-    userRepository.save(user);
+    User user = get(id);
+    if (user != null) {
+      user.setEnabled(false);
+      userRepository.save(user);
+    }
     return user;
   }
 
@@ -97,7 +102,12 @@ public class UserServiceImpl implements UserService<User, Long> {
 
   @Override
   public User get(Long id) {
-    return (User) userRepository.findOne(id);
+    Optional<User> userOpt = userRepository.findById(id);
+    if (userOpt.isPresent()) {
+      User user = userOpt.get();
+      return user;
+    }
+    return null;
   }
 
   @Override

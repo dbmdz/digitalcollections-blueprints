@@ -25,12 +25,19 @@
             </goals>
             <configuration>
               <outputDirectory>target/generated-sources/java</outputDirectory>
-              <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
-              <!-- If you use Hibernate annotations in your domain types you should use the APT processor
+              <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+              <!--              If you use Hibernate annotations in your domain types you should use the APT processor
               com.mysema.query.apt.hibernate.HibernateAnnotationProcessor instead. -->
             </configuration>
           </execution>
         </executions>
+        <dependencies>
+          <dependency> 
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-apt</artifactId> 
+            <version>4.2.1</version> 
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -51,7 +58,7 @@
           <mainClass>de.digitalcollections.blueprints.crud.backend.impl.database.SchemaGenerator</mainClass>
           <arguments>
             <argument>de.digitalcollections.blueprints.crud.backend.impl.jpa.entity</argument>
-            <argument>${project.basedir}/src/main/resources/sql/generated/</argument>
+            <argument>src/main/resources/sql/generated/</argument>
           </arguments>
         </configuration>
       </plugin>
@@ -59,18 +66,23 @@
   </build>
   
   <dependencies>
+    <dependency> 
+      <groupId>com.querydsl</groupId>
+      <artifactId>querydsl-jpa</artifactId> 
+      <version>4.2.1</version> 
+    </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
-    <dependency>
+    <!--    <dependency>
       <groupId>com.mysema.querydsl</groupId>
       <artifactId>querydsl-apt</artifactId>
     </dependency>
     <dependency>
       <groupId>com.mysema.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId>
-    </dependency>
+    </dependency>-->
     <dependency>
       <groupId>de.digitalcollections.blueprints</groupId>
       <artifactId>crud-hibernate-backend-api</artifactId>

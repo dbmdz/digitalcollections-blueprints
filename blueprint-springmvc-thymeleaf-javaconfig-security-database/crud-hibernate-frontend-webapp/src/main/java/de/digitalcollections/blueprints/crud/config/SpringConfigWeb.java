@@ -3,16 +3,18 @@ package de.digitalcollections.blueprints.crud.config;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
+import de.digitalcollections.blueprints.crud.frontend.webapp.converter.GrantedAuthorityJsonFilter;
+import de.digitalcollections.blueprints.crud.frontend.webapp.converter.UserJsonFilter;
+import de.digitalcollections.blueprints.crud.frontend.webapp.interceptors.CreateAdminUserInterceptor;
 import de.digitalcollections.blueprints.crud.model.api.security.User;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
-import de.digitalcollections.blueprints.crud.frontend.webapp.converter.GrantedAuthorityJsonFilter;
-import de.digitalcollections.blueprints.crud.frontend.webapp.converter.UserJsonFilter;
-import de.digitalcollections.blueprints.crud.frontend.webapp.interceptors.CreateAdminUserInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -31,15 +33,16 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring5.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
-import org.thymeleaf.templateresolver.TemplateResolver;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 @ComponentScan(basePackages = {
@@ -52,7 +55,10 @@ import org.thymeleaf.templateresolver.TemplateResolver;
 @PropertySource(value = {
   "classpath:de/digitalcollections/blueprints/crud/config/SpringConfigWeb-${spring.profiles.active:local}.properties"
 })
-public class SpringConfigWeb extends WebMvcConfigurerAdapter {
+public class SpringConfigWeb implements WebMvcConfigurer {
+
+  @Autowired
+  private ApplicationContext applicationContext;
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
@@ -80,20 +86,20 @@ public class SpringConfigWeb extends WebMvcConfigurerAdapter {
     templateResolver.setCharacterEncoding("UTF-8");
     templateResolver.setTemplateMode("HTML5");
     templateResolver.setCacheable(cacheTemplates);
-    templateResolver.setOrder(1);
+    templateResolver.setOrder(2);
     return templateResolver;
   }
 
-  @Bean
-  public TemplateResolver servletContextTemplateResolver() {
-    ServletContextTemplateResolver templateResolver = new ServletContextTemplateResolver();
-    templateResolver.setPrefix("/WEB-INF/templates/");
-    templateResolver.setSuffix(".html");
-    templateResolver.setCharacterEncoding("UTF-8");
-    templateResolver.setTemplateMode("HTML5");
-    templateResolver.setCacheable(cacheTemplates);
-    templateResolver.setOrder(2);
-    return templateResolver;
+  private ITemplateResolver servletContextTemplateResolver() {
+    SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+    resolver.setApplicationContext(applicationContext);
+    resolver.setCacheable(cacheTemplates);
+    resolver.setCharacterEncoding("UTF-8");
+    resolver.setOrder(1);
+    resolver.setPrefix("/WEB-INF/templates/");
+    resolver.setSuffix(".html");
+    resolver.setTemplateMode(TemplateMode.HTML);
+    return resolver;
   }
 
   @Bean

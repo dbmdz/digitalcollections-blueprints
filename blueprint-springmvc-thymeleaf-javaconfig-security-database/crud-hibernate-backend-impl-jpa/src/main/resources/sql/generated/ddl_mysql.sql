@@ -1,88 +1,67 @@
 
-    alter table role_operation 
-        drop 
-        foreign key FK_eysxbp63s5u005db3nejdhdxk;
-
-    alter table role_operation 
-        drop 
-        foreign key FK_h5xyyxwspleqh894axwiyeify;
-
-    alter table user_role 
-        drop 
-        foreign key FK_it77eq964jhfqtu54081ebtio;
-
-    alter table user_role 
-        drop 
-        foreign key FK_apcc8lxk2xnug8377fatvbn04;
-
-    drop table if exists operations;
-
-    drop table if exists role_operation;
-
-    drop table if exists roles;
-
-    drop table if exists user_role;
-
-    drop table if exists users;
-
-    drop table if exists SEQUENCE_TABLE;
-
     create table operations (
-        id int8 not null,
+       id bigint not null,
         name varchar(45) not null,
         primary key (id)
-    );
+    ) type=MyISAM;
 
     create table role_operation (
-        role_id int8 not null,
-        operation_id int8 not null
-    );
+       role_id bigint not null,
+        operation_id bigint not null
+    ) type=MyISAM;
 
     create table roles (
-        id int8 not null,
+       id bigint not null,
         name varchar(45) not null,
         primary key (id)
-    );
+    ) type=MyISAM;
+
+    create table SEQUENCE_TABLE (
+       SEQ_NAME varchar(255) not null,
+        SEQ_COUNT bigint,
+        primary key (SEQ_NAME)
+    ) type=MyISAM;
+
+    insert into SEQUENCE_TABLE(SEQ_NAME, SEQ_COUNT) values ('USER_SEQ',0);
+
+    insert into SEQUENCE_TABLE(SEQ_NAME, SEQ_COUNT) values ('ROLE_SEQ',0);
+
+    insert into SEQUENCE_TABLE(SEQ_NAME, SEQ_COUNT) values ('OPERATION_SEQ',0);
 
     create table user_role (
-        user_id int8 not null,
-        role_id int8 not null
-    );
+       user_id bigint not null,
+        role_id bigint not null
+    ) type=MyISAM;
 
     create table users (
-        id int8 not null,
+       id bigint not null,
         email varchar(255) not null,
-        enabled boolean,
+        enabled bit,
         firstname varchar(255),
         lastname varchar(255),
         password varchar(255),
         primary key (id)
-    );
+    ) type=MyISAM;
 
     alter table users 
-        add constraint UK_6dotkott2kjsp8vw4d0m25fb7  unique (email);
+       add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email);
 
     alter table role_operation 
-        add constraint FK_eysxbp63s5u005db3nejdhdxk 
-        foreign key (operation_id) 
-        references operations (id);
+       add constraint FK2vfefbuhg00mfg90w0ak0041i 
+       foreign key (operation_id) 
+       references operations (id);
 
     alter table role_operation 
-        add constraint FK_h5xyyxwspleqh894axwiyeify 
-        foreign key (role_id) 
-        references roles (id);
+       add constraint FK88ndygeokny3rrbchw50j9ahu 
+       foreign key (role_id) 
+       references roles (id);
 
     alter table user_role 
-        add constraint FK_it77eq964jhfqtu54081ebtio 
-        foreign key (role_id) 
-        references roles (id);
+       add constraint FKt7e7djp752sqn6w22i6ocqy6q 
+       foreign key (role_id) 
+       references roles (id);
 
     alter table user_role 
-        add constraint FK_apcc8lxk2xnug8377fatvbn04 
-        foreign key (user_id) 
-        references users (id);
-
-    create table SEQUENCE_TABLE (
-         SEQ_NAME varchar(255),
-         SEQ_COUNT integer 
-    );
+       add constraint FKj345gk1bovqvfame88rcx7yyx 
+       foreign key (user_id) 
+       references users (id);

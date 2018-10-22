@@ -5,6 +5,7 @@ import de.digitalcollections.blueprints.crud.business.api.service.RoleService;
 import de.digitalcollections.blueprints.crud.model.api.enums.UserRole;
 import de.digitalcollections.blueprints.crud.model.api.security.Role;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,12 @@ public class RoleServiceImpl implements RoleService<Role, Long> {
 
   @Override
   public Role get(Long id) {
-    return (Role) roleRepository.findOne(id);
+    Optional<Role> roleOpt = roleRepository.findById(id);
+    if (roleOpt.isPresent()) {
+      Role role = roleOpt.get();
+      return role;
+    }
+    return null;
   }
 
   @Override
