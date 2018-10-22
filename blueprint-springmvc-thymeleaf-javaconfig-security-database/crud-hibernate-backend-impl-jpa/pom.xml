@@ -66,23 +66,15 @@
   </build>
   
   <dependencies>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
     <dependency> 
       <groupId>com.querydsl</groupId>
       <artifactId>querydsl-jpa</artifactId> 
       <version>4.2.1</version> 
     </dependency>
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-    </dependency>
-    <!--    <dependency>
-      <groupId>com.mysema.querydsl</groupId>
-      <artifactId>querydsl-apt</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.mysema.querydsl</groupId>
-      <artifactId>querydsl-jpa</artifactId>
-    </dependency>-->
     <dependency>
       <groupId>de.digitalcollections.blueprints</groupId>
       <artifactId>crud-hibernate-backend-api</artifactId>
