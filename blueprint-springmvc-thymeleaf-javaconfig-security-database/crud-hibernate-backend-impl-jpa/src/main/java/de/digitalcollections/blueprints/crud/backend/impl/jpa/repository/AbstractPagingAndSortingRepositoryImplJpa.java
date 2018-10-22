@@ -1,6 +1,7 @@
 package de.digitalcollections.blueprints.crud.backend.impl.jpa.repository;
 
 import java.io.Serializable;
+import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -12,7 +13,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @param <ID> unique entity id
  * @param <R> repository instance
  */
-public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Serializable, R extends JpaRepository>
+public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Serializable, R extends JpaRepository<T, ID>>
         implements PagingAndSortingRepository<T, ID> {
 
   protected R jpaRepository;
@@ -25,8 +26,8 @@ public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Se
   }
 
   @Override
-  public void delete(ID id) {
-    jpaRepository.delete(id);
+  public void deleteById(ID id) {
+    jpaRepository.deleteById(id);
   }
 
   @Override
@@ -35,8 +36,8 @@ public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Se
   }
 
   @Override
-  public void delete(Iterable<? extends T> entities) {
-    jpaRepository.delete(entities);
+  public void deleteAll(Iterable<? extends T> entities) {
+    jpaRepository.deleteAll(entities);
   }
 
   @Override
@@ -45,8 +46,8 @@ public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Se
   }
 
   @Override
-  public boolean exists(ID id) {
-    return jpaRepository.exists(id);
+  public boolean existsById(ID id) {
+    return jpaRepository.existsById(id);
   }
 
   @Override
@@ -65,13 +66,13 @@ public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Se
   }
 
   @Override
-  public Iterable<T> findAll(Iterable<ID> ids) {
-    return jpaRepository.findAll(ids);
+  public Iterable<T> findAllById(Iterable<ID> ids) {
+    return jpaRepository.findAllById(ids);
   }
 
   @Override
-  public T findOne(ID id) {
-    return (T) jpaRepository.findOne(id);
+  public Optional<T> findById(ID id) {
+    return jpaRepository.findById(id);
   }
 
   @Override
@@ -80,7 +81,7 @@ public abstract class AbstractPagingAndSortingRepositoryImplJpa<T, ID extends Se
   }
 
   @Override
-  public <S extends T> Iterable<S> save(Iterable<S> entities) {
-    return jpaRepository.save(entities);
+  public <S extends T> Iterable<S> saveAll(Iterable<S> entities) {
+    return jpaRepository.saveAll(entities);
   }
 }

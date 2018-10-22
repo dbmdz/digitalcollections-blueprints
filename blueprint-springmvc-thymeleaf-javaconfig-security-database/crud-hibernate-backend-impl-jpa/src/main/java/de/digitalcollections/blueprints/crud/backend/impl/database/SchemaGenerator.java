@@ -2,12 +2,19 @@ package de.digitalcollections.blueprints.crud.backend.impl.database;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.Entity;
-import org.hibernate.cfg.Configuration;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.hibernate.tool.hbm2ddl.SchemaExport.Action;
+import org.hibernate.tool.schema.TargetType;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -19,8 +26,6 @@ import org.springframework.util.SystemPropertyUtils;
 
 public class SchemaGenerator {
 
-  private final Configuration cfg;
-
   /**
    * Example: java SchemaGenerator de.digitalcollections.blueprints.crud.backend.impl.jpa.entity src/main/resources/sql/generated/
    *
@@ -29,7 +34,8 @@ public class SchemaGenerator {
    */
   public static void main(String[] args) throws Exception {
     final String packageName = args[0];
-    SchemaGenerator gen = new SchemaGenerator(packageName);
+    List<Class> entitiesInPackage = findAnnotatedClassesInPackage(packageName, Entity.class);
+
     final String directory = args[1];
     if (directory != null) {
       File dir = new File(directory);
@@ -37,77 +43,32 @@ public class SchemaGenerator {
         dir.mkdirs();
       }
     }
-    gen.generate(Dialect.POSTGRESQL, directory);
-    gen.generate(Dialect.MYSQL, directory);
-    gen.generate(Dialect.ORACLE, directory);
-    gen.generate(Dialect.HSQL, directory);
-    gen.generate(Dialect.H2, directory);
+
+    generate(Dialect.POSTGRESQL, entitiesInPackage, directory);
+    generate(Dialect.MYSQL, entitiesInPackage, directory);
+    generate(Dialect.ORACLE, entitiesInPackage, directory);
+    generate(Dialect.HSQL, entitiesInPackage, directory);
+    generate(Dialect.H2, entitiesInPackage, directory);
   }
 
-  public SchemaGenerator(String packageName) throws Exception {
-    cfg = new Configuration();
-    cfg.setProperty("hibernate.hbm2ddl.auto", "create");
+  private static List<Class> findAnnotatedClassesInPackage(String basePackage, Class annotationClass) throws IOException, ClassNotFoundException {
 
-//        for (Class clazz : getClasses(packageName)) {
-//            cfg.addAnnotatedClass(clazz);
-//        }
-    List<Class> entitiesInPackage = findAnnotatedClassesInPackage(packageName, Entity.class);
-    for (Class clazz : entitiesInPackage) {
-      cfg.addAnnotatedClass(clazz);
-    }
-  }
+    ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+    MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
+    String resolvedBasePackage = ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage));
+    String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX + resolvedBasePackage + "/" + "**/*.class";
+    Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
+    List<Class> candidates = new ArrayList<>();
 
-  /**
-   * Utility method used to fetch Class list based on a package name.
-   *
-   * @param packageName (should be the package containing your annotated beans.
-   */
-  private List<Class> getClasses(String packageName) throws Exception {
-    File directory = null;
-    try {
-      ClassLoader cld = getClassLoader();
-      URL resource = getResource(packageName, cld);
-      directory = new File(resource.getFile());
-    } catch (NullPointerException ex) {
-      throw new ClassNotFoundException(packageName + " (" + directory
-              + ") does not appear to be a valid package");
-    }
-    return collectClasses(packageName, directory);
-  }
-
-  private ClassLoader getClassLoader() throws ClassNotFoundException {
-    ClassLoader cld = Thread.currentThread().getContextClassLoader();
-    if (cld == null) {
-      throw new ClassNotFoundException("Can't get class loader.");
-    }
-    return cld;
-  }
-
-  private URL getResource(String packageName, ClassLoader cld) throws ClassNotFoundException {
-    String path = packageName.replace('.', '/');
-    URL resource = cld.getResource(path);
-    if (resource == null) {
-      throw new ClassNotFoundException("No resource for " + path);
-    }
-    return resource;
-  }
-
-  private List<Class> collectClasses(String packageName, File directory) throws ClassNotFoundException {
-    List<Class> classes = new ArrayList<>();
-    if (directory.exists()) {
-      String[] files = directory.list();
-      for (String file : files) {
-        if (file.endsWith(".class")) {
-          // removes the .class extension
-          classes.add(Class.forName(packageName + '.'
-                  + file.substring(0, file.length() - 6)));
+    for (Resource resource : resources) {
+      if (resource.isReadable()) {
+        MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(resource);
+        if (isCandidate(metadataReader, annotationClass)) {
+          candidates.add(Class.forName(metadataReader.getClassMetadata().getClassName()));
         }
       }
-    } else {
-      throw new ClassNotFoundException(packageName
-              + " is not a valid package");
     }
-    return classes;
+    return candidates;
   }
 
   /**
@@ -115,13 +76,23 @@ public class SchemaGenerator {
    *
    * @param dialect to use
    */
-  private void generate(Dialect dialect, String directory) {
-    cfg.setProperty("hibernate.dialect", dialect.getDialectClass());
-    SchemaExport export = new SchemaExport(cfg);
+  private static void generate(Dialect dialect, List<Class> entitiesInPackage, String directory) {
+    Map<String, String> settings = new HashMap<>();
+    settings.put("hibernate.hbm2ddl.auto", "create");
+    settings.put("hibernate.dialect", dialect.getDialectClass());
+
+    MetadataSources metadata = new MetadataSources(new StandardServiceRegistryBuilder().applySettings(settings).build());
+    for (Class clazz : entitiesInPackage) {
+      metadata.addAnnotatedClass(clazz);
+    }
+    Metadata md = (MetadataImplementor) metadata.buildMetadata();
+
+    SchemaExport export = new SchemaExport();
     export.setDelimiter(";");
     export.setOutputFile(directory + "ddl_" + dialect.name().toLowerCase() + ".sql");
     export.setFormat(true);
-    export.execute(true, false, false, false);
+    EnumSet<TargetType> targetTypes = EnumSet.of(TargetType.SCRIPT);
+    export.execute(targetTypes, Action.CREATE, md);
   }
 
   /**
@@ -146,30 +117,7 @@ public class SchemaGenerator {
     }
   }
 
-  private List<Class> findAnnotatedClassesInPackage(String basePackage, Class annotationClass) throws IOException, ClassNotFoundException {
-    ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-    MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(resourcePatternResolver);
-
-    List<Class> candidates = new ArrayList<>();
-    String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX
-            + resolveBasePackage(basePackage) + "/" + "**/*.class";
-    Resource[] resources = resourcePatternResolver.getResources(packageSearchPath);
-    for (Resource resource : resources) {
-      if (resource.isReadable()) {
-        MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(resource);
-        if (isCandidate(metadataReader, annotationClass)) {
-          candidates.add(Class.forName(metadataReader.getClassMetadata().getClassName()));
-        }
-      }
-    }
-    return candidates;
-  }
-
-  private String resolveBasePackage(String basePackage) {
-    return ClassUtils.convertClassNameToResourcePath(SystemPropertyUtils.resolvePlaceholders(basePackage));
-  }
-
-  private boolean isCandidate(MetadataReader metadataReader, Class annotationClass) throws ClassNotFoundException {
+  private static boolean isCandidate(MetadataReader metadataReader, Class annotationClass) throws ClassNotFoundException {
     try {
       Class c = Class.forName(metadataReader.getClassMetadata().getClassName());
       if (c.getAnnotation(annotationClass) != null) {
