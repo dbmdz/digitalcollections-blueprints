@@ -365,6 +365,35 @@ new:
 - "$DECORATOR_TITLE renamed to $LAYOUT_TITLE": $DECORATOR_TITLE -> $LAYOUT_TITLE
 - "Deprecated include, introduced insert": th:include -> th:insert
 
+#### HTML5
+
+Thymeleaf 3 rquires valid HTML5 templates. (see <https://www.w3.org/TR/html5/syntax.html#writing-html-documents-elements> and <https://www.w3.org/TR/html5/syntax.html#void-elements>)
+For example you get mysterious tag duplications and DOM tree mix ups, if you have self closing tags that are no longer allowed to be self closing.
+
+Replace self closing tags with start and end tag or remove closing "/" from element for "void" elements:
+"Void elements only have a start tag; end tags must not be specified for void elements.":
+
+area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wbr
+
+```html
+<br/> -> <br>
+<img ... /> -> <img ...>
+<input ... /> -> <input ...>
+<link ... /> -> <link ...>
+<meta ... /> -> <meta ...>
+...
+```
+
+Fix elements that were self closed implemented, but now need a closing tag:
+
+
+```html
+<i ... /> -> <i ...></i>
+<span ... /> -> <span ...></span>
+...
+```
+
+
 ### Monitoring
 
 Replace
