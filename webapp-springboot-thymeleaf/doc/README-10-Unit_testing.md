@@ -145,6 +145,13 @@ public class ApplicationTest {
   }
 
   @Test
+  public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
+    ResponseEntity<Map> entity = this.restTemplate.getForEntity("http://localhost:" + this.monitoringPort + "/monitoring/health", Map.class);
+
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+  }
+
+  @Test
   public void shouldReturn200WhenSendingAuthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     ResponseEntity<Map> entity = this.restTemplate.withBasicAuth("admin", "secret").getForEntity(
             "http://localhost:" + this.monitoringPort + "/monitoring/env", Map.class);
