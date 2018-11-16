@@ -367,7 +367,7 @@ new:
 
 #### HTML5
 
-Thymeleaf 3 rquires valid HTML5 templates. (see <https://www.w3.org/TR/html5/syntax.html#writing-html-documents-elements> and <https://www.w3.org/TR/html5/syntax.html#void-elements>)
+Thymeleaf 3 requires valid HTML5 templates. (see <https://www.w3.org/TR/html5/syntax.html#writing-html-documents-elements> and <https://www.w3.org/TR/html5/syntax.html#void-elements>)
 For example you get mysterious tag duplications and DOM tree mix ups, if you have self closing tags that are no longer allowed to be self closing.
 
 Replace self closing tags with start and end tag or remove closing `/` from element for `void` elements:
