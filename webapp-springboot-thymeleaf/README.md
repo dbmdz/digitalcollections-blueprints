@@ -116,7 +116,7 @@ Management endpoints:
 
 Unlike in previous versions, Actuator comes with most endpoints disabled. Thus, the only two available by default are /health and /info. Would we want to enable all of them, we could set management.endpoints.web.exposure.include="*". Alternatively, we could list endpoints which should be enabled.
 
-User must have role "ACTUATOR" to get authorization for actuator endpoints:
+User must have role `ACTUATOR` to get authorization for actuator endpoints:
 
 ```yml
 spring:
@@ -242,9 +242,9 @@ Add dependency `junit-platform-surefire-provider`:
 
 ### Spring MVC
 
-Remove deprecated "extends WebMvcConfigurerAdapter". Just replace with "implements WebMvcConfigurer".
+Remove deprecated `extends WebMvcConfigurerAdapter`. Just replace with `implements WebMvcConfigurer`.
 
-Remove "setIgnoreDefaultModelOnRedirect(true)" from MVC configuration. It is "true" by default now (application.yml: spring.mvc.ignore-default-model-on-redirect=true)
+Remove `setIgnoreDefaultModelOnRedirect(true)` from MVC configuration. It is `true` by default now (`application.yml`: `spring.mvc.ignore-default-model-on-redirect=true`)
 
 ```java
   @Autowired
@@ -341,7 +341,7 @@ When you start your application, you will get some warnings about deprecated exp
 ```sh
 The layout:decorator/data-layout-decorator processor has been deprecated and will be removed in the next major version of the layout dialect.  Please use layout:decorate/data-layout-decorate instead to future-proof your code.  See https://github.com/ultraq/thymeleaf-layout-dialect/issues/95 for more information.
 
-Fragment expression "base" is being wrapped as a Thymeleaf 3 fragment expression (~{...}) for backwards compatibility purposes.  This wrapping will be dropped in the next major version of the expression processor, so please rewrite as a Thymeleaf 3 fragment expression to future-proof your code.  See https://github.com/thymeleaf/thymeleaf/issues/451 for more information.
+Fragment expression `base` is being wrapped as a Thymeleaf 3 fragment expression (~{...}) for backwards compatibility purposes.  This wrapping will be dropped in the next major version of the expression processor, so please rewrite as a Thymeleaf 3 fragment expression to future-proof your code.  See https://github.com/thymeleaf/thymeleaf/issues/451 for more information.
 ```
 
 See <https://ultraq.github.io/thymeleaf-layout-dialect/MigrationGuide.html>
@@ -362,20 +362,21 @@ new:
       layout:decorate="~{base}">
 ```
 
-- "$DECORATOR_TITLE renamed to $LAYOUT_TITLE": $DECORATOR_TITLE -> $LAYOUT_TITLE
-- "Deprecated include, introduced insert": th:include -> th:insert
+- "$DECORATOR_TITLE renamed to $LAYOUT_TITLE": `$DECORATOR_TITLE` -> `$LAYOUT_TITLE`
+- "Deprecated include, introduced insert": `th:include` -> `th:insert`
 
 #### HTML5
 
 Thymeleaf 3 rquires valid HTML5 templates. (see <https://www.w3.org/TR/html5/syntax.html#writing-html-documents-elements> and <https://www.w3.org/TR/html5/syntax.html#void-elements>)
 For example you get mysterious tag duplications and DOM tree mix ups, if you have self closing tags that are no longer allowed to be self closing.
 
-Replace self closing tags with start and end tag or remove closing "/" from element for "void" elements:
+Replace self closing tags with start and end tag or remove closing `/` from element for `void` elements:
 "Void elements only have a start tag; end tags must not be specified for void elements.":
 
-area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wbr
+`area`, `base`, `br`, `col`, `embed`, `hr`, `img`, `input`, `link`, `meta`, `param`, `source`, `track`, `wbr`
 
 ```html
+...
 <br/> -> <br>
 <img ... /> -> <img ...>
 <input ... /> -> <input ...>
@@ -386,19 +387,19 @@ area, base, br, col, embed, hr, img, input, link, meta, param, source, track, wb
 
 Fix elements that were self closed implemented, but now need a closing tag:
 
-
 ```html
+...
 <i ... /> -> <i ...></i>
 <span ... /> -> <span ...></span>
 ...
 ```
-
 
 ### Monitoring
 
 Replace
 
 ```xml
+...
 <version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>
 ...
 <dependency>
@@ -406,11 +407,13 @@ Replace
   <artifactId>prometheus-spring-boot-starter</artifactId>
   <version>${version.prometheus-spring-boot-starter}</version>
 </dependency>
+...
 ```
 
 with
 
 ```xml
+...
 <version.micrometer-registry-prometheus>1.0.1</version.micrometer-registry-prometheus>
 ...
 <dependency>
@@ -418,6 +421,7 @@ with
   <artifactId>micrometer-registry-prometheus</artifactId>
   <version>${version.micrometer-registry-prometheus}</version>
 </dependency>
+...
 ```
 
 Add to `application.yml`:

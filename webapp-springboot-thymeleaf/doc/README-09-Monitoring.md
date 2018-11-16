@@ -303,5 +303,5 @@ This configuration ensures:
   - <http://localhost:9001/monitoring/info> and <http://localhost:9001/monitoring/health> are public accessible,
   - all other actuator endpoints are only accessible over basic auth authentication,
   - <http://localhost:9001/monitoring/jolokia> is public accessible, but secured by IP whitelist `jolokia-access.xml` of jolokia itself
-  - <http://localhost:9000/monitoring/javamelody> is public accessible, but secured by javamelody basic auth (see application.yml)
+  - <http://localhost:9000/monitoring/javamelody> is public accessible, but secured by javamelody basic auth (see `application.yml`)
 - webapp: <http://localhost:9000> is unsecured and public accessible for all
