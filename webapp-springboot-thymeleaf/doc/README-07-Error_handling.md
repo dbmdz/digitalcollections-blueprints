@@ -83,9 +83,11 @@ The above template just shows the technical values (attributes), so let's add so
 Additionally you have to add the translations to `messages.properties` (and all language derivats):
 
 ```ini
+error.exception=Exception
 error.message=Error message
 error.page_title=Ooops!
 error.reason=Error reason
+error.stacktrace=Stacktrace
 error.status_code=Status code
 error.timestamp=Time error occured
 error.url-path=Called url path
@@ -165,7 +167,12 @@ In staging environment the stacktrace will be added to error page if request par
 At least we add the outputs conditionally to our template:
 
 ```html
-
+<p th:if="${exception}">
+  <label th:text="#{error.exception}">Exception</label>: <span th:text="${exception}">The class name of the root exception (if configured)</span>
+</p>
+<p th:if="${trace}">
+  <label th:text="#{error.stacktrace}">Stacktrace</label>: <span th:text="${trace}">The exception stack trace</span>
+</p>
 ```
 
 To test it, we changed temporarily our controller code to throw a NullPointerException:

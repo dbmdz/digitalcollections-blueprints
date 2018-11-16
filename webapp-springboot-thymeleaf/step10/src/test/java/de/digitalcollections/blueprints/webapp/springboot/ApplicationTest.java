@@ -1,7 +1,6 @@
 package de.digitalcollections.blueprints.webapp.springboot;
 
 import java.util.Map;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -29,6 +30,13 @@ public class ApplicationTest {
   @Test
   public void shouldReturn200WhenSendingRequestToRoot() throws Exception {
     ResponseEntity<String> entity = this.restTemplate.getForEntity("/", String.class);
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+  }
+
+  @Test
+  public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
+    ResponseEntity<Map> entity = this.restTemplate.getForEntity("http://localhost:" + this.monitoringPort + "/monitoring/health", Map.class);
+
     assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
   }
 

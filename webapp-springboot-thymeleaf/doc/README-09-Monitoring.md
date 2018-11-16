@@ -205,21 +205,25 @@ we have to change our `SpringConfigSecurity.java` code to tell Spring Security t
 ```java
 public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
 
-  ...
+  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
+  String javamelodyMonitoringPath;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-            .authorizeRequests()
-            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+    http.authorizeRequests()
+            .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
             .requestMatchers(EndpointRequest.to("jolokia")).permitAll()
-            .anyRequest().authenticated()
-            .and().httpBasic()
-            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and().csrf().disable();
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
+            .and()
+            .httpBasic();
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers(javamelodyMonitoringPath);
   }
 }
 ```
-
 
 ### Usage
 
@@ -265,3 +269,39 @@ Browse <http://localhost:9001/monitoring/jolokia>:
   "status": 200
 }
 ```
+
+## Final Security configuration
+
+Our final security configuration for the blueprint webapp `SpringConfigSecurity.java`:
+
+```java
+public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
+
+  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
+  String javamelodyMonitoringPath;
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.authorizeRequests()
+            .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
+            .requestMatchers(EndpointRequest.to("jolokia")).permitAll()
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
+            .and()
+            .httpBasic();
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers(javamelodyMonitoringPath);
+  }
+}
+```
+
+This configuration ensures:
+
+- monitoring:
+  - <http://localhost:9001/monitoring/info> and <http://localhost:9001/monitoring/health> are public accessible,
+  - all other actuator endpoints are only accessible over basic auth authentication,
+  - <http://localhost:9001/monitoring/jolokia> is public accessible, but secured by IP whitelist `jolokia-access.xml` of jolokia itself
+  - <http://localhost:9000/monitoring/javamelody> is public accessible, but secured by javamelody basic auth (see `application.yml`)
+- webapp: <http://localhost:9000> is unsecured and public accessible for all

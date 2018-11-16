@@ -19,6 +19,7 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
             .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
+            .requestMatchers(EndpointRequest.to("jolokia")).permitAll()
             .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
             .and()
             .httpBasic();
