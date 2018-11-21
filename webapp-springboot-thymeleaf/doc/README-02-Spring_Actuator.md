@@ -391,3 +391,22 @@ Test:
 $ curl -u admin:secret http://localhost:9001/monitoring/health
 {"status":"UP","details":{"diskSpace":{"status":"UP","details":{"total":120906379264,"free":5021368320,"threshold":10485760}}}}
 ```
+
+## Migration Notes
+
+### from Spring Boot 1.5.8 to Spring Boot 2.0.x
+
+see <http://www.baeldung.com/spring-boot-actuators#boot-2x-actuator>:
+
+"Unlike in previous versions, Actuator comes with most endpoints disabled. Thus, the only two available by default are /health and /info. Would we want to enable all of them, we could set management.endpoints.web.exposure.include="*". Alternatively, we could list endpoints which should be enabled."
+
+User must have role `ACTUATOR` to get authorization for actuator endpoints:
+
+```yml
+spring:
+  security:
+    user:
+      name: admin
+      password: secret
+      roles: ACTUATOR
+```

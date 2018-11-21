@@ -313,3 +313,100 @@ After a `mvn clean install` (which does resources filtering during build), we ca
 Voila! Our first page renders!
 
 ![Homepage](./images/screenshot-thymeleaf-page.png)
+
+## Migration Notes
+
+### from Spring Boot 1.5.8 to Spring Boot 2.0.x
+
+see
+- <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide>
+- <https://ultraq.github.io/thymeleaf-layout-dialect/MigrationGuide.html>
+
+#### Spring MVC
+
+Remove deprecated `extends WebMvcConfigurerAdapter`. Just replace with `implements WebMvcConfigurer`.
+
+Remove `setIgnoreDefaultModelOnRedirect(true)` from MVC configuration. It is `true` by default now (`application.yml`: `spring.mvc.ignore-default-model-on-redirect=true`)
+
+```java
+  @Autowired
+  private RequestMappingHandlerAdapter requestMappingHandlerAdapter;
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
+  }
+```
+
+#### Thymeleaf
+
+"The Thymeleaf starter included the thymeleaf-layout-dialect dependency previously. Since Thymeleaf 3.0 now offers a [native way to implement layouts](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#template-layout), we removed that mandatory dependency and leave this choice up to you. If your application is relying on the layout-dialect project, please add it explicitly as a dependency."
+
+1. Remove all explicitely defined thymeleaf-dependencies from pom.xml.
+2. Add Thymeleaf-layout-dialect without version (is managed):
+
+```xml
+<dependency>
+  <groupId>nz.net.ultraq.thymeleaf</groupId>
+  <artifactId>thymeleaf-layout-dialect</artifactId>
+</dependency>
+```
+
+When you start your application, you will get some warnings about deprecated expressions:
+
+```sh
+The layout:decorator/data-layout-decorator processor has been deprecated and will be removed in the next major version of the layout dialect.  Please use layout:decorate/data-layout-decorate instead to future-proof your code.  See https://github.com/ultraq/thymeleaf-layout-dialect/issues/95 for more information.
+
+Fragment expression `base` is being wrapped as a Thymeleaf 3 fragment expression (~{...}) for backwards compatibility purposes.  This wrapping will be dropped in the next major version of the expression processor, so please rewrite as a Thymeleaf 3 fragment expression to future-proof your code.  See https://github.com/thymeleaf/thymeleaf/issues/451 for more information.
+```
+
+See <https://ultraq.github.io/thymeleaf-layout-dialect/MigrationGuide.html>
+
+- "decorator processor renamed to decorate" and "Thymeleaf 3 fragment processors":
+
+old:
+```html
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base">
+```
+
+new:
+```html
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{base}">
+```
+
+- "$DECORATOR_TITLE renamed to $LAYOUT_TITLE": `$DECORATOR_TITLE` -> `$LAYOUT_TITLE`
+- "Deprecated include, introduced insert": `th:include` -> `th:insert`
+
+#### HTML5
+
+Thymeleaf 3 requires valid HTML5 templates. (see <https://www.w3.org/TR/html5/syntax.html#writing-html-documents-elements> and <https://www.w3.org/TR/html5/syntax.html#void-elements>)
+For example you get mysterious tag duplications and DOM tree mix ups, if you have self closing tags that are no longer allowed to be self closing.
+
+Replace self closing tags with start and end tag or remove closing `/` from element for `void` elements:
+"Void elements only have a start tag; end tags must not be specified for void elements.":
+
+`area`, `base`, `br`, `col`, `embed`, `hr`, `img`, `input`, `link`, `meta`, `param`, `source`, `track`, `wbr`
+
+```html
+...
+<br/> -> <br>
+<img ... /> -> <img ...>
+<input ... /> -> <input ...>
+<link ... /> -> <link ...>
+<meta ... /> -> <meta ...>
+...
+```
+
+Fix elements that were self closed implemented, but now need a closing tag:
+
+```html
+...
+<i ... /> -> <i ...></i>
+<span ... /> -> <span ...></span>
+...
+```
+
