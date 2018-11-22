@@ -28,3 +28,4 @@ hs_err_pid*
 /springmvc-thymeleaf/nb-configuration.xml
 /blueprint-springmvc-thymeleaf-javaconfig-security-database/crud-hibernate-backend-impl-jpa/nb-configuration.xml
 /blueprint-springmvc-thymeleaf-javaconfig-security-database/crud-hibernate-backend-impl-jpa/nbactions.xml
+/webapp-springboot-thymeleaf/step11/nb-configuration.xml

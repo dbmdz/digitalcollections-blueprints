@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10</name>
+  <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 11</name>
   <groupId>de.digitalcollections.blueprints</groupId>
   <artifactId>webapp-springboot-thymeleaf</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -70,12 +70,36 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
+      <!-- Provide JUnit 5 API -->
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <!-- and the engine for surefire and failsafe -->
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <!-- Exclude JUnit 4 -->
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -115,6 +139,12 @@
         </configuration>
       </plugin>
       <plugin>
+        <!-- Spring Boot configures surefire by default, but not failsafe -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${version.maven-failsafe-plugin}</version>
+      </plugin>
+      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
         <version>${version.maven-resources-plugin}</version>
@@ -124,6 +154,11 @@
           </delimiters>
           <useDefaultDelimiters>false</useDefaultDelimiters>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.maven-surefire-plugin}</version>
       </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>

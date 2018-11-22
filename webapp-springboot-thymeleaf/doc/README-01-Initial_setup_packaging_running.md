@@ -244,3 +244,93 @@ Logging output is displayed. The webapp should be up and running within a few se
 
 So the server is running on port 8080, but you haven’t defined any business endpoints yet.
 Therefore browsing `http://localhost:8080/` gives you a 404-error. BUt server is already running.
+
+## Migration Notes
+
+### from Spring Boot 1.5.8 to Spring Boot 2.0.x
+
+see
+- <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.0-Migration-Guide>
+- <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-Security-2.0>
+
+### pom.xml
+
+Upgrade Spring Boot version:
+
+```xml
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <!-- Import dependency management from Spring Boot -->
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-dependencies</artifactId>
+      <version>2.0.5.RELEASE</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
+Add temporarily Migrator-dependency:
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-properties-migrator</artifactId>
+  <scope>runtime</scope>
+</dependency>
+```
+
+Upgrade Logback-Logstash-Encoder to version 5.1:
+
+```xml
+<properties>
+  <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
+</properties>
+
+<dependency>
+  <groupId>net.logstash.logback</groupId>
+  <artifactId>logstash-logback-encoder</artifactId>
+  <version>${version.logstash-logback-encoder}</version>
+  <scope>runtime</scope>
+</dependency>
+```
+
+### application.yml
+
+Rename properties:
+
+```yml
+management.context-path / management.server.servlet.context-path -> management.endpoints.web.base-path
+management.port -> management.server.port
+security.user.name -> spring.security.user.name
+security.user.password -> spring.security.user.password
+server.context-path / server.contextPath -> server.servlet.context-path
+spring.http.multipart.file-size-threshold -> spring.servlet.multipart.file-size-threshold
+spring.http.multipart.location -> spring.servlet.multipart.location
+spring.http.multipart.max-file-size -> spring.servlet.multipart.max-file-size
+spring.http.multipart.max-request-size -> spring.servlet.multipart.max-request-size
+```
+
+WARNING: Make sure to merge separate spring-sections into one! (otherwise only the last section is used)
+
+Remove properties:
+
+```yml
+endpoints.hypermedia.enabled (Reason: Hypermedia support in the Actuator is no longer available.)
+management.security.enabled (Reason: A global security auto-configuration is now provided.)
+security.basic.enabled (Reason: The security auto-configuration is no longer customizable.)
+security.headers.cache (Reason: The security auto-configuration is no longer customizable.)
+```
+
+New properties:
+
+```yml
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+```
+
