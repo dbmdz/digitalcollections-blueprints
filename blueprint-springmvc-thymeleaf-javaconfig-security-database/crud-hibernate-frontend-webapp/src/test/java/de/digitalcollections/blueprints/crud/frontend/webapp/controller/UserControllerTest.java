@@ -6,23 +6,24 @@ import de.digitalcollections.blueprints.crud.frontend.webapp.config.SpringConfig
 import de.digitalcollections.blueprints.crud.frontend.webapp.config.SpringConfigBusinessForTest;
 import javax.annotation.Resource;
 import org.hamcrest.Matchers;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * unit testing PageController
@@ -30,7 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
  * see also: http://zjhzxhz.com/2014/05/unit-testing-of-spring-mvc-controllers/,
  * http://www.petrikainulainen.net/programming/spring-framework/integration-testing-of-spring-mvc-applications-security/
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @WebAppConfiguration
 @ContextConfiguration(classes = {SpringConfigWeb.class, SpringConfigSecurity.class, SpringConfigBusinessForTest.class,
   SpringConfigBackendForTest.class})
@@ -52,14 +53,14 @@ public class UserControllerTest {
             .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("background")));
   }
 
-  @Before
+  @BeforeEach
   public void setUp() {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
             .addFilter(springSecurityFilterChain)
             .build();
   }
 
-  @After
+  @AfterEach
   public void tearDown() {
   }
 
