@@ -205,21 +205,25 @@ we have to change our `SpringConfigSecurity.java` code to tell Spring Security t
 ```java
 public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
 
-  ...
+  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
+  String javamelodyMonitoringPath;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    http
-            .authorizeRequests()
-            .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
+    http.authorizeRequests()
+            .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
             .requestMatchers(EndpointRequest.to("jolokia")).permitAll()
-            .anyRequest().authenticated()
-            .and().httpBasic()
-            .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            .and().csrf().disable();
+            .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
+            .and()
+            .httpBasic();
+  }
+
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers(javamelodyMonitoringPath);
   }
 }
 ```
-
 
 ### Usage
 
@@ -264,4 +268,48 @@ Browse <http://localhost:9001/monitoring/jolokia>:
   "timestamp": 1539950476,
   "status": 200
 }
+```
+
+## Migration Notes
+
+### from Spring Boot 1.5.8 to Spring Boot 2.0.x
+
+Replace
+
+```xml
+...
+<version.prometheus-spring-boot-starter>1.0.2</version.prometheus-spring-boot-starter>
+...
+<dependency>
+  <groupId>com.moelholm</groupId>
+  <artifactId>prometheus-spring-boot-starter</artifactId>
+  <version>${version.prometheus-spring-boot-starter}</version>
+</dependency>
+...
+```
+
+with
+
+```xml
+...
+<version.micrometer-registry-prometheus>1.0.1</version.micrometer-registry-prometheus>
+...
+<dependency>
+  <groupId>io.micrometer</groupId>
+  <artifactId>micrometer-registry-prometheus</artifactId>
+  <version>${version.micrometer-registry-prometheus}</version>
+</dependency>
+...
+```
+
+Add to `application.yml`:
+
+```json
+management:
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include:
+          - prometheus
 ```

@@ -145,6 +145,13 @@ public class ApplicationTest {
   }
 
   @Test
+  public void shouldReturn200WhenSendingRequestToManagementEndpoint() throws Exception {
+    ResponseEntity<Map> entity = this.restTemplate.getForEntity("http://localhost:" + this.monitoringPort + "/monitoring/health", Map.class);
+
+    assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+  }
+
+  @Test
   public void shouldReturn200WhenSendingAuthorizedRequestToSensitiveManagementEndpoint() throws Exception {
     ResponseEntity<Map> entity = this.restTemplate.withBasicAuth("admin", "secret").getForEntity(
             "http://localhost:" + this.monitoringPort + "/monitoring/env", Map.class);
@@ -164,3 +171,118 @@ public class ApplicationTest {
 ```
 
 By using the annotation `@TestPropertySource` you can overwrite properties set in `application.yml`.
+
+## Migration Notes
+
+### from JUnit 4 to JUnit 5
+
+Rename test properties:
+
+```java
+@TestPropertySource(properties = {"management.port=0" ...}) -> @TestPropertySource(properties = {"management.server.port=0" ...})
+```
+
+Add to pom.xml
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-actuator-autoconfigure</artifactId>
+</dependency>
+```
+
+Change:
+
+```java
+@Value("${local.management.port}") -> @LocalManagementPort
+@Value("${local.server.port}") -> @LocalServerPort
+```
+
+Remove test properties:
+
+```java
+@TestPropertySource(properties = {..., "management.security.enabled=true"})
+```
+
+Add to pom.xml:
+
+```xml
+<dependency>
+  <groupId>org.junit.jupiter</groupId>
+  <artifactId>junit-jupiter-api</artifactId>
+  <scope>test</scope>
+</dependency>
+```
+
+Exclude Junit 4 dependency:
+
+```
+<dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+ <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+```
+Replace:
+
+```
+@RunWith(SpringRunner.class) -> @ExtendWith(SpringExtension.class)
+@BeforeClass -> @BeforeAll
+@Before -> @BeforeEach
+org.junit.Test -> org.junit.jupiter.api.Test
+@Ignore -> @Disabled
+```
+
+Replace JUnit Exception tests:
+
+```java
+old:
+
+@Test(expected = CliException.class) { ... }
+
+new:
+
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+assertThatThrownBy(() -> {
+  new Cli(printWriter, "--rules=doesnothexist.yml");
+}).isInstanceOf(CliException.class);
+```
+
+Update to the latest version of `maven-surefire-plugin`:
+
+```xml
+<version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
+```
+
+Add dependency `junit-platform-surefire-provider`:
+
+```xml
+<plugin>
+  <artifactId>maven-surefire-plugin</artifactId>
+  <version>${version.maven-surefire-plugin}</version>
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-surefire-provider</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+  </dependencies>
+</plugin>
+```
