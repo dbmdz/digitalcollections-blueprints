@@ -18,6 +18,11 @@
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
+    <version.dc-commons-springboot>2.0.0-SNAPSHOT</version.dc-commons-springboot>
+    <version.git-commit-id-plugin>2.2.5</version.git-commit-id-plugin>
+    <version.spring-boot>2.1.0.RELEASE</version.spring-boot>
+    <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
+    <version.maven-resources-plugin>3.1.0</version.maven-resources-plugin>
   </properties>
   
   <dependencyManagement>
@@ -26,7 +31,7 @@
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.0.5.RELEASE</version>
+        <version>${version.spring-boot}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -37,7 +42,7 @@
     <dependency>
       <groupId>de.digitalcollections.commons</groupId>
       <artifactId>dc-commons-springboot</artifactId>
-      <version>2.0.0-SNAPSHOT</version>
+      <version>${version.dc-commons-springboot}</version>
     </dependency>
     <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
@@ -86,7 +91,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
+        <version>${version.maven-compiler-plugin}</version>
         <configuration>
           <showDeprecation>true</showDeprecation>
           <encoding>${project.build.sourceEncoding}</encoding>
@@ -97,7 +102,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>${version.maven-resources-plugin}</version>
         <configuration>
           <delimiters>
             <delimiter>@</delimiter>
@@ -108,7 +113,7 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.0.5.RELEASE</version>
+        <version>${version.spring-boot}</version>
         <executions>
           <execution>
             <goals>
@@ -124,7 +129,7 @@
       <plugin>
         <groupId>pl.project13.maven</groupId>
         <artifactId>git-commit-id-plugin</artifactId>
-        <version>2.2.5</version>
+        <version>${version.git-commit-id-plugin}</version>
         <executions>
           <execution>
             <id>get-the-git-infos</id>
