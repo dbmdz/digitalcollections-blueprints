@@ -8,11 +8,6 @@ spring:
   profiles:
     active: local
 
-# Activate /actuator
-endpoints:
-  hypermedia:
-    enabled: true
-
 # Application info /info
 info:
   app:
@@ -36,16 +31,17 @@ jsondoc:
   playgroundEnabled: true
   displayMethodAs: URI
 
-# Deactivate security for sensitive actuator endpoints (DO NOT USE ON A PUBLIC ACCESSIBLE SYSTEM!!!)
 management:
-  port: 9001
-  security:
-    enabled: false
-
-security:
-  headers:
-    cache: false
-    # disables pragma no-cache header
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include: "*"
+  info:
+    git:
+      mode: full
+  server:
+    port: 9001
 
 server:
   port: 9000
@@ -59,10 +55,6 @@ custom:
   
 jsondoc:
   basePath: https://www.myrestserver.com:9000
-
-management:
-  security:
-    enabled: true
 
 spring:
   profiles: PROD
