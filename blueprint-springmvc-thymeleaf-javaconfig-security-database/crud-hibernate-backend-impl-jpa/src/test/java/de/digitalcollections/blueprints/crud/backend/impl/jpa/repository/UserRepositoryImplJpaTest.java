@@ -6,19 +6,17 @@ import de.digitalcollections.blueprints.crud.backend.impl.jpa.entity.TestUserFac
 import de.digitalcollections.blueprints.crud.backend.impl.jpa.entity.UserImplJpa;
 import de.digitalcollections.blueprints.crud.model.api.security.User;
 import java.util.Optional;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfigBackendForTest.class})
 @Transactional
 public class UserRepositoryImplJpaTest {
@@ -34,8 +32,8 @@ public class UserRepositoryImplJpaTest {
     Optional result = repository.findById(entity.getId());
     User user = (User) result.get();
 
-    assertNotNull(user);
-    assertEquals(entity.getId(), user.getId());
+    assertThat(user).isNotNull();
+    assertThat(entity.getId()).isEqualTo(user.getId());
   }
 
   @Test
@@ -45,11 +43,11 @@ public class UserRepositoryImplJpaTest {
     repository.save(entity);
     Optional result = repository.findById(entity.getId());
     User foundEntity = (User) result.get();
-    assertEquals(entity.getId(), foundEntity.getId());
+    assertThat(entity.getId()).isEqualTo(foundEntity.getId());
 
     repository.delete(foundEntity);
     result = repository.findById(entity.getId());
-    Assert.assertTrue(!result.isPresent());
+    assertThat(!result.isPresent()).isTrue();
   }
 
   @Test
@@ -58,6 +56,6 @@ public class UserRepositoryImplJpaTest {
     UserImplJpa entity = TestUserFactory.build("test@test.org");
     repository.save(entity);
     User user = repository.findByEmail("test@test.org");
-    assertEquals(entity.getId(), user.getId());
+    assertThat(entity.getId()).isEqualTo(user.getId());
   }
 }
