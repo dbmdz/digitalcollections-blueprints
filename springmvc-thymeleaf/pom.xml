@@ -18,6 +18,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.junit>4.12</version.junit>
+    <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
     <version.servlet-api>3.1.0</version.servlet-api>
     <version.slf4j>1.7.22</version.slf4j>
     <version.spring>5.1.1.RELEASE</version.spring>
@@ -97,12 +98,12 @@
             <include>**/*Tests.java</include>
           </includes>
         </configuration>
-        <version>2.18.1</version>
+        <version>2.22.1</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>2.6</version>
+        <version>${version.maven-war-plugin}</version>
         <configuration>
           <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>

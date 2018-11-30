@@ -12,8 +12,16 @@
   <groupId>de.digitalcollections.blueprints</groupId>
   <artifactId>crud-hibernate-business-impl</artifactId>
   <packaging>jar</packaging>
-  
+
+  <properties>
+    <version.junit5-platform>1.3.2</version.junit5-platform>
+  </properties>
+
   <dependencies>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+    </dependency>
     <dependency>
       <groupId>de.digitalcollections.blueprints</groupId>
       <artifactId>crud-hibernate-model-api</artifactId>
@@ -33,16 +41,34 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-    </dependency>
-    <dependency>
       <groupId>de.digitalcollections.blueprints</groupId>
       <artifactId>crud-hibernate-business-api</artifactId>
     </dependency>
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-engine</artifactId>
+      <version>${version.junit5-platform}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>${version.junit5-platform}</version>
+      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
