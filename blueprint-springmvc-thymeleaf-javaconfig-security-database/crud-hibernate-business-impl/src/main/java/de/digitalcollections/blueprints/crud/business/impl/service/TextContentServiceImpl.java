@@ -5,6 +5,7 @@ import de.digitalcollections.blueprints.crud.business.api.service.TextContentSer
 import de.digitalcollections.blueprints.crud.model.api.TextContent;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,12 @@ public class TextContentServiceImpl implements TextContentService<TextContent, L
 
   @Override
   public TextContent get(Long id) {
-    return (TextContent) textContentRepository.findOne(id);
+    Optional<TextContent> textContentOpt = textContentRepository.findById(id);
+    if (textContentOpt.isPresent()) {
+      TextContent textContent = textContentOpt.get();
+      return textContent;
+    }
+    return null;
   }
 
   @Override

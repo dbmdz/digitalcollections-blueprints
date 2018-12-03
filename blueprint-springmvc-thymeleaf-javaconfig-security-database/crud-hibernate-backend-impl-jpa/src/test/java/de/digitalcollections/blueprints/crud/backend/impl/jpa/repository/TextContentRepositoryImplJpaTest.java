@@ -4,18 +4,18 @@ import de.digitalcollections.blueprints.crud.backend.api.repository.TextContentR
 import de.digitalcollections.blueprints.crud.backend.config.SpringConfigBackendForTest;
 import de.digitalcollections.blueprints.crud.backend.impl.jpa.entity.TextContentImplJpa;
 import de.digitalcollections.blueprints.crud.model.api.TextContent;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import java.util.Optional;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {SpringConfigBackendForTest.class})
 @Transactional
 public class TextContentRepositoryImplJpaTest {
@@ -28,9 +28,10 @@ public class TextContentRepositoryImplJpaTest {
   public void testSaveAndFind() {
     TextContentImplJpa entity = new TextContentImplJpa();
     repository.save(entity);
-    TextContent content = (TextContent) repository.findOne(entity.getId());
+    Optional result = repository.findById(entity.getId());
+    TextContent content = (TextContent) result.get();
 
-    assertNotNull(content);
-    assertEquals(entity.getId(), content.getId());
+    assertThat(content).isNotNull();
+    assertThat(content.getId()).isEqualTo(entity.getId());
   }
 }
