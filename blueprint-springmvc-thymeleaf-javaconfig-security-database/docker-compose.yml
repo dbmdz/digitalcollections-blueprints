@@ -1,0 +1,10 @@
+version: '2'
+services:
+  database:
+    image: postgres:11.1
+    ports:
+      - "33333:5432"
+    environment:
+      POSTGRES_USER: "blue"
+      POSTGRES_PASSWORD: "somepassword"
+      POSTGRES_DB: "blue_db"
