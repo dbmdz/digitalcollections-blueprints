@@ -114,3 +114,61 @@ View
 
 The webapp connects to the database and if no admin user exists, the admin user creation assistant is launched.
 Create an admin user.
+
+## Development Quickstart using Docker Compose
+
+### Installation
+
+Install Docker according to the official [Docker documentation](https://docs.docker.com/install/).
+Install Docker Compose according to the official [documentation](https://docs.docker.com/compose/install/).
+
+#### Debian 9
+
+```sh
+$ su -
+# apt-get install apt-transport-https dirmngr
+# echo 'deb https://apt.dockerproject.org/repo debian-stretch main' >> /etc/apt/sources.list
+# apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys F76221572C52609D
+Executing: /tmp/apt-key-gpghome.wDKSqs4VYM/gpg.1.sh --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys F76221572C52609D
+gpg: key F76221572C52609D: public key "Docker Release Tool (releasedocker) <docker@docker.com>" imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+# apt-get update
+# apt-get install docker-engine
+# apt-get install docker-compose
+```
+
+### Configuration
+
+#### All Linux
+
+Add your user to docker group to run docker without sudo:
+
+```shell
+$ sudo groupadd docker
+$ sudo gpasswd -a yourusername docker
+$ sudo service docker restart
+```
+
+### Usage
+
+To get the application quickly up running, you can start all backend services using Docker Compose:
+
+```shell
+$ docker-compose build
+$ docker-compose up -d
+```
+
+Then PostgreSql is running in a container and everything is ready for running a local instance of the application (see below).
+
+To stop the container run
+
+```shell
+$ docker-compose stop
+```
+
+To delete the container and all data:
+
+```shell
+$ docker-compose down
+```
