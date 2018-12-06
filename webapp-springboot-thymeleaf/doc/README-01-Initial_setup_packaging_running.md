@@ -46,7 +46,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
         <!-- Import dependency management from Spring Boot -->
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.0.5.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -74,7 +74,7 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.0.5.RELEASE</version>
+        <version>2.1.1.RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -112,7 +112,7 @@ In case you want to overlay/use the resulting Spring Boot JAR as dependency in a
 <plugin>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-maven-plugin</artifactId>
-  <version>2.0.5.RELEASE</version>
+  <version>2.1.1.RELEASE</version>
   <executions>
     <execution>
       <goals>
@@ -209,7 +209,7 @@ Logging output is displayed. The webapp should be up and running within a few se
  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
   '  |____| .__|_| |_|_| |_\__, | / / / /
  =========|_|==============|___/=/_/_/_/
- :: Spring Boot ::        (v2.0.5.RELEASE)
+ :: Spring Boot ::        (v2.1.1.RELEASE)
 
 2018-09-21 08:11:26.640  INFO 28266 --- [           main] d.d.b.webapp.springboot.Application      : Starting Application on ralf-linux with PID 28266 (/home/ralf/development/github.com/dbmdz/blueprints/blueprint4-springboot-webapp/step01/target/classes started by ralf in /home/ralf/development/github.com/dbmdz/blueprints/blueprint4-springboot-webapp/step01)
 2018-09-21 08:11:26.642  INFO 28266 --- [           main] d.d.b.webapp.springboot.Application      : No active profile set, falling back to default profiles: default
@@ -264,7 +264,7 @@ Upgrade Spring Boot version:
       <!-- Import dependency management from Spring Boot -->
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-dependencies</artifactId>
-      <version>2.0.5.RELEASE</version>
+      <version>2.1.1.RELEASE</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
