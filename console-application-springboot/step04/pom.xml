@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.0.5.RELEASE</version>
+    <version>2.1.1.RELEASE</version>
   </parent>
 
   <name>DigitalCollections: Blueprints 5: Application (Spring Boot + Commandline) (Step 04)</name>
@@ -21,7 +21,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
     <version.commons-cli>1.4</version.commons-cli>
-    <version.Saxon-HE>9.9.0-1</version.Saxon-HE>
+    <version.Saxon-HE>9.9.0-2</version.Saxon-HE>
   </properties>
   
   <dependencies>

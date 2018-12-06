@@ -24,8 +24,8 @@
     <version.javamelody-spring-boot-starter>1.74.0</version.javamelody-spring-boot-starter>
     <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
     <version.maven-resources-plugin>3.1.0</version.maven-resources-plugin>
-    <version.spring-boot-maven-plugin>2.0.5.RELEASE</version.spring-boot-maven-plugin>
-    <version.spring-boot-dependencies>2.0.5.RELEASE</version.spring-boot-dependencies>
+    <version.spring-boot-maven-plugin>2.1.1.RELEASE</version.spring-boot-maven-plugin>
+    <version.spring-boot-dependencies>2.1.1.RELEASE</version.spring-boot-dependencies>
   </properties>
   
   <dependencyManagement>
