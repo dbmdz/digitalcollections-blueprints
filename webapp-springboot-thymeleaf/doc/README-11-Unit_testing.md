@@ -14,8 +14,8 @@ For JUnit5 we add the following dependencies and build plugins to our `pom.xml` 
 
 ```xml
 <properties>
-  <version.maven-failsafe-plugin>2.22.0</version.maven-failsafe-plugin>
-  <version.maven-surefire-plugin>2.22.0</version.maven-surefire-plugin>
+  <version.maven-failsafe-plugin>2.22.1</version.maven-failsafe-plugin>
+  <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
 </properties>
 
 <dependencies>
@@ -268,21 +268,14 @@ assertThatThrownBy(() -> {
 Update to the latest version of `maven-surefire-plugin`:
 
 ```xml
-<version.maven-surefire-plugin>2.21.0</version.maven-surefire-plugin>
+<version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
 ```
 
-Add dependency `junit-platform-surefire-provider`:
+And add the following `plugin` section:
 
 ```xml
 <plugin>
   <artifactId>maven-surefire-plugin</artifactId>
   <version>${version.maven-surefire-plugin}</version>
-  <dependencies>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-surefire-provider</artifactId>
-      <version>1.2.0</version>
-    </dependency>
-  </dependencies>
 </plugin>
 ```
