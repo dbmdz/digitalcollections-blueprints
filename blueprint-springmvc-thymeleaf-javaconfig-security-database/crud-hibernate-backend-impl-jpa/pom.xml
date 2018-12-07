@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <properties>
-    <version.jaxb-api>2.2.11</version.jaxb-api>
+    <version.jaxb-api>2.3.1</version.jaxb-api>
     <version.querydsl-jpa>4.2.1</version.querydsl-jpa>
   </properties>
 
