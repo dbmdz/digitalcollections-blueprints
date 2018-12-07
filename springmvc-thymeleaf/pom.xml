@@ -17,12 +17,14 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.junit>4.12</version.junit>
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
+    <version.hamcrest>2.1-rc3</version.hamcrest>
+    <version.junit5>5.3.2</version.junit5>
+    <version.mockito-core>2.23.4</version.mockito-core>
     <version.servlet-api>3.1.0</version.servlet-api>
     <version.slf4j>1.7.22</version.slf4j>
     <version.spring>5.1.2.RELEASE</version.spring>
-    <version.thymeleaf>3.0.10.RELEASE</version.thymeleaf>
+    <version.thymeleaf>3.0.11.RELEASE</version.thymeleaf>
     <version.thymeleaf-layout-dialect>2.3.0</version.thymeleaf-layout-dialect>
   </properties>
 
@@ -33,16 +35,34 @@
       <version>${version.servlet-api}</version>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>${version.junit}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
       <version>${version.thymeleaf-layout-dialect}</version>
     </dependency>
+      <dependency>
+        <groupId>org.hamcrest</groupId>
+        <artifactId>hamcrest</artifactId>
+        <version>${version.hamcrest}</version>
+        <scope>compile</scope>
+      </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${version.junit5}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${version.junit5}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${version.mockito-core}</version>
+    </dependency>
+
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
