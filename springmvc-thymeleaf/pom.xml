@@ -21,7 +21,7 @@
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
     <version.servlet-api>3.1.0</version.servlet-api>
     <version.slf4j>1.7.22</version.slf4j>
-    <version.spring>5.1.1.RELEASE</version.spring>
+    <version.spring>5.1.2.RELEASE</version.spring>
     <version.thymeleaf>3.0.10.RELEASE</version.thymeleaf>
     <version.thymeleaf-layout-dialect>2.3.0</version.thymeleaf-layout-dialect>
   </properties>
