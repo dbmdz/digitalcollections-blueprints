@@ -282,11 +282,11 @@ Add temporarily Migrator-dependency:
 </dependency>
 ```
 
-Upgrade Logback-Logstash-Encoder to version 5.1:
+Upgrade Logback-Logstash-Encoder to version 5.2:
 
 ```xml
 <properties>
-  <version.logstash-logback-encoder>5.1</version.logstash-logback-encoder>
+  <version.logstash-logback-encoder>5.2</version.logstash-logback-encoder>
 </properties>
 
 <dependency>
