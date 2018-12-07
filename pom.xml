@@ -53,12 +53,12 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     
-    <version.slf4j-api>1.7.22</version.slf4j-api>
+    <version.slf4j-api>1.7.25</version.slf4j-api>
     <version.jacoco-maven-plugin>0.8.2</version.jacoco-maven-plugin>
     <version.maven-javadoc-plugin>3.0.1</version.maven-javadoc-plugin>
     <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
     <version.nexus-staging-maven-plugin>1.6.8</version.nexus-staging-maven-plugin>
-    <version.versions-maven-plugin>2.4</version.versions-maven-plugin>
+    <version.versions-maven-plugin>2.7</version.versions-maven-plugin>
   </properties>
 
   <modules>

@@ -13,7 +13,7 @@ File 'pom.xml':
 
 ```xml
 <properties>
-  <version.spring-boot-starter-jsondoc>1.2.17</version.spring-boot-starter-jsondoc>
+  <version.spring-boot-starter-jsondoc>1.2.19</version.spring-boot-starter-jsondoc>
 </properties>
 
 <dependencies>
