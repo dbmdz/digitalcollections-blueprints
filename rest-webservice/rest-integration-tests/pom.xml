@@ -17,7 +17,6 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <version.assertj-core>3.8.0</version.assertj-core>
-    <version.feign>9.5.0</version.feign>
     <version.logback-classic>1.2.3</version.logback-classic>
     <version.testcontainers>1.10.2</version.testcontainers>
   </properties>
