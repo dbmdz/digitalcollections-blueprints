@@ -15,7 +15,6 @@
 
   <properties>
     <version.jaxb-api>2.2.11</version.jaxb-api>
-    <version.junit5-platform>1.3.2</version.junit5-platform>
     <version.querydsl-jpa>4.2.1</version.querydsl-jpa>
   </properties>
 
@@ -110,18 +109,6 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-engine</artifactId>
-      <version>${version.junit5-platform}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-launcher</artifactId>
-      <version>${version.junit5-platform}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

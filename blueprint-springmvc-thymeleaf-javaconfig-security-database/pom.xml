@@ -260,12 +260,6 @@
         <version>${version.validation-api}</version>
       </dependency>
       <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${version.junit}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
         <groupId>nz.net.ultraq.thymeleaf</groupId>
         <artifactId>thymeleaf-layout-dialect</artifactId>
         <version>${version.thymeleaf-layout-dialect}</version>
