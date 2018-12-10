@@ -182,17 +182,17 @@ Response to <http://localhost:9001/monitoring/info>:
 ```
 
 The build info duplicates our project info and adds a timestamp.
-So we remove duplicate project-values from `application.yml`:
+We could remove duplicate project-values from `application.yml`, but finally left them there as other info endpoints rely on them:
 
 ```yml
 info:
   app:
     ...
-#    project:
-#      name: '@project.name@'
-#      groupId: @project.groupId@
-#      artifactId: @project.artifactId@
-#      version: @project.version@
+    project:
+      name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
+      version: @project.version@
 ```
 
 (Finally we deleted the lines...)
@@ -359,13 +359,15 @@ management:
 
 As we already expose all (`include: "*"`) this is already done.
 
-Finally add `name`, `version` and `buildDetails` properties to the `info`-section:
+Finally add `buildDetails` properties to the `info`-section:
 
 ```yml
 info:
   app:
     project:
       name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
       version: @project.version@
       buildDetails: '@versionName@'
 ```
@@ -394,6 +396,7 @@ Example output from `http://localhost:9001/monitoring/info`:
     },
     "project": {
       "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+      "artifactId": "webapp-springboot-thymeleaf",
       "version": "1.0.0-SNAPSHOT",
       "buildDetails": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 11:29:32"
     }
