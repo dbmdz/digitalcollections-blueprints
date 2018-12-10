@@ -74,9 +74,12 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
       <version>3.8.0</version>
       <configuration>
         <showDeprecation>true</showDeprecation>
+        <!-- configurations not explicitly needed as they use the default properties names.
+        So the following lines are just for documentation:
         <encoding>${project.build.sourceEncoding}</encoding>
         <source>${maven.compiler.source}</source>
         <target>${maven.compiler.target}</target>
+        -->
       </configuration>
     </plugin>
     ...
@@ -319,7 +322,7 @@ The DigitalCollections Commons project provides Spring Boot specific extensions.
 <dependency>
   <groupId>de.digitalcollections.commons</groupId>
   <artifactId>dc-commons-springboot</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>3.0.0</version>
 </dependency>
 ```
 
