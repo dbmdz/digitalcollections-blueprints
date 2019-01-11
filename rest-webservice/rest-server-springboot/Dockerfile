@@ -1,4 +1,4 @@
-FROM frolvlad/alpine-oraclejdk8:slim
+FROM maven:3.6.0-jdk-11-slim
 
 EXPOSE 9000
 EXPOSE 9001
