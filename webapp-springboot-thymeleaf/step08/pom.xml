@@ -95,9 +95,6 @@
         <version>${version.maven-compiler-plugin}</version>
         <configuration>
           <showDeprecation>true</showDeprecation>
-          <encoding>${project.build.sourceEncoding}</encoding>
-          <source>${maven.compiler.source}</source>
-          <target>${maven.compiler.target}</target>
         </configuration>
       </plugin>
       <plugin>
