@@ -74,9 +74,12 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
       <version>3.8.0</version>
       <configuration>
         <showDeprecation>true</showDeprecation>
+        <!-- configurations not explicitly needed as they use the default properties names.
+        So the following lines are just for documentation:
         <encoding>${project.build.sourceEncoding}</encoding>
         <source>${maven.compiler.source}</source>
         <target>${maven.compiler.target}</target>
+        -->
       </configuration>
     </plugin>
     ...
@@ -182,20 +185,18 @@ Response to <http://localhost:9001/monitoring/info>:
 ```
 
 The build info duplicates our project info and adds a timestamp.
-So we remove duplicate project-values from `application.yml`:
+We could remove duplicate project-values from `application.yml`, but finally left them there as other info endpoints rely on them:
 
 ```yml
 info:
   app:
     ...
-#    project:
-#      name: '@project.name@'
-#      groupId: @project.groupId@
-#      artifactId: @project.artifactId@
-#      version: @project.version@
+    project:
+      name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
+      version: @project.version@
 ```
-
-(Finally we deleted the lines...)
 
 ### Add Git information
 
@@ -230,7 +231,7 @@ The following options for configuring the Git plugin need to be added in `pom.xm
     </execution>
   </executions>
   <configuration>
-    <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory>
+    <dotGitDirectory>${project.basedir}/../../.git</dotGitDirectory> <!-- depends on your project hierarchy -->
     <generateGitPropertiesFile>true</generateGitPropertiesFile>
   </configuration>
 </plugin>
@@ -319,7 +320,7 @@ The DigitalCollections Commons project provides Spring Boot specific extensions.
 <dependency>
   <groupId>de.digitalcollections.commons</groupId>
   <artifactId>dc-commons-springboot</artifactId>
-  <version>2.0.0-SNAPSHOT</version>
+  <version>3.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -359,13 +360,15 @@ management:
 
 As we already expose all (`include: "*"`) this is already done.
 
-Finally add `name`, `version` and `buildDetails` properties to the `info`-section:
+Finally add `buildDetails` properties to the `info`-section:
 
 ```yml
 info:
   app:
     project:
       name: '@project.name@'
+      groupId: @project.groupId@
+      artifactId: @project.artifactId@
       version: @project.version@
       buildDetails: '@versionName@'
 ```
@@ -382,6 +385,8 @@ To fill `versionName` for the `info`-endpoint during filtering of resources (`ap
 </properties>
 ```
 
+The `VersionInfo` endpoint additionally lists all contained JAR-files with version.
+
 Example output from `http://localhost:9001/monitoring/info`:
 
 ```json
@@ -394,10 +399,23 @@ Example output from `http://localhost:9001/monitoring/info`:
     },
     "project": {
       "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+      "groupId": "de.digitalcollections.blueprints",
+      "artifactId": "webapp-springboot-thymeleaf",
       "version": "1.0.0-SNAPSHOT",
       "buildDetails": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 11:29:32"
     }
   },
+  "version": {
+    "HdrHistogram-2.1.9.jar": "2.1.9",
+    "LatencyUtils-2.0.3.jar": "~ 2.0.3",
+    "annotations-2.0.1.jar": "2.0.0",
+    "classmate-1.4.0.jar": "1.4.0",
+    "guava-15.0.jar": "15.0.0",
+    "hibernate-validator-6.0.13.Final.jar": "6.0.13.Final",
+    "jackson-annotations-2.9.0.jar": "2.9.0",
+    "jackson-core-2.9.7.jar": "2.9.7",
+    ...
+  }
 ...
 ```
 
@@ -405,7 +423,7 @@ Example output from `http://localhost:9001/monitoring/version`:
 
 ```json
 {
-  "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+  "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 03",
   "version": "1.0.0-SNAPSHOT",
   "details": "1.0.0-SNAPSHOT manually built by ralf at 2018-10-18 14:14:33"
 }
