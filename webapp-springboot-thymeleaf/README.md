@@ -17,6 +17,7 @@ Features documentation (each including Migration notes for version upgrades):
 - [doc/README-09-Monitoring.md](doc/README-09-Monitoring.md): Monitoring
 - [doc/README-10-Security.md](doc/README-10-Security.md): Security
 - [doc/README-11-Unit_testing.md](doc/README-11-Unit_testing.md): Unit-Testing
+- [doc/README-12-Bootstrap_migration.md](doc/README-12-Bootstrap_migration.md): Migration from Bootstrap 3 to 4
 
 ## Usage
 
