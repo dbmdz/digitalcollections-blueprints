@@ -381,6 +381,40 @@ new:
 - "$DECORATOR_TITLE renamed to $LAYOUT_TITLE": `$DECORATOR_TITLE` -> `$LAYOUT_TITLE`
 - "Deprecated include, introduced insert": `th:include` -> `th:insert`
 
+- "FragmentProcessor: You don't need to put the layout:fragment/data-layout-fragment attribute into the <head> section - the decoration process will automatically copy the <head> section of your content templates into your layout page."
+
+Thymeleaf automatically merges HTML HEAD entries of templates into `head` section of the `base` template. We do not have to add a `fragment` section in `base.html` for this:
+
+old (`base.html`):
+```html
+<head>
+   ...
+  <th:block layout:fragment="morecss">
+  </th:block>
+</head>
+```
+
+old (`example.html`):
+```html
+<head>
+  ...
+  <th:block layout:fragment="morecss">
+    <link th:href="@{/css/vendor/chosen.min.css}" rel="stylesheet" />
+  </th:block>
+</head>
+```
+new (`base.html`):
+
+remove `<th:block>` completely from head section
+
+new (`example.html`):
+
+```html
+<head>
+  <link th:href="@{/css/vendor/chosen.min.css}" rel="stylesheet" />
+</head>
+```
+
 #### HTML5
 
 Thymeleaf 3 requires valid HTML5 templates. (see <https://www.w3.org/TR/html5/syntax.html#writing-html-documents-elements> and <https://www.w3.org/TR/html5/syntax.html#void-elements>)

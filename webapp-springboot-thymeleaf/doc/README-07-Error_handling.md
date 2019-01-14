@@ -43,6 +43,11 @@ Server: DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Ste
 
 {"timestamp":"2018-09-26T06:58:05.910+0000","status":404,"error":"Not Found","message":"No message available","path":"/notExisting"}
 ```
+Since Spring Boot shall be responsible for error management, it is important, that you don't implement a custom error controller and that
+all controllers don't catch the errors in a try...catch stanza.
+
+However, if you need to control the error handling, e.g. to display the 404 error page for certain conditions, you can manually throw
+one of the Exceptions of `de.digitalcollections.commons.springmvc.exceptions`, like the `ResourceNotFoundException`.
 
 ### User friendly labeled error page
 
