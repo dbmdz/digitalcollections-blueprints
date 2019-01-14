@@ -111,3 +111,23 @@ java -jar target/webapp-springboot-thymeleaf-<VERSION>-exec.jar --spring.profile
 ```
 
 In this case the `DEV` profile is used.
+
+## Enabling access_log
+
+If you need an access_log, like you had in tomcat, you have to set a few properties in `application.yml`:
+
+```yaml
+...
+server:
+  tomcat:
+    accesslog:
+      directory: "/var/log/digitalcollections"
+      enabled: true
+      prefix: access_log_step08
+      rename-on-rotate: true
+      suffix: ''
+...
+
+```
+
+For details, see the `WEB PROPERTIES` section in [Spring Boot: Appendix A. Common application properties](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.htm)
