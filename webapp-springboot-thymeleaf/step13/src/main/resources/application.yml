@@ -51,6 +51,7 @@ spring:
     active: local
   redis:
     host: localhost
+    password: topsecret
     port: 6379
   security:
     user:
