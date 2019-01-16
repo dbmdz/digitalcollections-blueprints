@@ -23,6 +23,7 @@ import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import redis.embedded.RedisServer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,10 +35,10 @@ public class ApplicationTest {
   @TestConfiguration
   public static class EmbeddedRedisTestConfiguration {
 
-    private final redis.embedded.RedisServer redisServer;
+    private final RedisServer redisServer;
 
-    public EmbeddedRedisTestConfiguration(@Value("${spring.redis.port}") final int redisPort) throws IOException {
-      this.redisServer = new redis.embedded.RedisServer(redisPort);
+    public EmbeddedRedisTestConfiguration(@Value("${spring.redis.port}") final int redisPort, @Value("${spring.redis.password}") final String redisPassword) throws IOException {
+      redisServer = RedisServer.builder().port(redisPort).setting("requirepass " + redisPassword).build();
     }
 
     @PostConstruct
