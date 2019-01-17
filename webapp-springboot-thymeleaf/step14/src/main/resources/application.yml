@@ -1,0 +1,90 @@
+info:
+  app:
+    encoding: @project.build.sourceEncoding@
+    java:
+      source: @maven.compiler.source@
+      target: @maven.compiler.target@
+    project:
+      name: '@project.name@'
+      version: @project.version@
+      buildDetails: '@versionName@'
+
+javamelody:
+  enabled: true
+  init-parameters:
+    allowed-addr-pattern: 'localhost|127\.0\.0\.1|0:0:0:0:0:0:0:1'
+    authorized-users: 'admin:somepassword'
+    http-transform-pattern: '(\\d+|(?<=currenttitles/).*|(?<=citationtitles/).*|(?<=occurrences/).*|(?<=periodical/).*|(?<=issues/).*)'
+    # log http requests:
+    log: false
+    monitoring-path: '/monitoring/javamelody'
+    url-exclude-pattern: '^(/webjars|/jsondoc|/monitoring).*'
+
+management:
+  endpoint:
+    health:
+      show-details: when-authorized
+  endpoints:
+    web:
+      base-path: '/monitoring'
+      exposure:
+        include: "*"
+  info:
+    git:
+      mode: full
+  server:
+    port: 9001
+
+server:
+  error:
+    include-exception: true
+    include-stacktrace: 'always'
+  port: 9000
+  server-header: "@project.name@ v@project.version@"
+  servlet:
+    context-path: "/"
+
+spring:
+  messages:
+    fallback-to-system-locale: false
+  profiles:
+    active: local
+  redis:
+    host: localhost
+    password: topsecret
+    port: 6379
+  security:
+    user:
+      name: admin
+      password: secret
+      roles: ENDPOINT_ADMIN
+  session:
+    redis:
+      namespace: "blueprint:session"
+    store-type: redis
+    timeout: 24h
+
+---
+
+spring:
+  profiles: DEV
+
+---
+
+spring:
+  profiles: STG
+
+server:
+  error:
+    include-exception: false
+    include-stacktrace: 'on_trace_param'
+
+---
+
+spring:
+  profiles: PROD
+
+server:
+  error:
+    include-exception: false
+    include-stacktrace: 'never'
