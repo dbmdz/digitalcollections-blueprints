@@ -14,7 +14,7 @@ public class MainController {
 
   @GetMapping(value = {"", "/"})
   public String printWelcome(Model model) {
-    LOGGER.info("Homepage requested");
+    LOGGER.info( "Homepage requested");
     model.addAttribute("time", new Date());
     return "main";
   }
