@@ -7,7 +7,7 @@ services:
 before_script:
   - if [ ! -z "$TRAVIS_TAG" ]; then mvn versions:set -DnewVersion=$TRAVIS_TAG; fi
 script:
-  - mvn clean install
+  - mvn clean install -U
   - find ./webapp-springboot-thymeleaf/step* -maxdepth 0 -type d \( ! -name . \) -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
   - find ./console-application-springboot/step* -maxdepth 0 -type d \( ! -name . \) -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
 after_success:
