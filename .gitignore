@@ -22,10 +22,6 @@ hs_err_pid*
 .classpath
 .org.eclipse.*
 .settings
-/webapp-springboot-thymeleaf/step10/nbproject/
-/nb-configuration.xml
-/webapp-springboot-thymeleaf/step10/nb-configuration.xml
-/springmvc-thymeleaf/nb-configuration.xml
-/blueprint-springmvc-thymeleaf-javaconfig-security-database/crud-hibernate-backend-impl-jpa/nb-configuration.xml
-/blueprint-springmvc-thymeleaf-javaconfig-security-database/crud-hibernate-backend-impl-jpa/nbactions.xml
-/webapp-springboot-thymeleaf/step11/nb-configuration.xml
+nbproject/
+nbactions.xml
+nb-configuration.xml

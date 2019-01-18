@@ -45,6 +45,12 @@ server:
   server-header: "@project.name@ v@project.version@"
   servlet:
     context-path: "/"
+  tomcat:
+    accesslog:
+      directory: "/var/log/digitalcollections"
+      enabled: true
+      prefix: access_log_step10
+      rename-on-rotate: true
 
 spring:
   messages:
