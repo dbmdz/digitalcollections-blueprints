@@ -49,9 +49,8 @@ server:
     accesslog:
       directory: "/var/log/digitalcollections"
       enabled: true
-      prefix: access_log_step08
+      prefix: access_log_step11
       rename-on-rotate: true
-      suffix: ''
 
 spring:
   messages:
