@@ -40,7 +40,6 @@ server:
       enabled: true
       prefix: access_log_step08
       rename-on-rotate: true
-      suffix: ''
 
 spring:
   messages:
