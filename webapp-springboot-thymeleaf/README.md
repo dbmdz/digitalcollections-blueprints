@@ -19,6 +19,7 @@ Features documentation (each including Migration notes for version upgrades):
 - [doc/README-11-Unit_testing.md](doc/README-11-Unit_testing.md): Unit-Testing
 - [doc/README-12-Bootstrap_migration.md](doc/README-12-Bootstrap_migration.md): Migration from Bootstrap 3 to 4
 - [doc/README-13-Session_handling_via_Redis.md](doc/README-13-Session_handling_via_Redis.md): Session handling via Redis
+- [doc/README-14-Code-Quality.md](doc/README-14-Code-Quality.md): Code Quality and static code analysis
 
 ## Usage
 
