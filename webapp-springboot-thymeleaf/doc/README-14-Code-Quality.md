@@ -155,3 +155,53 @@ The graphical user interface is shown after invoking the following command:
 ```bash
 $ mvn spotbugs:gui
 ```
+
+### Advanced
+
+In some cases it is necessary to suppress warnings/errors that were found by SpotBugs. They can be disabled by using of Java annotations. Here comes
+a list of possible annotations:
+
+
+* `CheckForNull`
+* `CheckReturnValue`
+* `CleanupObligation`
+* `Confidence`
+* `CreatesObligation`
+* `DefaultAnnotation`
+* `DefaultAnnotationForFields`
+* `DefaultAnnotationForMethods`
+* `DefaultAnnotationForParameters`
+* `DesireNoWarning`
+* `DesireWarning`
+* `DischargesObligation`
+* `ExpectWarning`
+* `NonNull`
+* `NoWarning`
+* `Nullable`
+* `OverrideMustInvoke`
+* `PossiblyNull`
+* `Priority`
+* `ReturnValuesAreNonnullByDefault`
+* `SuppressFBWarnings`
+* `SuppressWarnings`
+* `UnknownNullness`
+* `When`
+
+E.g. the `SuppressFBWarnings` can be used to disable a SpotBugs check for a specific member variable:
+
+```java
+@JsonProperty
+@SuppressFBWarnings
+private String details;
+```
+
+In order to use SpotBugs annotations, the `spotbugs-annotations` package must be added to `pom.xml`:
+
+```xml
+<dependency>
+  <groupId>com.github.spotbugs</groupId>
+  <artifactId>spotbugs-annotations</artifactId>
+  <version>3.1.10</version>
+  <optional>true</optional>
+</dependency>
+```
