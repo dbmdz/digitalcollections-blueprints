@@ -166,7 +166,7 @@ Our basic bootstrap page skeleton `base.html`:
     <title>Webapp Blueprint (Spring Boot + Thymeleaf)</title>
 
     <!-- Bootstrap core CSS -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link th:href="@{/css/starter-template.css}" rel="stylesheet" />
@@ -178,8 +178,8 @@ Our basic bootstrap page skeleton `base.html`:
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script th:src="@{/js/html5shiv.min.js}"></script>
-    <script th:src="@{/js/respond.min.js}"></script>
+    <script th:src="@{/webjars/html5shiv/3.7.3/html5shiv.min.js}"></script>
+    <script th:src="@{/webjars/respond.js/1.4.2/dest/respond.min.js}"></script>
     <![endif]-->
   </head>
 
@@ -212,10 +212,10 @@ Our basic bootstrap page skeleton `base.html`:
 
     </div>
 
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script th:src="@{/js/ie10-viewport-bug-workaround.js}"></script>
+    <script th:src="@{/webjars/ie10-viewport-bug-workaround/1.0.3/dist/ie10-viewport-bug-workaround.min.js}"></script>
   </body>
 </html>
 ```
@@ -230,27 +230,21 @@ Examples:
 
 ```html
 <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
-<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/css/starter-template.css}" rel="stylesheet" />
 <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
 ```
 
-We put referenced static files `favicon.png`, `bootstrap.min.css`, `main.css`, `starter-template.css` and all js-files in their corresponding subdirectories under `src/main/resources/static`.
+We put referenced static files `favicon.png`, `main.css`, `starter-template.css` and all js-files in their corresponding subdirectories under `src/main/resources/static`.
 
 ```
 static
 ├── css
-│   ├── bootstrap.min.css
 │   ├── main.css
 │   └── starter-template.css
 ├── images
 │   └── favicon.png
 └── js
-    ├── bootstrap.min.js
-    ├── html5shiv.min.js
-    ├── ie10-viewport-bug-workaround.js
-    ├── ie-emulation-modes-warning.js
-    ├── jquery.min.js
-    └── respond.min.js
+    └── ie-emulation-modes-warning.js
 ```
 
 We could start our server now and test the templates, but there would be errors because of our `@`-placeholder filtering of `src/main/resources`files...

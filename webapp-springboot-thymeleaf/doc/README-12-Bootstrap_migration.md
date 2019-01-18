@@ -7,34 +7,47 @@ is the official migration document from Bootstrap:
 
 <https://getbootstrap.com/docs/4.0/migration/>
 
-## Replace Bootstrap CSS file
+## Bump version of the Bootstrap WebJar
 
-The first step in our webpage migration is to replace the static Boostrap CSS file with the latest version of
-Bootstrap. All static CSS files are located under:
+The first step in our webpage migration is to change the version of the Bootstrap WebJar in the `pom.xml`.
 
-`src/main/resources/static/css`.
+**Before:**
 
-Only the minified Bootstrap core file, `bootstrap.min.css` needs to be replaced.
-
-This could be done with a simple `wget` or `curl` command:
-
-```bash
-$ cd src/main/resources/static/css
-$ rm -f bootstrap.min.css
-$ wget https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css
+```xml
+...
+<version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
+...
+<dependency>
+  <groupId>org.webjars.npm</groupId>
+  <artifactId>bootstrap</artifactId>
+  <version>${version.webjar-bootstrap}</version>
+  <exclusions>
+    <exclusion>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
+...
 ```
 
-This replaces the old CSS file for Bootstrap 3 with the latest Bootstrap 4.2.1 version.
+**After:**
 
-## Replace Bootstrap Javascript file
-
-In the second step in our webpage migration, the old Javascript file for Bootstrap 3 needs to be replaced with
-a newer one. This could be done with the following command:
-
-```bash
-$ cd src/main/resources/static/js
-$ rm -f bootstrap.min.js
-$ wget https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js
+```xml
+...
+<version.webjar-bootstrap>4.2.1</version.webjar-bootstrap>
+...
+<dependency>
+  <groupId>org.webjars.npm</groupId>
+  <artifactId>bootstrap</artifactId>
+  <version>${version.webjar-bootstrap}</version>
+  <exclusions>
+    <exclusion>
+      <groupId>org.webjars</groupId>
+      <artifactId>jquery</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
 ```
 
 ## Migrate static templates
