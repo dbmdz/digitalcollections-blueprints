@@ -156,12 +156,12 @@ Our basic bootstrap page skeleton `base.html`:
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="" />
-    <link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
+    <meta name="description" content="">
+    <link rel="shortcut icon" th:href="@{/images/favicon.png}">
 
     <title>Webapp Blueprint (Spring Boot + Thymeleaf)</title>
 
@@ -169,8 +169,8 @@ Our basic bootstrap page skeleton `base.html`:
     <link th:href="@{/webjars/bootstrap/3.3.7/dist/css/bootstrap.min.css}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link th:href="@{/css/starter-template.css}" rel="stylesheet" />
-    <link th:href="@{/css/main.css}" rel="stylesheet" />
+    <link th:href="@{/css/starter-template.css}" rel="stylesheet">
+    <link th:href="@{/css/main.css}" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="@{/js/ie8-responsive-file-warning.js}"></script><![endif]-->
@@ -229,8 +229,8 @@ In Thymeleaf URL-attributes in link-, script- and img-tags have to be prefixed w
 Examples:
 
 ```html
-<link rel="shortcut icon" th:href="@{/images/favicon.png}"/>
-<link th:href="@{/css/starter-template.css}" rel="stylesheet" />
+<link rel="shortcut icon" th:href="@{/images/favicon.png}">
+<link th:href="@{/css/starter-template.css}" rel="stylesheet">
 <script th:src="@{/js/ie-emulation-modes-warning.js}"></script>
 ```
 
@@ -393,7 +393,7 @@ old (`example.html`):
 <head>
   ...
   <th:block layout:fragment="morecss">
-    <link th:href="@{/css/vendor/chosen.min.css}" rel="stylesheet" />
+    <link th:href="@{/css/vendor/chosen.min.css}" rel="stylesheet">
   </th:block>
 </head>
 ```
@@ -405,7 +405,7 @@ new (`example.html`):
 
 ```html
 <head>
-  <link th:href="@{/css/vendor/chosen.min.css}" rel="stylesheet" />
+  <link th:href="@{/css/vendor/chosen.min.css}" rel="stylesheet">
 </head>
 ```
 
