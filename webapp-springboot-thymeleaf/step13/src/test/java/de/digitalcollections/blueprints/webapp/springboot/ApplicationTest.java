@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.server.port=0"}) // set random management port
+@TestPropertySource(properties = {"management.server.port=0", "spring.redis.port=24242"}) // set random management port
 public class ApplicationTest {
 
   @TestConfiguration
@@ -87,13 +87,12 @@ public class ApplicationTest {
     // Second requests uses sessionId but does not authenticate again
     HttpHeaders headers2 = new HttpHeaders();
     headers2.set("Cookie", cookie);
-    RequestEntity <Object> request2 = new RequestEntity(headers2, HttpMethod.GET, uri);
+    RequestEntity<Object> request2 = new RequestEntity(headers2, HttpMethod.GET, uri);
     ResponseEntity<String> response2 = restTemplate.exchange(request2, String.class);
     assertThat(response2.getStatusCode()).isEqualTo(HttpStatus.OK);
     String secondSessionId = response2.getBody();
 
     assertThat(firstSessionId).isEqualTo(secondSessionId);
   }
-
 
 }

@@ -6,6 +6,8 @@ info:
       target: @maven.compiler.target@
     project:
       name: '@project.name@'
+      groupId: '@project.groupId@'
+      artifactId: @project.artifactId@
       version: @project.version@
       buildDetails: '@versionName@'
 
@@ -58,7 +60,7 @@ spring:
   redis:
     host: localhost
     password: topsecret
-    port: 6379
+    port: 23232
   security:
     user:
       name: admin

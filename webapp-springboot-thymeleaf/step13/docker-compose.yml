@@ -1,0 +1,7 @@
+version: '2'
+services:
+  session-cache:
+    command: redis-server --requirepass topsecret
+    image: redis:5-alpine
+    ports:
+      - "23232:6379"
