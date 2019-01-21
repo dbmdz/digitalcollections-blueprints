@@ -42,7 +42,7 @@ For testing, you can use [embedded-redis](https://github.com/ozimov/embedded-red
 
 ## Add configuration properties
 
-In the `application.properties` you must define the [redis configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html) and define the [session handling to use redis](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html).
+In the `application.yaml` you must define the [redis configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html) and define the [session handling to use redis](https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html).
 
 Additionally, you can also set some configuration parameters like the session timeout or the namespace, your instance uses:
 
@@ -66,11 +66,28 @@ The only thing in your implementation you have to take care of is, that the sess
 
 The integration test uses an [embedded redis](https://github.com/ozimov/embedded-redis) instance and checks, if the authentication survives when re-using the session id for the second request.
 
-You have to configure the embedded redis server in a Spring test configuration within the unit test. The redis credentials are taken from the `application.yml`:
+You have to configure the embedded redis server in a Spring test configuration within the unit test. 
+Since the chances are pretty high, that you have already a local redis instance running, the tests will fail.
+To avoid this, you should define a `TEST`-profile for spring, where you define at least a different port
+for the embedded redis instance:
+
+```yaml
+
+---
+
+spring:
+  profiles: TEST
+  redis:
+    host: localhost
+    password: test
+    port: 44444
+```
+
 
 ```java
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@ActiveProfiles(profiles = "TEST")
 class ApplicationTest {
 
   @TestConfiguration

@@ -24,7 +24,7 @@
     </appender>
   </springProfile>
   
-  <springProfile name="local">
+  <springProfile name="local, TEST">
     <appender name="default" class="ch.qos.logback.core.ConsoleAppender">
       <encoder>
         <pattern>[%d{ISO8601} %5p] %40.40c:%4L [%-8t] - %m%n</pattern>

@@ -76,6 +76,15 @@ spring:
 ---
 
 spring:
+  profiles: TEST
+  redis:
+    host: localhost
+    password: topsecret
+    port: 23232
+
+---
+
+spring:
   profiles: DEV
 
 ---
