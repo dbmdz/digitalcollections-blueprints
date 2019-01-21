@@ -20,6 +20,7 @@ javamelody:
     # log http requests:
     log: false
     monitoring-path: '/monitoring/javamelody'
+    storage-directory: '/local/javamelody-step11'
     url-exclude-pattern: '^(/webjars|/jsondoc|/monitoring).*'
 
 management:

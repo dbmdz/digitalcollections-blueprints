@@ -91,6 +91,7 @@ We want:
   - by allowed IPs
 - some URLs ("/webjars", "/jsondoc", "/monitoring") should be ignored for statistics
 - aggregation of URLs that just differs in dynamic parts (params)
+- use distinct directory for javamelody data of each instance
 
 Javamelody provides configuration properties for this.
 
@@ -106,6 +107,7 @@ javamelody:
     # log http requests:
     log: false
     monitoring-path: '/monitoring/javamelody'
+    storage-directory: '/local/javamelody-yourapplication'
     url-exclude-pattern: '^(/webjars|/jsondoc|/monitoring).*'
 ```
 
