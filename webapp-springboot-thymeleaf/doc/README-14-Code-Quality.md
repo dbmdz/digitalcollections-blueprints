@@ -100,6 +100,36 @@ To enable it, just add the following section to your `<plugins>` section in `pom
 </plugin>
 ```
 
+This configuration is a very strict and the Maven build automatically fails, whenever SpotBugs found any errors.
+
+To allow SpotBugs not to fail on errors, just use:
+
+```xml
+<plugin>
+  <groupId>com.github.spotbugs</groupId>
+  <artifactId>spotbugs-maven-plugin</artifactId>
+  <version>3.1.8</version>
+  <dependencies>
+    <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
+    <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs</artifactId>
+      <version>3.1.9</version>
+    </dependency>
+  </dependencies>
+  <configuration>
+    <failOnError>false</failOnError>
+  </configuration>
+  <executions>
+    <execution>
+      <goals>
+        <goal>check</goal>
+      </goals>
+    </execution>
+  </executions>
+</plugin>
+```
+
 ### Checks
 
 To show the powerful static analysis for SpotBugs, we intentionally add a null pointer dereference bug:
