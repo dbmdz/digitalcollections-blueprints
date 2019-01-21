@@ -158,7 +158,7 @@ $ mvn spotbugs:gui
 
 ### Advanced
 
-In some cases it is necessary to suppress warnings/errors that were found by SpotBugs. They can be disabled by using of Java annotations. Here comes
+In some cases it is necessary to suppress warnings/errors that were found by SpotBugs. They can be disabled by using Java annotations. Here comes
 a list of possible annotations:
 
 
