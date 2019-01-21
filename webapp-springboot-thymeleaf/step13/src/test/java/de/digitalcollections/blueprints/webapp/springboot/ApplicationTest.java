@@ -29,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {"management.server.port=0", "spring.redis.port=24242"}) // set random management port
+@TestPropertySource(properties = {"management.server.port=0", "spring.redis.port=44444"}) // set random management port
 public class ApplicationTest {
 
   @TestConfiguration
