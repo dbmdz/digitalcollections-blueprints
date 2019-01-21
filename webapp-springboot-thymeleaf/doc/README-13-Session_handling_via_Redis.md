@@ -67,27 +67,12 @@ The only thing in your implementation you have to take care of is, that the sess
 The integration test uses an [embedded redis](https://github.com/ozimov/embedded-redis) instance and checks, if the authentication survives when re-using the session id for the second request.
 
 You have to configure the embedded redis server in a Spring test configuration within the unit test. 
-Since the chances are pretty high, that you have already a local redis instance running, the tests will fail.
-To avoid this, you should define a `TEST`-profile for spring, where you define at least a different port
-for the embedded redis instance:
-
-```yaml
-
----
-
-spring:
-  profiles: TEST
-  redis:
-    host: localhost
-    password: test
-    port: 44444
-```
 
 
 ```java
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles(profiles = "TEST")
+@TestPropertySource(properties = {"management.server.port=0", "spring.redis.port=44444"}) // set random management port
 class ApplicationTest {
 
   @TestConfiguration
