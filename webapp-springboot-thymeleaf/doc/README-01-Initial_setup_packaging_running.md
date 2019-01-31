@@ -19,12 +19,20 @@ my-webapp
 
 ## Basic Maven project file `pom.xml`
 
-As we do not want to have Spring Boot as parent (we have another one), we modify the `pom.xml` like described here: (see <http://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-maven-without-a-parent>):
+Spring Boot starter is defined as parent like described here: <https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-build-systems.html#using-boot-maven-parent-pom>.
+
+You only need to specify the desired Spring Boot version on this dependency. For all other Spring Boot starter dependencies, you can safely omit the version number:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.1.2.RELEASE</version>
+  </parent>
 
   <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)</name>
   <groupId>de.digitalcollections.blueprints</groupId>
@@ -39,19 +47,6 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <!-- Import dependency management from Spring Boot -->
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>2.1.1.RELEASE</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -74,7 +69,6 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>2.1.1.RELEASE</version>
         <executions>
           <execution>
             <goals>
@@ -87,7 +81,6 @@ As we do not want to have Spring Boot as parent (we have another one), we modify
   </build>
 </project>
 ```
-By using spring-boot-dependencies this way you can still keep the benefit of the Spring Boot dependency management, but not the plugin management. Therefore we also had to introduce the version for the `spring-boot-maven-plugin`.
 
 The Spring Boot Maven plugin provides many convenient features:
 
@@ -112,7 +105,6 @@ In case you want to overlay/use the resulting Spring Boot JAR as dependency in a
 <plugin>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-maven-plugin</artifactId>
-  <version>2.1.1.RELEASE</version>
   <executions>
     <execution>
       <goals>
