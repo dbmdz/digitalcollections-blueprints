@@ -18,7 +18,7 @@
 
     <version.assertj-core>3.8.0</version.assertj-core>
     <version.logback-classic>1.2.3</version.logback-classic>
-    <version.testcontainers>1.10.5</version.testcontainers>
+    <version.testcontainers>1.10.6</version.testcontainers>
   </properties>
 
   <dependencies>
