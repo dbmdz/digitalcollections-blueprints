@@ -19,7 +19,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
     <version.hamcrest>2.1</version.hamcrest>
-    <version.junit5>5.3.2</version.junit5>
+    <version.junit5>5.4.0</version.junit5>
     <version.mockito-core>2.24.0</version.mockito-core>
     <version.servlet-api>4.0.1</version.servlet-api>
     <version.slf4j>1.7.25</version.slf4j>
