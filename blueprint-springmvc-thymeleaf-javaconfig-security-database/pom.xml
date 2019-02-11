@@ -90,7 +90,7 @@
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
     <version.maven-site-plugin>3.7.1</version.maven-site-plugin>
     <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
-    <version.wagon-ssh>3.2.0</version.wagon-ssh>
+    <version.wagon-ssh>3.3.2</version.wagon-ssh>
   </properties>
 
   <build>
