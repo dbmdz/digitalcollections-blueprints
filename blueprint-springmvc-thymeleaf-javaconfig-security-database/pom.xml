@@ -17,22 +17,50 @@
   <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <url>http://wms.digitale-sammlungen.de/</url>
+  <url>https://github.com/dbmdz/blueprints</url>
   <description>
     The WMS (Web Management System) is a template project demonstrating the integration of fundamental technologies for a Spring Java webapp.
   </description>
   <organization>
     <name>Bayerische Staatsbibliothek</name>
-    <url>http://www.bsb-muenchen.de/</url>
+    <url>https://www.bsb-muenchen.de/</url>
   </organization>
   <licenses>
     <license>
       <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
       <comments>A business-friendly OSS license</comments>
     </license>
   </licenses>
+  <scm>
+    <connection>scm:git:git@github.com:dbmdz/blueprints.git</connection>
+    <developerConnection>scm:git:git@github.com:dbmdz/blueprints.git</developerConnection>
+    <url>https://github.com/dbmdz/blueprints</url>
+  </scm>
+  <issueManagement>
+    <system>GitHub Issues</system>
+    <url>https://github.com/dbmdz/blueprints/issues</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Travis CI</system>
+    <url>https://travis-ci.org/dbmdz/blueprints</url>
+  </ciManagement>
+  <developers>
+    <developer>
+      <id>reichinger</id>
+      <name>Ralf Eichinger</name>
+      <email>ralf.eichinger@bsb-muenchen.de</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <organization>MDZ</organization>
+      <organizationUrl>https://www.digitale-sammlungen.de/</organizationUrl>
+      <properties>
+        <phone>+49 89 28638 - 2660</phone>
+      </properties>
+    </developer>
+  </developers>
 
   <modules>
     <!-- webapp layers -->
@@ -404,68 +432,6 @@
     </dependencies>
   </dependencyManagement>
 
-  <repositories>
-    <!-- credentials for server in settings.xml -->
-    <repository>
-      <id>mdzrepo-release</id>
-      <name>MDZ Release</name>
-      <url>http://bsbrepo.bsb.lrz.de/nexus/content/repositories/mdzrepo-release</url>
-    </repository>
-    <repository>
-      <id>mdzrepo-snapshot</id>
-      <name>MDZ Snapshot</name>
-      <url>http://bsbrepo.bsb.lrz.de/nexus/content/repositories/mdzrepo-snapshot</url>
-    </repository>
-  </repositories>
-
-  <distributionManagement>
-    <!-- credentials for server in settings.xml -->
-    <repository>
-      <id>mdzrepo-release</id>
-      <name>MDZ Release</name>
-      <url>http://bsbrepo.bsb.lrz.de/nexus/content/repositories/mdzrepo-release</url>
-    </repository>
-    <snapshotRepository>
-      <id>mdzrepo-snapshot</id>
-      <name>MDZ Snapshot</name>
-      <url>http://bsbrepo.bsb.lrz.de/nexus/content/repositories/mdzrepo-snapshot</url>
-    </snapshotRepository>
-    <site>
-      <id>website-projects</id>
-      <url>scp://bsbrepo.bsb.lrz.de/srv/www/htdocs/projects/wms</url>
-    </site>
-  </distributionManagement>
-
-  <scm>
-    <connection>scm:git:git@gitlab.lrz.de:MDZ/project_mdz-wms.git</connection>
-    <developerConnection>scm:git:git@gitlab.lrz.de:MDZ/project_mdz-wms.git</developerConnection>
-    <url>https://gitlab.lrz.de/MDZ/project_mdz-wms/tree/master</url>
-  </scm>
-  <issueManagement>
-    <system>Jira</system>
-    <url>http://bsbrepo.bsb.lrz.de/jira/</url>
-  </issueManagement>
-  <ciManagement>
-    <system>Jenkins CI</system>
-    <url>http://bsbrepo.bsb.lrz.de/jenkins/</url>
-  </ciManagement>
-
-  <developers>
-    <developer>
-      <id>reichinger</id>
-      <name>Ralf Eichinger</name>
-      <email>ralf.eichinger@bsb-muenchen.de</email>
-      <roles>
-        <role>Developer</role>
-      </roles>
-      <organization>MDZ</organization>
-      <organizationUrl>http://www.digitale-sammlungen.de/</organizationUrl>
-      <properties>
-        <phone>+49 89 28638 - 2660</phone>
-      </properties>
-    </developer>
-  </developers>
-
   <reporting>
     <plugins>
       <plugin>
@@ -475,5 +441,4 @@
       </plugin>
     </plugins>
   </reporting>
-
 </project>
