@@ -172,3 +172,46 @@ To delete the container and all data:
 ```shell
 $ docker-compose down
 ```
+
+### Migrations
+
+#### Flyway 4.2.0 to 5.2.4
+
+pom.xml:
+
+```xml
+<dependency>
+  <groupId>org.flywaydb</groupId>
+  <artifactId>flyway-core</artifactId>
+  <version>5.2.4</version>
+</dependency>
+```
+
+SpringConfigBackendDatabase.java:
+
+old:
+```java
+@Bean(initMethod = "migrate")
+public Flyway flyway() {
+  Flyway flyway = new Flyway();
+  flyway.setDataSource(pooledDataSource()); // could be another datasource with different user/pwd...
+  flyway.setLocations("classpath:/de/digitalcollections/blueprints/crud/backend/impl/database/migration");
+  flyway.setBaselineOnMigrate(true);
+  return flyway;
+}
+```
+
+new:
+```java
+@Bean(initMethod = "migrate")
+public Flyway flyway() {
+  Flyway flyway = Flyway.configure().dataSource(pooledDataSource()).locations("classpath:/de/digitalcollections/blueprints/crud/backend/impl/database/migration").baselineOnMigrate(true).load();
+  return flyway;
+}
+```
+
+Manually rename table "schema_version" to "flyway_schema_history":
+
+```sql
+alter table schema_version rename to flyway_schema_history;
+```

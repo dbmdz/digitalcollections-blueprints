@@ -68,10 +68,7 @@ public class SpringConfigBackendDatabase {
 
   @Bean(initMethod = "migrate")
   public Flyway flyway() {
-    Flyway flyway = new Flyway();
-    flyway.setDataSource(pooledDataSource()); // could be another datasource with different user/pwd...
-    flyway.setLocations("classpath:/de/digitalcollections/blueprints/crud/backend/impl/database/migration");
-    flyway.setBaselineOnMigrate(true);
+    Flyway flyway = Flyway.configure().dataSource(pooledDataSource()).locations("classpath:/de/digitalcollections/blueprints/crud/backend/impl/database/migration").baselineOnMigrate(true).load();
     return flyway;
   }
 
