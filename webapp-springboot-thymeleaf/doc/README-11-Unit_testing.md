@@ -20,15 +20,9 @@ For JUnit5 we add the following dependencies and build plugins to our `pom.xml` 
 
 <dependencies>
   <dependency>
-    <!-- Provide JUnit 5 API -->
+    <!-- Provide JUnit 5 -->
     <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-api</artifactId>
-    <scope>test</scope>
-  </dependency>
-  <dependency>
-    <!-- and the engine for surefire and failsafe -->
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter-engine</artifactId>
+    <artifactId>junit-jupiter</artifactId>
     <scope>test</scope>
   </dependency>
   ...
@@ -209,7 +203,7 @@ Add to pom.xml:
 ```xml
 <dependency>
   <groupId>org.junit.jupiter</groupId>
-  <artifactId>junit-jupiter-api</artifactId>
+  <artifactId>junit-jupiter</artifactId>
   <scope>test</scope>
 </dependency>
 ```
