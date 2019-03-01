@@ -27,6 +27,7 @@
 
     <version.dc-commons-springboot>3.0.1</version.dc-commons-springboot>
     <version.javamelody-spring-boot-starter>1.74.0</version.javamelody-spring-boot-starter>
+    <version.junit-jupiter>5.4.0</version.junit-jupiter>
     <version.webjar-bootstrap>3.3.7</version.webjar-bootstrap>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
     <version.webjar-ie10-viewport-bug-workaround>1.0.3</version.webjar-ie10-viewport-bug-workaround>
@@ -71,9 +72,9 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <!-- Provide JUnit 5 -->
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
+      <version>${version.junit-jupiter}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
