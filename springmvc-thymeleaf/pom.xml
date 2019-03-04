@@ -20,7 +20,7 @@
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
     <version.hamcrest>2.1</version.hamcrest>
     <version.junit5>5.4.0</version.junit5>
-    <version.mockito-core>2.24.0</version.mockito-core>
+    <version.mockito-core>2.24.5</version.mockito-core>
     <version.servlet-api>4.0.1</version.servlet-api>
     <version.slf4j>1.7.25</version.slf4j>
     <version.spring>5.1.5.RELEASE</version.spring>
