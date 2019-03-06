@@ -52,8 +52,7 @@
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    
-    <version.slf4j-api>1.7.26</version.slf4j-api>
+
     <version.jacoco-maven-plugin>0.8.3</version.jacoco-maven-plugin>
     <version.maven-javadoc-plugin>3.0.1</version.maven-javadoc-plugin>
     <version.maven-source-plugin>3.0.1</version.maven-source-plugin>
@@ -66,16 +65,6 @@
     <module>blueprint-springmvc-thymeleaf-javaconfig-security-database</module>
     <module>rest-webservice</module>
   </modules>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${version.slf4j-api}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
 
   <distributionManagement>
     <snapshotRepository>
