@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   rest:
     build: "../../../../../rest-webservice/rest-server-springboot/target"
