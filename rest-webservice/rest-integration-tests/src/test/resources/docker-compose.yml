@@ -3,5 +3,5 @@ services:
   rest:
     build: "../../../../../rest-webservice/rest-server-springboot/target"
     ports:
-     - "9000"
-     - "9001"
+     - 32790:9000
+     - 32791:9001
