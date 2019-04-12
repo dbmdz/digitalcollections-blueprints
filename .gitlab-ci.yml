@@ -5,3 +5,22 @@ variables:
 
 services:
 - docker:dind
+
+.integration_tests:
+  script:
+  - mvn clean install -U
+  - cd rest-webservice && mvn clean install -U
+  - cd rest-integration-tests/src/test/resources/ && docker-compose up -d
+  - cd ../../../../../ && mvn -B --projects rest-webservice/rest-integration-tests -Pintegration  surefire:test
+  stage: test
+  variables:
+    REST_HOST: docker
+
+integration_tests:
+  extends: .integration_tests
+
+integration_tests:openjdk11:
+  extends: .integration_tests
+  image: "$BUILD_IMAGE_ANSIBLE_MAVEN_JDK11"
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"
