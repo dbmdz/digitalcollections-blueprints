@@ -2,7 +2,6 @@ include: "https://raw.githubusercontent.com/dbmdz/development/master/ci/.gitlab-
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
 
 services:
 - docker:dind
