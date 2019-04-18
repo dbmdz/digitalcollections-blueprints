@@ -11,6 +11,7 @@ services:
   - mvn clean install -U
   - cd rest-webservice && mvn clean install -U
   - cd rest-integration-tests/src/test/resources/ && docker-compose up -d
+  - sleep 10
   - cd ../../../../../ && mvn -B --projects rest-webservice/rest-integration-tests -Pintegration  surefire:test
   stage: test
   variables:
