@@ -14,7 +14,7 @@
   <packaging>war</packaging>
 
   <properties>
-    <version.maven-surefire-plugin>2.22.1</version.maven-surefire-plugin>
+    <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
   </properties>
 
   <build>
