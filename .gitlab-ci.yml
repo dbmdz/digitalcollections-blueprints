@@ -25,3 +25,17 @@ integration_tests:openjdk11:
   image: "$BUILD_IMAGE_ANSIBLE_MAVEN_JDK11"
   variables:
     JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"
+
+.springboot_tests:
+  script:
+  - find ./webapp-springboot-thymeleaf/step* -maxdepth 0 -type d \( ! -name . \) -path ./webapp-springboot-thymeleaf/step14 -prune -o -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
+  - find ./console-application-springboot/step* -maxdepth 0 -type d \( ! -name . \) -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
+
+springboot_tests:
+  extends: .springboot_tests
+
+springboot_tests:openjdk11:
+  extends: .springboot_tests
+  image: "$BUILD_IMAGE_ANSIBLE_MAVEN_JDK11"
+  variables:
+    JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"
