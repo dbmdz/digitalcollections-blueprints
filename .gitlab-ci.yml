@@ -2,6 +2,7 @@ include: "https://raw.githubusercontent.com/dbmdz/development/master/ci/.gitlab-
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
+  NO_PUBLISH: do_not_do_this
 
 services:
 - docker:dind
