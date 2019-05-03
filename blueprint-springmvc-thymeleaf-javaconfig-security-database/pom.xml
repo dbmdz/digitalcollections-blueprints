@@ -113,7 +113,7 @@
     <version.jetty-maven-plugin>9.4.17.v20190418</version.jetty-maven-plugin>
 
     <version.lesscss-maven-plugin>1.7.0.1.1</version.lesscss-maven-plugin>
-    <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
+    <version.maven-compiler-plugin>3.8.1</version.maven-compiler-plugin>
     <version.maven-project-info-reports-plugin>3.0.0</version.maven-project-info-reports-plugin>
     <version.maven-war-plugin>3.2.2</version.maven-war-plugin>
     <version.maven-site-plugin>3.7.1</version.maven-site-plugin>
