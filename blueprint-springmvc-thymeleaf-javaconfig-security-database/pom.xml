@@ -80,7 +80,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
 
     <!-- dependencies versions -->
-    <version.aspectjweaver>1.9.3</version.aspectjweaver>
+    <version.aspectjweaver>1.9.4</version.aspectjweaver>
     <version.assertj-core>3.12.2</version.assertj-core>
     <version.commons-dbcp2>2.6.0</version.commons-dbcp2>
     <version.digitalcollections.crud>1.0.0-SNAPSHOT</version.digitalcollections.crud>
