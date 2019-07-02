@@ -173,6 +173,26 @@ Documentation of `card` component can be found [here](https://getbootstrap.com/d
 | `.well`          | `.card.card-body`
 | `.thumbnail`     | `.card.card-body`
 
+Migration of a `well` div to a complete `card`:
+
+from:
+
+```html
+<div class="well">
+  ...
+</div>
+```
+
+to:
+
+```html
+<div class="card">
+  <div class="card-body bg-light">
+    ...
+  </div>
+</div>
+```
+
 ## `navbar`
 
 Some CSS attributes and HTML attributes for the `navbar` have changed:
