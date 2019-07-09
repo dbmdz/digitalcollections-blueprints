@@ -23,7 +23,7 @@
     <version.junit5>5.4.2</version.junit5>
     <version.maven-compiler-plugin>3.8.1</version.maven-compiler-plugin>
     <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
-    <version.mockito-core>2.27.0</version.mockito-core>
+    <version.mockito-core>3.0.0</version.mockito-core>
     <version.servlet-api>4.0.1</version.servlet-api>
     <version.slf4j>1.7.26</version.slf4j>
     <version.spring>5.1.5.RELEASE</version.spring>
