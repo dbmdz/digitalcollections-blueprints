@@ -5,7 +5,7 @@ variables:
   NO_PUBLISH: do_not_do_this
 
 services:
-- docker:dind
+- "$DIND_IMAGE"
 
 .integration_tests:
   script:
