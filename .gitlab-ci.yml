@@ -24,8 +24,6 @@ integration_tests:
 integration_tests:openjdk11:
   extends: .integration_tests
   image: "$BUILD_IMAGE_ANSIBLE_MAVEN_JDK11"
-  variables:
-    JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"
 
 .springboot_tests:
   script:
@@ -38,5 +36,3 @@ springboot_tests:
 springboot_tests:openjdk11:
   extends: .springboot_tests
   image: "$BUILD_IMAGE_ANSIBLE_MAVEN_JDK11"
-  variables:
-    JAVA_HOME: "/usr/lib/jvm/java-11-openjdk-amd64"
