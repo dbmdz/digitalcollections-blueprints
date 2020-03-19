@@ -118,7 +118,7 @@
     <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
     <version.maven-site-plugin>3.7.1</version.maven-site-plugin>
     <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
-    <version.wagon-ssh>3.3.2</version.wagon-ssh>
+    <version.wagon-ssh>3.3.4</version.wagon-ssh>
   </properties>
 
   <build>
