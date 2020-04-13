@@ -19,7 +19,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
     <version.hamcrest>2.1</version.hamcrest>
-    <version.jetty-maven-plugin>9.4.17.v20190418</version.jetty-maven-plugin>
+    <version.jetty-maven-plugin>9.4.28.v20200408</version.jetty-maven-plugin>
     <version.junit5>5.4.2</version.junit5>
     <version.maven-compiler-plugin>3.8.1</version.maven-compiler-plugin>
     <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
