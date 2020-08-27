@@ -34,7 +34,7 @@ To expand info properties **at build time** (so you have to recompile if you cha
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-resources-plugin</artifactId>
-      <version>3.1.0</version>
+      <version>3.2.0</version>
       <configuration>
         <delimiters>
           <delimiter>@</delimiter>
@@ -71,7 +71,7 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.8.0</version>
+      <version>3.8.1</version>
       <configuration>
         <showDeprecation>true</showDeprecation>
         <!-- configurations not explicitly needed as they use the default properties names.
@@ -215,7 +215,7 @@ The following options for configuring the Git plugin need to be added in `pom.xm
 <plugin>
   <groupId>pl.project13.maven</groupId>
   <artifactId>git-commit-id-plugin</artifactId>
-  <version>2.2.5</version>
+  <version>4.0.2</version>
   <executions>
     <execution>
       <id>get-the-git-infos</id>
@@ -320,7 +320,7 @@ The DigitalCollections Commons project provides Spring Boot specific extensions.
 <dependency>
   <groupId>de.digitalcollections.commons</groupId>
   <artifactId>dc-commons-springboot</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>4.1.1</version>
 </dependency>
 ```
 
