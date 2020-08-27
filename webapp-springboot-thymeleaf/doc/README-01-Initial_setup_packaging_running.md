@@ -31,10 +31,10 @@ You only need to specify the desired Spring Boot version on this dependency. For
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.1.2.RELEASE</version>
+    <version>2.3.3.RELEASE</version>
   </parent>
 
-  <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)</name>
+  <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 01</name>
   <groupId>de.digitalcollections.blueprints</groupId>
   <artifactId>webapp-springboot-thymeleaf</artifactId>
   <version>1.0.0-SNAPSHOT</version>
@@ -42,9 +42,9 @@ You only need to specify the desired Spring Boot version on this dependency. For
 
   <properties>
     <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. If you want to follow our recommendation and use a later Java version you can add a java.version property -->
-    <java.version>1.8</java.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <java.version>11</java.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -76,6 +76,9 @@ You only need to specify the desired Spring Boot version on this dependency. For
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <classifier>exec</classifier>
+        </configuration>
       </plugin>
     </plugins>
   </build>
