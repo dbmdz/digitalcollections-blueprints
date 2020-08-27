@@ -212,7 +212,7 @@ Our basic bootstrap page skeleton `base.html`:
 
     </div>
 
-    <script th:src="@{/webjars/jquery/3.2.1/dist/jquery.min.js}"></script>
+    <script th:src="@{/webjars/jquery/3.5.1/dist/jquery.min.js}"></script>
     <script th:src="@{/webjars/bootstrap/3.3.7/dist/js/bootstrap.min.js}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script th:src="@{/webjars/ie10-viewport-bug-workaround/1.0.3/dist/ie10-viewport-bug-workaround.min.js}"></script>
@@ -260,7 +260,7 @@ we could configure excludes in the plugin (option 1):
 <plugin>
   <groupId>org.apache.maven.plugins</groupId>
   <artifactId>maven-resources-plugin</artifactId>
-  <version>3.1.0</version>
+  <version>3.2.0</version>
   <configuration>
     <delimiters>
       <delimiter>@</delimiter>
