@@ -59,29 +59,30 @@ The following sections needs to be added to `pom.xml`:
 
 ```
 
-If any formatting errors are detected in code that is supposed to be committed, the fmt-maven-plugin reformats the code 
-and alerts the user of the changes. The user is then prompted to add the modified files and commit them.
-
 ### Output
 
-To demonstrate a violation of the code style rules, an error was intentionally placed in the `MainController` class.
-
-Our formatting rules forbid whitespaces after braces, like it is done in `MainController.java`:
-
-```java
-LOGGER.info(▁"Homepage requested");
-```
-
-For better visibility the `▁` character is used to show the problematic whitespace. After running `mvn clean install` the following error message is shown:
+If any formatting errors are detected in code that is supposed to be committed, the fmt-maven-plugin reformats the code 
+and alerts the user of the changes. The user is then prompted to add the modified files and commit them:
 
 ```bash
-[INFO] --- maven-checkstyle-plugin:3.0.0:check (validate) @ webapp-springboot-thymeleaf ---
-[INFO] Starting audit...
-[WARN]  /home/.../MainController.java:15:3: Missing a Javadoc comment. [JavadocMethod]
-[ERROR] /home/../MainController.java:17:17: '(' is followed by whitespace. [ParenPad]
-[WARN]  /home/.../SpringConfigWeb.java:15:3: Missing a Javadoc comment. [JavadocMethod]
-[WARN]  /home/.../SpringConfigWeb.java:22:3: Missing a Javadoc comment. [JavadocMethod]
-Audit done.
+$ git commit -m "Update dependencies for step14"
+[INFO] Scanning for projects...
+....
+[INFO] Processed 1 files (1 reformatted).
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for DigitalCollections: Blueprints 1.0.0-SNAPSHOT:
+[INFO] 
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.352 s
+[INFO] Finished at: 2020-08-27T17:20:37+02:00
+[INFO] ------------------------------------------------------------------------
+-e Code has been reformatted to match code style
+-e Please use git add … to add modified files
+Your commit message was:
+Update dependencies for step14
 ```
 
 Various warning are now shown, as well as the `'(' is followed by whitespace.` error.
@@ -181,8 +182,7 @@ To see bug detail using the Spotbugs GUI, use the following command "mvn spotbug
 
 Thus, SpotBugs was able to detect this null pointer dereference 🤗
 
-**Notice**: In order to get a correct SpotBugs analysis, the `mvn clean install` command needs to be executed sucessfully. Thus, you first need to
-correct the violating checkstyle rule (see previous section).
+**Notice**: In order to get a correct SpotBugs analysis, the `mvn clean install` command needs to be executed sucessfully.
 
 ### GUI
 
