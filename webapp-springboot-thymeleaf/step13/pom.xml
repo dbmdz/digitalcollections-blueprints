@@ -27,7 +27,6 @@
 
     <version.dc-commons-springboot>4.1.1</version.dc-commons-springboot>
     <version.embedded-redis>0.7.3</version.embedded-redis>
-    <version.javamelody-spring-boot-starter>1.85.0</version.javamelody-spring-boot-starter>
     <version.webjar-bootstrap>4.5.2</version.webjar-bootstrap>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
     <version.webjar-ie10-viewport-bug-workaround>1.0.3</version.webjar-ie10-viewport-bug-workaround>
@@ -71,18 +70,8 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>net.bull.javamelody</groupId>
-      <artifactId>javamelody-spring-boot-starter</artifactId>
-      <version>${version.javamelody-spring-boot-starter}</version>
-    </dependency>
-    <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jolokia</groupId>
-      <artifactId>jolokia-core</artifactId>
       <scope>runtime</scope>
     </dependency>
     <dependency>
