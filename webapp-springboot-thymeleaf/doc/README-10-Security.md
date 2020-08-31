@@ -12,7 +12,7 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
             .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
-            .requestMatchers(EndpointRequest.to("version", "prometheus", "jolokia")).permitAll()
+            .requestMatchers(EndpointRequest.to("version", "prometheus")).permitAll()
             .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
             .and()
             .httpBasic();
@@ -28,10 +28,8 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
 This configuration ensures:
 
 - monitoring:
-  - <http://localhost:9001/monitoring/info>, <http://localhost:9001/monitoring/health> and <http://localhost:9001/monitoring/version> are public accessible,
+  - <http://localhost:9001/monitoring/info>, <http://localhost:9001/monitoring/health>, <http://localhost:9001/monitoring/version> and <http://localhost:9001/monitoring/prometheus>are public accessible,
   - all other actuator endpoints are only accessible over basic auth authentication,
-  - <http://localhost:9001/monitoring/jolokia> is public accessible, but secured by IP whitelist `jolokia-access.xml` of jolokia itself
-  - <http://localhost:9000/monitoring/javamelody> is public accessible, but secured by javamelody basic auth (see `application.yml`)
 - webapp: <http://localhost:9000> is unsecured and public accessible for all
 
 ## Migration Notes
