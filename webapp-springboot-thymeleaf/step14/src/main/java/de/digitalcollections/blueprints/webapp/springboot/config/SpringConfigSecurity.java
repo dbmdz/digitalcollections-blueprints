@@ -12,21 +12,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
 
-  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
-  String javamelodyMonitoringPath;
-
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
-            .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class)).permitAll()
-            .requestMatchers(EndpointRequest.to("jolokia")).permitAll()
-            .requestMatchers(EndpointRequest.toAnyEndpoint()).hasRole("ENDPOINT_ADMIN")
-            .and()
-            .httpBasic();
-  }
-
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers(javamelodyMonitoringPath);
+        .requestMatchers(EndpointRequest.to(InfoEndpoint.class, HealthEndpoint.class))
+        .permitAll()
+        .requestMatchers(EndpointRequest.toAnyEndpoint())
+        .hasRole("ENDPOINT_ADMIN")
+        .and()
+        .httpBasic();
   }
 }
