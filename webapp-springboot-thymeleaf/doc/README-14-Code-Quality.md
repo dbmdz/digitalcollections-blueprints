@@ -85,8 +85,6 @@ Your commit message was:
 Update dependencies for step14
 ```
 
-Various warning are now shown, as well as the `'(' is followed by whitespace.` error.
-
 ## Spotbugs
 
 SpotBugs is the successor of FindBugs and is a program which uses static analysis to look for bugs in Java code.
