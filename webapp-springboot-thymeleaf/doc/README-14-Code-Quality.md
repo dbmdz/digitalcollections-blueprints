@@ -103,7 +103,7 @@ To enable it, just add the following section to your `<plugins>` section in `pom
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs</artifactId>
-      <version>3.1.9</version>
+      <version>4.1.2</version>
     </dependency>
   </dependencies>
 </plugin>
@@ -117,13 +117,13 @@ To allow SpotBugs not to fail on errors, just use:
 <plugin>
   <groupId>com.github.spotbugs</groupId>
   <artifactId>spotbugs-maven-plugin</artifactId>
-  <version>3.1.8</version>
+  <version>4.0.4</version>
   <dependencies>
     <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs</artifactId>
-      <version>3.1.9</version>
+      <version>4.1.2</version>
     </dependency>
   </dependencies>
   <configuration>
@@ -167,11 +167,11 @@ $ mvn spotbugs:check
 Then a static analysis of the code is done and it will output the following:
 
 ```bash
-[INFO] --- spotbugs-maven-plugin:3.1.8:check (default-cli) @ webapp-springboot-thymeleaf ---
+[INFO] --- spotbugs-maven-plugin:4.0.4:check (default-cli) @ webapp-springboot-thymeleaf ---
 [INFO] BugInstance size is 1
 [INFO] Error size is 0
 [INFO] Total bugs: 1
-[ERROR] Possible null pointer dereference of s in de.digitalcollections.blueprints.webapp.springboot.controller.MainController.getLength(int) [de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController] Dereferenced at MainController.java:[line 23]Null value at MainController.java:[line 16]Known null at MainController.java:[line 20] NP_NULL_ON_SOME_PATH
+[ERROR] Medium: Possible null pointer dereference of s in de.digitalcollections.blueprints.webapp.springboot.controller.MainController.getLength(int) [de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController] Dereferenced at MainController.java:[line 23]Null value at MainController.java:[line 16]Known null at MainController.java:[line 20] NP_NULL_ON_SOME_PATH
 [INFO] 
 
 
@@ -239,7 +239,7 @@ In order to use SpotBugs annotations, the `spotbugs-annotations` package must be
 <dependency>
   <groupId>com.github.spotbugs</groupId>
   <artifactId>spotbugs-annotations</artifactId>
-  <version>3.1.10</version>
+  <version>4.1.2</version>
   <optional>true</optional>
 </dependency>
 ```

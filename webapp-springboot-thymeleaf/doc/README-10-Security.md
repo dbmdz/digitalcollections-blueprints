@@ -4,10 +4,7 @@ Our final security configuration for the blueprint webapp `SpringConfigSecurity.
 
 ```java
 public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
-
-  @Value("${javamelody.init-parameters.monitoring-path:/monitoring}")
-  String javamelodyMonitoringPath;
-
+  
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
@@ -17,18 +14,13 @@ public class SpringConfigSecurity extends WebSecurityConfigurerAdapter {
             .and()
             .httpBasic();
   }
-
-  @Override
-  public void configure(WebSecurity web) throws Exception {
-    web.ignoring().antMatchers(javamelodyMonitoringPath);
-  }
 }
 ```
 
 This configuration ensures:
 
 - monitoring:
-  - <http://localhost:9001/monitoring/info>, <http://localhost:9001/monitoring/health>, <http://localhost:9001/monitoring/version> and <http://localhost:9001/monitoring/prometheus>are public accessible,
+  - <http://localhost:9001/monitoring/info>, <http://localhost:9001/monitoring/health>, <http://localhost:9001/monitoring/version> and <http://localhost:9001/monitoring/prometheus> are public accessible,
   - all other actuator endpoints are only accessible over basic auth authentication,
 - webapp: <http://localhost:9000> is unsecured and public accessible for all
 
