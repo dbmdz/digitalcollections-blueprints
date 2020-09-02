@@ -10,7 +10,7 @@ Below you can find an example of such JUnit 5 tests that check:
 
 ## Add test dependencies
 
-For JUnit5 we add the following dependencies and build plugins to our `pom.xml` (and exclude JUnit4 dependencies):
+For JUnit5 we add the following dependencies and build plugins to our `pom.xml`:
 
 ```xml
 <properties>
@@ -19,24 +19,11 @@ For JUnit5 we add the following dependencies and build plugins to our `pom.xml` 
 </properties>
 
 <dependencies>
-  <dependency>
-    <!-- Provide JUnit 5 -->
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter</artifactId>
-    <scope>test</scope>
-  </dependency>
   ...
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-test</artifactId>
     <scope>test</scope>
-    <!-- Exclude JUnit 4 -->
-    <exclusions>
-      <exclusion>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-      </exclusion>
-    </exclusions>
   </dependency>
 </dependencies>
 
