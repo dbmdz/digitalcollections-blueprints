@@ -15,7 +15,7 @@ For testing, you can use [embedded-redis](https://github.com/ozimov/embedded-red
 ```xml
 <properties>
   ...
-  <version.embedded-redis>0.7.2</version.embedded-redis>
+  <version.embedded-redis>0.7.3</version.embedded-redis>
   ...
 </properties>
   
@@ -26,6 +26,12 @@ For testing, you can use [embedded-redis](https://github.com/ozimov/embedded-red
     <artifactId>embedded-redis</artifactId>
     <version>${version.embedded-redis}</version>
     <scope>test</scope>
+    <exclusions>
+      <exclusion>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+      </exclusion>
+    </exclusions>
   </dependency>
   ...
   <dependency>

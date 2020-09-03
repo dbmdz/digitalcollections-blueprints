@@ -10,32 +10,25 @@ Below you can find an example of such JUnit 5 tests that check:
 
 ## Add test dependencies
 
-For JUnit5 we add the following dependencies and build plugins to our `pom.xml` (and exclude JUnit4 dependencies):
+For JUnit5 we add the following dependencies and build plugins to our `pom.xml` (and exclude JUnit4 support):
 
 ```xml
 <properties>
-  <version.maven-failsafe-plugin>2.22.1</version.maven-failsafe-plugin>
-  <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
+  <version.maven-surefire-plugin>3.0.0-M5</version.maven-surefire-plugin>
+  <version.maven-failsafe-plugin>3.0.0-M5</version.maven-failsafe-plugin>
 </properties>
 
 <dependencies>
-  <dependency>
-    <!-- Provide JUnit 5 -->
-    <groupId>org.junit.jupiter</groupId>
-    <artifactId>junit-jupiter</artifactId>
-    <scope>test</scope>
-  </dependency>
   ...
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-test</artifactId>
     <scope>test</scope>
-    <!-- Exclude JUnit 4 -->
-    <exclusions>
-      <exclusion>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-      </exclusion>
+    <exclusions> 
+       <exclusion> 
+         <groupId>org.junit.vintage</groupId> 
+         <artifactId>junit-vintage-engine</artifactId> 
+       </exclusion> 
     </exclusions>
   </dependency>
 </dependencies>
@@ -262,7 +255,7 @@ assertThatThrownBy(() -> {
 Update to the latest version of `maven-surefire-plugin`:
 
 ```xml
-<version.maven-surefire-plugin>3.0.0-M3/version.maven-surefire-plugin>
+<version.maven-surefire-plugin>3.0.0-M5</version.maven-surefire-plugin>
 ```
 
 And add the following `plugin` section:

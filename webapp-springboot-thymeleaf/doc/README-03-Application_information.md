@@ -34,7 +34,7 @@ To expand info properties **at build time** (so you have to recompile if you cha
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-resources-plugin</artifactId>
-      <version>3.1.0</version>
+      <version>3.2.0</version>
       <configuration>
         <delimiters>
           <delimiter>@</delimiter>
@@ -60,8 +60,8 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
 
 ```xml
 <properties>
-  <maven.compiler.source>1.8</maven.compiler.source>
-  <maven.compiler.target>1.8</maven.compiler.target>
+  <maven.compiler.source>11</maven.compiler.source>
+  <maven.compiler.target>11</maven.compiler.target>
   <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 </properties>
 ...
@@ -71,7 +71,7 @@ Even if the info output already has shown "UTF-8" as project encoding, it is saf
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.8.0</version>
+      <version>3.8.1</version>
       <configuration>
         <showDeprecation>true</showDeprecation>
         <!-- configurations not explicitly needed as they use the default properties names.
@@ -130,8 +130,8 @@ Response to <http://localhost:9001/monitoring/info>:
       "artifactId": "webapp-springboot-thymeleaf"
     },
     "java": {
-      "source": "1.8",
-      "target": "1.8"
+      "source": "11",
+      "target": "11"
     },
     "encoding": "UTF-8"
   }
@@ -164,8 +164,8 @@ Response to <http://localhost:9001/monitoring/info>:
   "app": {
     "encoding": "UTF-8",
     "java": {
-      "source": 1.8,
-      "target": 1.8
+      "source": 11,
+      "target": 11
     },
     "project": {
       "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf)",
@@ -215,7 +215,7 @@ The following options for configuring the Git plugin need to be added in `pom.xm
 <plugin>
   <groupId>pl.project13.maven</groupId>
   <artifactId>git-commit-id-plugin</artifactId>
-  <version>2.2.5</version>
+  <version>4.0.2</version>
   <executions>
     <execution>
       <id>get-the-git-infos</id>
@@ -320,7 +320,7 @@ The DigitalCollections Commons project provides Spring Boot specific extensions.
 <dependency>
   <groupId>de.digitalcollections.commons</groupId>
   <artifactId>dc-commons-springboot</artifactId>
-  <version>3.0.1-SNAPSHOT</version>
+  <version>4.1.1</version>
 </dependency>
 ```
 
@@ -394,11 +394,11 @@ Example output from `http://localhost:9001/monitoring/info`:
   "app": {
     "encoding": "UTF-8",
     "java": {
-      "source": 1.8,
-      "target": 1.8
+      "source": 11,
+      "target": 11
     },
     "project": {
-      "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 10",
+      "name": "DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 03",
       "groupId": "de.digitalcollections.blueprints",
       "artifactId": "webapp-springboot-thymeleaf",
       "version": "1.0.0-SNAPSHOT",
@@ -406,14 +406,13 @@ Example output from `http://localhost:9001/monitoring/info`:
     }
   },
   "version": {
-    "HdrHistogram-2.1.9.jar": "2.1.9",
-    "LatencyUtils-2.0.3.jar": "~ 2.0.3",
-    "annotations-2.0.1.jar": "2.0.0",
-    "classmate-1.4.0.jar": "1.4.0",
-    "guava-15.0.jar": "15.0.0",
-    "hibernate-validator-6.0.13.Final.jar": "6.0.13.Final",
-    "jackson-annotations-2.9.0.jar": "2.9.0",
-    "jackson-core-2.9.7.jar": "2.9.7",
+     "HdrHistogram-2.1.12.jar" : "2.1.12",
+     "LatencyUtils-2.0.3.jar" : "~ 2.0.3",
+     "dc-commons-springboot-4.1.1.jar" : "~ 4.1.1",
+     "dc-commons-springsecurity-4.1.1.jar" : "~ 4.1.1",
+     "guava-20.0.jar" : "20.0.0",
+     "jackson-annotations-2.11.2.jar" : "2.11.2",
+     "jackson-core-2.11.2.jar" : "2.11.2",
     ...
   }
 ...

@@ -2,18 +2,16 @@
 
 This section covers the main code quality topics like check style or automatically finding bugs in software.
 
-## Check style
+## fmt-maven-plugin
 
 In order to have a uniform coding style across a software developer team, it is mandatory to agree on a specifiy ruleset. 
-Thus, we at [DBMDZ](https://github.com/dbmdz) use a check style for our Java software, which can be found [here](https://github.com/dbmdz/development/tree/master/code-quality).
+Thus, we at [DBMDZ](https://github.com/dbmdz) use the [fmt-maven-plugin](https://github.com/coveooss/fmt-maven-plugin) to 
+format our Java code according to [Google's code styleguide](https://google.github.io/styleguide/javaguide.html). 
 
-This check style is based on the [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html) and was slightly modified for our needs.
+In this section the fmt-maven-plugin is used and integrated in the main `pom.xml`. Every time the software
+is built, all Java files are automatically formatted. Additionally, we use the [githook-maven-plugin](https://github.com/phillipuniverse/githook-maven-plugin)
+to automatically analyze and reformat the code before any changes are committed to the git repository.
 
-In this section the Maven checkstyle plugin is used and integrated in the main `pom.xml`. An advantage of this approach is, that every time the software
-is built, all Java files are automatically analyzed. Whenever code is found that is non-compliant with our check style, an error is thrown. 
-
-This workflow is also useful when the project is built via continuous integration (CI): non-compliant code is never going to be merged, 
-when a CI pipeline is failing.
 
 ### Integration
 
@@ -21,60 +19,71 @@ The following sections needs to be added to `pom.xml`:
 
 ```xml
 <plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-checkstyle-plugin</artifactId>
-  <version>3.0.0</version>
-  <executions>
-    <execution>
-      <id>validate</id>
-      <phase>validate</phase>
-      <configuration>
-        <configLocation>https://raw.githubusercontent.com/dbmdz/development/master/code-quality/checkstyle.xml</configLocation>
-        <encoding>UTF-8</encoding>
-        <consoleOutput>true</consoleOutput>
-        <failsOnError>true</failsOnError>
-        <linkXRef>false</linkXRef>
-      </configuration>
-      <goals>
-        <goal>check</goal>
-      </goals>
-    </execution>
-  </executions>
+<groupId>com.coveo</groupId>
+<artifactId>fmt-maven-plugin</artifactId>
+<version>2.10</version>
+<executions>
+  <execution>
+    <goals>
+      <goal>format</goal>
+    </goals>
+  </execution>
+</executions>
 </plugin>
+<plugin>
+<groupId>io.github.phillipuniverse</groupId>
+<artifactId>githook-maven-plugin</artifactId>
+<version>1.0.5</version>
+<executions>
+  <execution>
+    <goals>
+      <goal>install</goal>
+    </goals>
+    <configuration>
+      <hooks>
+        <pre-commit>
+          if ! mvn com.coveo:fmt-maven-plugin:check ; then
+          mvn com.coveo:fmt-maven-plugin:format
+          echo -e "\e[31mCode has been reformatted to match code style\e[0m"
+          echo -e "\e[31mPlease use git add … to add modified files\e[0m"
+          echo "Your commit message was:"
+          cat .git/COMMIT_EDITMSG
+          exit 1
+          fi
+        </pre-commit>
+      </hooks>
+    </configuration>
+  </execution>
+</executions>
+</plugin>
+
 ```
-
-This new `plugin` section uses the `maven-checkstyle-plugin` to automatically execute style checks. Via the `<configLocation>` parameter a check style
-configuration can be specified. In this example we use the publically available configuration from the [DBMDZ development](https://github.com/dbmdz/development)
-repository.
-
-Whenever a checkstyle error occurs, an error message is shown to the user. This behavior is set via the `<failsOnError>true</failsOnError>` configuration.
-
-Other configuration options for the `maven-checkstyle-plugin` can be found [here](https://maven.apache.org/plugins/maven-checkstyle-plugin/checkstyle-mojo.html).
 
 ### Output
 
-Whenever the coding style is violated, a detailed information is shown after the `mvn clean install` command. To demonstrate a check style violation,
-a coding style error was intentionally placed into the `MainController` class.
-
-The checkstyle forbids whitespaces after braces, like it is done in `MainController.java`:
-
-```java
-LOGGER.info(▁"Homepage requested");
-```
-
-For better visibility the `▁` character is used to show the problematic whitespace. After running `mvn clean install` the following error message is shown:
+If any formatting errors are detected in code that is supposed to be committed, the fmt-maven-plugin reformats the code 
+and alerts the user of the changes. The user is then prompted to add the modified files and commit them:
 
 ```bash
-[INFO] --- maven-checkstyle-plugin:3.0.0:check (validate) @ webapp-springboot-thymeleaf ---
-[INFO] Starting audit...
-[WARN]  /home/.../MainController.java:15:3: Missing a Javadoc comment. [JavadocMethod]
-[ERROR] /home/../MainController.java:17:17: '(' is followed by whitespace. [ParenPad]
-[WARN]  /home/.../SpringConfigWeb.java:15:3: Missing a Javadoc comment. [JavadocMethod]
-[WARN]  /home/.../SpringConfigWeb.java:22:3: Missing a Javadoc comment. [JavadocMethod]
-Audit done.
+$ git commit -m "Update dependencies for step14"
+[INFO] Scanning for projects...
+....
+[INFO] Processed 1 files (1 reformatted).
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for DigitalCollections: Blueprints 1.0.0-SNAPSHOT:
+[INFO] 
+...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.352 s
+[INFO] Finished at: 2020-08-27T17:20:37+02:00
+[INFO] ------------------------------------------------------------------------
+-e Code has been reformatted to match code style
+-e Please use git add … to add modified files
+Your commit message was:
+Update dependencies for step14
 ```
-
-Various warning are now shown, as well as the `'(' is followed by whitespace.` error.
 
 ## Spotbugs
 
@@ -94,7 +103,7 @@ To enable it, just add the following section to your `<plugins>` section in `pom
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs</artifactId>
-      <version>3.1.9</version>
+      <version>4.1.2</version>
     </dependency>
   </dependencies>
 </plugin>
@@ -108,13 +117,13 @@ To allow SpotBugs not to fail on errors, just use:
 <plugin>
   <groupId>com.github.spotbugs</groupId>
   <artifactId>spotbugs-maven-plugin</artifactId>
-  <version>3.1.8</version>
+  <version>4.0.4</version>
   <dependencies>
     <!-- overwrite dependency on spotbugs if you want to specify the version of spotbugs -->
     <dependency>
       <groupId>com.github.spotbugs</groupId>
       <artifactId>spotbugs</artifactId>
-      <version>3.1.9</version>
+      <version>4.1.2</version>
     </dependency>
   </dependencies>
   <configuration>
@@ -158,11 +167,11 @@ $ mvn spotbugs:check
 Then a static analysis of the code is done and it will output the following:
 
 ```bash
-[INFO] --- spotbugs-maven-plugin:3.1.8:check (default-cli) @ webapp-springboot-thymeleaf ---
+[INFO] --- spotbugs-maven-plugin:4.0.4:check (default-cli) @ webapp-springboot-thymeleaf ---
 [INFO] BugInstance size is 1
 [INFO] Error size is 0
 [INFO] Total bugs: 1
-[ERROR] Possible null pointer dereference of s in de.digitalcollections.blueprints.webapp.springboot.controller.MainController.getLength(int) [de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController] Dereferenced at MainController.java:[line 23]Null value at MainController.java:[line 16]Known null at MainController.java:[line 20] NP_NULL_ON_SOME_PATH
+[ERROR] Medium: Possible null pointer dereference of s in de.digitalcollections.blueprints.webapp.springboot.controller.MainController.getLength(int) [de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController, de.digitalcollections.blueprints.webapp.springboot.controller.MainController] Dereferenced at MainController.java:[line 23]Null value at MainController.java:[line 16]Known null at MainController.java:[line 20] NP_NULL_ON_SOME_PATH
 [INFO] 
 
 
@@ -171,8 +180,7 @@ To see bug detail using the Spotbugs GUI, use the following command "mvn spotbug
 
 Thus, SpotBugs was able to detect this null pointer dereference 🤗
 
-**Notice**: In order to get a correct SpotBugs analysis, the `mvn clean install` command needs to be executed sucessfully. Thus, you first need to
-correct the violating checkstyle rule (see previous section).
+**Notice**: In order to get a correct SpotBugs analysis, the `mvn clean install` command needs to be executed sucessfully.
 
 ### GUI
 
@@ -231,7 +239,7 @@ In order to use SpotBugs annotations, the `spotbugs-annotations` package must be
 <dependency>
   <groupId>com.github.spotbugs</groupId>
   <artifactId>spotbugs-annotations</artifactId>
-  <version>3.1.10</version>
+  <version>4.1.2</version>
   <optional>true</optional>
 </dependency>
 ```
