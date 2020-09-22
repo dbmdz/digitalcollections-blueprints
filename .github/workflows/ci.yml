@@ -1,0 +1,37 @@
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [11, 14]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.java }}
+      - uses: actions/cache@v2
+        env:
+          cache-name: cache-maven-artifacts
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+      - name: Build and run integration tests
+        run: |
+          mvn clean install -U
+          cd rest-webservice && mvn clean install -U
+          cd rest-integration-tests/src/test/resources/ && docker-compose up -d
+          sleep 10
+          cd ../../../../../ && mvn -B --projects rest-webservice/rest-integration-tests -Pintegration  surefire:test
+      - name: Run other Spring Boot tests
+        run: |
+          find ./webapp-springboot-thymeleaf/step* -maxdepth 0 -type d \( ! -name . \) -path ./webapp-springboot-thymeleaf/step14 -prune -o -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
+          find ./console-application-springboot/step* -maxdepth 0 -type d \( ! -name . \) -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
+      - name: Report Coverage
+        uses: codecov/codecov-action@v1
