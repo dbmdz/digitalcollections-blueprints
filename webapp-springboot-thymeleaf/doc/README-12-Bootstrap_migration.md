@@ -35,7 +35,7 @@ The first step in our webpage migration is to change the version of the Bootstra
 
 ```xml
 ...
-<version.webjar-bootstrap>4.2.1</version.webjar-bootstrap>
+<version.webjar-bootstrap>4.5.2</version.webjar-bootstrap>
 ...
 <dependency>
   <groupId>org.webjars.npm</groupId>

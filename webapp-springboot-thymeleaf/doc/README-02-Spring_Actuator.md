@@ -17,26 +17,16 @@ The way that endpoints are exposed will depend on the type of technology that yo
 
 ## Basic endpoints
 
-Unlike in previous versions, Actuator comes with most endpoints disabled!
-The only two available by default are `/actuator/health` and `/actuator/info`.
-
-The following HTTP-endpoints are enabled by default:
-
-| Endpoint    |	Description | Sensitive Default |
-|-------------|-------------|-------------------|
-| /actuator   | Provides a hypermedia-based “discovery page” for the other endpoints. | true
-| /health     | Shows application health information (when the application is secure, a simple ‘status’ when accessed over an unauthenticated connection or full message details when authenticated). | false
-| /info       | Displays arbitrary application info. | false
-
-
-Each individual endpoint can be enabled or disabled. The following example enables the `shutdown` endpoint:
+By default, all endpoints except `shutdown` are enabled. Individual endpoints can be enabled or disabled by configuring
+their `management.endpoint.<id>.enabled` property. 
+The following example enables the `shutdown` endpoint:
 
 ```yml
 management.endpoint.shutdown.enabled=true
 ```
 
 Since Endpoints may contain sensitive information, careful consideration should be given about when
-to expose them. To change which endpoints are exposed, use the following technology-specific
+to expose them. To change which endpoints are exposed (remotely accessible via JMX or HTTP), use the following technology-specific
 `include` and `exclude` properties. `*` can be used to select all endpoints. For example, to expose
 everything over HTTP except the env and beans endpoints, use the following properties:
 

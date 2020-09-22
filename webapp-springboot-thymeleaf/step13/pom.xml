@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.1.2.RELEASE</version>
+    <version>2.3.3.RELEASE</version>
   </parent>
 
   <name>DigitalCollections: Blueprints 4: Webapp (Spring Boot + Thymeleaf) - Step 13</name>
@@ -16,31 +16,29 @@
 
   <properties>
     <!-- The spring-boot-starter-parent chooses fairly conservative Java compatibility. If you want to follow our recommendation and use a later Java version you can add a java.version property -->
-    <java.version>1.8</java.version>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <java.version>11</java.version>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <timestamp>${maven.build.timestamp}</timestamp>
     <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ss</maven.build.timestamp.format>
     <versionName>${project.version} manually built by ${user.name} at ${maven.build.timestamp}</versionName>
 
-    <version.dc-commons-springboot>3.0.1</version.dc-commons-springboot>
-    <version.embedded-redis>0.7.2</version.embedded-redis>
-    <version.javamelody-spring-boot-starter>1.74.0</version.javamelody-spring-boot-starter>
-    <version.junit-jupiter>5.4.0</version.junit-jupiter>
-    <version.webjar-bootstrap>4.2.1</version.webjar-bootstrap>
+    <version.dc-commons-springboot>4.1.1</version.dc-commons-springboot>
+    <version.embedded-redis>0.7.3</version.embedded-redis>
+    <version.webjar-bootstrap>4.5.2</version.webjar-bootstrap>
     <version.webjar-html5shiv>3.7.3</version.webjar-html5shiv>
     <version.webjar-ie10-viewport-bug-workaround>1.0.3</version.webjar-ie10-viewport-bug-workaround>
-    <version.webjar-jquery>3.2.1</version.webjar-jquery>
+    <version.webjar-jquery>3.5.1</version.webjar-jquery>
     <version.webjar-respond>1.4.2</version.webjar-respond>
 
     <!-- plugins -->
-    <version.git-commit-id-plugin>2.2.5</version.git-commit-id-plugin>
-    <version.maven-compiler-plugin>3.8.0</version.maven-compiler-plugin>
-    <version.maven-failsafe-plugin>2.22.1</version.maven-failsafe-plugin>
-    <version.maven-resources-plugin>3.1.0</version.maven-resources-plugin>
-    <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
+    <version.git-commit-id-plugin>4.0.2</version.git-commit-id-plugin>
+    <version.maven-compiler-plugin>3.8.1</version.maven-compiler-plugin>
+    <version.maven-surefire-plugin>3.0.0-M5</version.maven-surefire-plugin>
+    <version.maven-failsafe-plugin>3.0.0-M5</version.maven-failsafe-plugin>
+    <version.maven-resources-plugin>3.2.0</version.maven-resources-plugin>
   </properties>
 
   <dependencies>
@@ -62,27 +60,17 @@
       <artifactId>embedded-redis</artifactId>
       <version>${version.embedded-redis}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>net.bull.javamelody</groupId>
-      <artifactId>javamelody-spring-boot-starter</artifactId>
-      <version>${version.javamelody-spring-boot-starter}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>nz.net.ultraq.thymeleaf</groupId>
       <artifactId>thymeleaf-layout-dialect</artifactId>
       <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jolokia</groupId>
-      <artifactId>jolokia-core</artifactId>
-      <scope>runtime</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${version.junit-jupiter}</version>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -100,11 +88,10 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
-      <!-- Exclude JUnit 4 -->
       <exclusions>
         <exclusion>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
         </exclusion>
       </exclusions>
     </dependency>

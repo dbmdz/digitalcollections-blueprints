@@ -19,14 +19,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
     <version.hamcrest>2.1</version.hamcrest>
-    <version.jetty-maven-plugin>9.4.17.v20190418</version.jetty-maven-plugin>
+    <version.jetty-maven-plugin>9.4.31.v20200723</version.jetty-maven-plugin>
     <version.junit5>5.4.2</version.junit5>
     <version.maven-compiler-plugin>3.8.1</version.maven-compiler-plugin>
     <version.maven-surefire-plugin>3.0.0-M3</version.maven-surefire-plugin>
     <version.mockito-core>3.3.3</version.mockito-core>
     <version.servlet-api>4.0.1</version.servlet-api>
     <version.slf4j>1.7.26</version.slf4j>
-    <version.spring>5.2.4.RELEASE</version.spring>
+    <version.spring>5.2.9.RELEASE</version.spring>
     <version.thymeleaf>3.0.11.RELEASE</version.thymeleaf>
     <version.thymeleaf-layout-dialect>2.3.0</version.thymeleaf-layout-dialect>
   </properties>
