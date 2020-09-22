@@ -81,7 +81,7 @@
 
     <!-- dependencies versions -->
     <version.aspectjweaver>1.9.6</version.aspectjweaver>
-    <version.assertj-core>3.12.2</version.assertj-core>
+    <version.assertj-core>3.17.2</version.assertj-core>
     <version.commons-dbcp2>2.6.0</version.commons-dbcp2>
     <version.digitalcollections.crud>1.0.0-SNAPSHOT</version.digitalcollections.crud>
     <version.flyway-core>5.2.4</version.flyway-core>
