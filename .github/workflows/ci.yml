@@ -33,5 +33,3 @@ jobs:
         run: |
           find ./webapp-springboot-thymeleaf/step* -maxdepth 0 -type d \( ! -name . \) -path ./webapp-springboot-thymeleaf/step14 -prune -o -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
           find ./console-application-springboot/step* -maxdepth 0 -type d \( ! -name . \) -exec bash -c "cd '{}' && pwd && mvn clean install -U" \;
-      - name: Report Coverage
-        uses: codecov/codecov-action@v1
