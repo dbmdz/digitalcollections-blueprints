@@ -1,7 +1,5 @@
 # DigitalCollections: Blueprints
 
-[![Build Status](https://travis-ci.org/dbmdz/blueprints.svg?branch=master)](https://travis-ci.org/dbmdz/blueprints)
-[![Code coverage](https://codecov.io/gh/dbmdz/blueprints/branch/master/graph/badge.svg)](https://codecov.io/gh/dbmdz/blueprints)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.md)
 
 Blueprint applications for showcasing production ready applications.
