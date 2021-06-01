@@ -26,7 +26,7 @@
     <version.mockito-core>3.3.3</version.mockito-core>
     <version.servlet-api>4.0.1</version.servlet-api>
     <version.slf4j>1.7.30</version.slf4j>
-    <version.spring>5.2.9.RELEASE</version.spring>
+    <version.spring>5.3.7</version.spring>
     <version.thymeleaf>3.0.11.RELEASE</version.thymeleaf>
     <version.thymeleaf-layout-dialect>2.3.0</version.thymeleaf-layout-dialect>
   </properties>
